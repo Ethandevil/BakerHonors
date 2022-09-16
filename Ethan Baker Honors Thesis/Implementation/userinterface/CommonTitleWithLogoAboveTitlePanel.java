@@ -52,7 +52,7 @@ public class CommonTitleWithLogoAboveTitlePanel extends VBox
 		getChildren().add(clientText);
 
 		//bport icon
-		ImageView bportIcon = new ImageView(new Image("/images/all_in_one_logo.png",125,125 ,true,true));
+		ImageView bportIcon = new ImageView(new Image("/images/all_in_one_logo.png",50,50 ,true,true));
 		bportIcon.setEffect(new DropShadow());
 		getChildren().add(bportIcon);
 
