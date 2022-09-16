@@ -132,13 +132,13 @@ public class AssessmentCoordinator implements IView, IModel
 		{
 			createAndShowAssessmentCoordinatorView();
 		}
-		else
+		else */
 			if (key.equals("ExitSystem") == true)
 			{
 				System.exit(0);
 			}	
 			
-		*/
+		
 		myRegistry.updateSubscribers(key, this);
 	}
 
@@ -181,11 +181,11 @@ public class AssessmentCoordinator implements IView, IModel
 	//------------------------------------------------------------
 	private void createAndShowAssessmentCoordinatorView()
 	{
-            // create our initial view
-          //  View newView = ViewFactory.createView("AssessmentCoordinatorView", this); // USE VIEW FACTORY
-          //  Scene currentScene = new Scene(newView);
+          //create our initial view
+          View newView = ViewFactory.createView("AssessmentCoordinatorView", this); // USE VIEW FACTORY
+          Scene currentScene = new Scene(newView);
 
-          //  swapToView(currentScene);
+          swapToView(currentScene);
 
 	}
 
