@@ -1,12 +1,12 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
-//  Sandeep Mitra, State University of New York. - Brockport 
-//  (SUNY Brockport) 
+//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
-// This file is the product of SUNY Brockport and cannot 
-// be reproduced, copied, or used in any shape or form without 
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
@@ -20,20 +20,20 @@ public class ViewFactory {
 
 	public static View createView(String viewName, IModel model)
 	{
-		/*
+
 		if(viewName.equals("AssessmentCoordinatorView") == true)
 		{
 			return new AssessmentCoordinatorView(model);
-			
-		} 
+
+		}/*
 		else if(viewName.equals("AddISLOView") == true)
 		{
 			return new AddISLOView(model);
-		} 
+		}
 		else if(viewName.equals("ModifyISLOView") == true)
 		{
 			return new ModifyISLOView(model);
-		} 
+		}
 		else if(viewName.equals("ISLOCollectionView") == true)
 		{
 			return new ISLOCollectionView(model);
@@ -104,7 +104,7 @@ public class ViewFactory {
 			return new ModifyPerformanceCategoryView(model);
 		}
         	else if(viewName.equals("SearchISLOForOfferingTeacherView") == true)
-		{	
+		{
 			return new SearchISLOForOfferingTeacherView(model);
 		}
 		else if(viewName.equals("ISLOCollectionForOfferingTeacherView") == true)
@@ -172,6 +172,6 @@ public class ViewFactory {
 			return new StudentCategorizationDisplayCollectionView(model);
 		}
 		else */
-			return null;
+		return null;
 	}
 }
