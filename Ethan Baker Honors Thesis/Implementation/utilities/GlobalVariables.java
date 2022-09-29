@@ -23,8 +23,8 @@ import java.time.LocalDate;
 public class GlobalVariables 
 {
 	//Used by clothing items
-	public static final int MAX_ISLO_NAME_LENGTH = 100;
-	public static final int MAX_ISLO_DESCRIPTION_LENGTH = 1000;
+	public static final int MAX_GEN_ED_AREA_NAME_LENGTH = 70;
+	public static final int MAX_GEN_ED_AREA_DESCRIPTION_LENGTH = 300;
 	public static final int MAX_REFLECTIONS_LENGTH = 4000;
 	public static final int MAX_FLAG_LENGTH = 300;
 	/*public static final int MIN_FNAME_LENGTH = 0;

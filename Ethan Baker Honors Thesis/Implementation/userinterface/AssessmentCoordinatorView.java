@@ -70,6 +70,7 @@ public class AssessmentCoordinatorView extends View
 
 	private Button addGenEdAreaButton;
 	private Button updateGenEdAreaButton;
+	private Button deleteGenEdAreaButton;
 	private Button addGESLOButton;
 	private Button updateGESLOButton;
 	private Button addSemesterButton;
@@ -164,8 +165,15 @@ public class AssessmentCoordinatorView extends View
 			myModel.stateChangeRequest("UpdateGenEdArea", null);
 		});
 
+		deleteGenEdAreaButton = new Button("Delete Existing Gen Ed Area");
+		deleteGenEdAreaButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		deleteGenEdAreaButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("DeleteGenEdArea", null);
+		});
+
 		geAreaCont.getChildren().add(addGenEdAreaButton);
 		geAreaCont.getChildren().add(updateGenEdAreaButton);
+		geAreaCont.getChildren().add(deleteGenEdAreaButton);
 
 		HBox geSLOCont = new HBox(10);
 		geSLOCont.setAlignment(Pos.CENTER);
