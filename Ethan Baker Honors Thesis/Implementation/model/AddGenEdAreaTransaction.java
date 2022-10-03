@@ -16,7 +16,7 @@ import exception.MultiplePrimaryKeysException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the AddISLOTransaction for the ISLO Data Management application */
+/** The class containing the AddGenEdAreaTransaction for the Gen Ed Data Management application */
 //==============================================================
 public class AddGenEdAreaTransaction extends Transaction
 {
@@ -42,9 +42,9 @@ public class AddGenEdAreaTransaction extends Transaction
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelAddISLO", "CancelTransaction");
+        dependencies.setProperty("CancelAddArea", "CancelTransaction");
         dependencies.setProperty("OK", "CancelTransaction");
-        dependencies.setProperty("ISLOData", "TransactionError");
+        dependencies.setProperty("AreaData", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }

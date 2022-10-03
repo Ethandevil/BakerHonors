@@ -25,11 +25,11 @@ public class ViewFactory {
 		{
 			return new AssessmentCoordinatorView(model);
 
-		}/*
-		else if(viewName.equals("AddISLOView") == true)
-		{
-			return new AddISLOView(model);
 		}
+		else if(viewName.equals("AddGenEdAreaView") == true)
+		{
+			return new AddGenEdAreaView(model);
+		}/*
 		else if(viewName.equals("ModifyISLOView") == true)
 		{
 			return new ModifyISLOView(model);
