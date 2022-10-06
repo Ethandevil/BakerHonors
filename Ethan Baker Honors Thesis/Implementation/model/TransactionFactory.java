@@ -32,11 +32,11 @@ public class TransactionFactory
 		throws Exception
 	{
 		Transaction retValue = null;
-		/*
-		if (transType.equals("AddNewISLO") == true)
+
+		if (transType.equals("AddNewGenEdArea") == true)
 		{
-			retValue = new AddISLOTransaction();
-		}
+			retValue = new AddGenEdAreaTransaction();
+		}/*
 		else
 		if (transType.equals("UpdateISLO") == true)
 		{

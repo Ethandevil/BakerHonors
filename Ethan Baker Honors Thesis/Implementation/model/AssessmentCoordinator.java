@@ -103,11 +103,11 @@ public class AssessmentCoordinator implements IView, IModel
 
 	//----------------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
-	{/*
+	{
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("AssessmentCoordinator.sCR: key = " + key);
-		if ((key.equals("AddNewISLO") == true) ||
+		if ((key.equals("AddNewGenEdArea") == true) ||
 			(key.equals("UpdateISLO")== true) ||
 			(key.equals("AddNewSemester") == true) ||
 			(key.equals("UpdateSemester") == true) ||
@@ -132,7 +132,7 @@ public class AssessmentCoordinator implements IView, IModel
 		{
 			createAndShowAssessmentCoordinatorView();
 		}
-		else */
+		else
 			if (key.equals("ExitSystem") == true)
 			{
 				System.exit(0);

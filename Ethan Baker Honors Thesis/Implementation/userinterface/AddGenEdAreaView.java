@@ -159,7 +159,8 @@ public class AddGenEdAreaView extends View
         genEdAreaName = new TextField();
         grid.add(genEdAreaName, 1, 2);
 
-        Text descripLabel = new Text(" Description : ");
+        //the following code puts up the GUI controls that capture the optional "Notes" field in the GenEdArea DB table
+        Text descripLabel = new Text(" Notes : ");
         descripLabel.setFill(Color.GOLD);
         descripLabel.setFont(myFont);
         descripLabel.setWrappingWidth(150);
@@ -168,7 +169,7 @@ public class AddGenEdAreaView extends View
 
         description = new TextArea();
         description.setPrefColumnCount(20);
-        description.setPrefRowCount(5);
+        description.setPrefRowCount(1);
         description.setWrapText(true);
         grid.add(description, 1, 3);
 
@@ -198,7 +199,7 @@ public class AddGenEdAreaView extends View
                 String descr = description.getText();
                 if (descr.length() > 0 && descr.matches("[a-zA-Z0-9-,-. ]+"))
                 {
-                    props.setProperty("Description", descr);
+                    props.setProperty("Notes", descr);
                     myModel.stateChangeRequest("AreaData", props);
                 }
                 else
@@ -283,6 +284,7 @@ public class AddGenEdAreaView extends View
     {
         clearValues();
         clearErrorMessage();
+        description.setText("NA");
 
     }
 

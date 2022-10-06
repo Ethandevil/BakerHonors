@@ -42,9 +42,9 @@ public class AddGenEdAreaTransaction extends Transaction
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelAddISLO", "CancelTransaction");
+        dependencies.setProperty("CancelAddArea", "CancelTransaction");
         dependencies.setProperty("OK", "CancelTransaction");
-        dependencies.setProperty("ISLOData", "TransactionError");
+        dependencies.setProperty("AreaData", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -54,7 +54,7 @@ public class AddGenEdAreaTransaction extends Transaction
      * verifying its uniqueness, etc.
      */
     //----------------------------------------------------------
-    public void processTransaction(Properties props)
+    protected void processTransaction(Properties props)
     {
         if (props.getProperty("AreaName") != null)
         {
@@ -62,20 +62,18 @@ public class AddGenEdAreaTransaction extends Transaction
             try
             {
 
-                GenEdArea oldGenEdArea = new GenEdArea(genEdAreaName);
+                GenEdArea oldGenEdArea = new GenEdArea(genEdAreaName, true);
                 transactionErrorMessage = "ERROR: Gen Ed Area Name " + genEdAreaName
                         + " already exists!";
                 new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Gen Ed Area with number : " + genEdAreaName + " already exists!",
+                        "Gen Ed Area with name : " + genEdAreaName + " already exists!",
                         Event.ERROR);
             }
             catch (InvalidPrimaryKeyException ex)
             {
-                // Number does not exist, validate data
+                // GenEdArea Name does not exist, validate data
                 try
                 {
-                    //int isloNumberVal = Integer.parseInt(isloNumber);
-                    //String nameOfISLO = props.getProperty("ISLOName");
 
                     if (genEdAreaName.length() > GlobalVariables.MAX_GEN_ED_AREA_NAME_LENGTH)
                     {
@@ -83,10 +81,10 @@ public class AddGenEdAreaTransaction extends Transaction
                     }
                     else
                     {
-                        String descriptionOfGenEdArea = props.getProperty("Description");
+                        String descriptionOfGenEdArea = props.getProperty("Notes");
                         if (descriptionOfGenEdArea.length() > GlobalVariables.MAX_GEN_ED_AREA_DESCRIPTION_LENGTH )
                         {
-                            transactionErrorMessage = "ERROR: Gen Ed Area description chosen too long (max = " + GlobalVariables.MAX_GEN_ED_AREA_DESCRIPTION_LENGTH + ")! ";
+                            transactionErrorMessage = "ERROR: Gen Ed Area notes entered too long (max = " + GlobalVariables.MAX_GEN_ED_AREA_DESCRIPTION_LENGTH + ")! ";
                         }
                         else
                         {
