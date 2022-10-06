@@ -97,7 +97,7 @@ public class GenEdArea extends EntityBase implements IView
         setDependencies();
 
         GenEdAreaName = GenEdAreaName.trim();
-        String query = "SELECT * FROM " + myTableName + " WHERE (AreaName = " + GenEdAreaName + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (AreaName = '" + GenEdAreaName + "')";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 

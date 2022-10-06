@@ -66,7 +66,7 @@ abstract public class Persistable
      * 'schema' of a table - namely, the column names and the types
      * of the columns
      *
-     * @param  String Table name to get schema information for
+     * @param
      *
      * @return Properties object indicating column names as keys and column
      *         types as values
