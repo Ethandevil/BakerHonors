@@ -239,9 +239,9 @@ public class GenEdArea extends EntityBase implements IView
             }
             else
             {
-                Integer ISLOID =
+                Integer GenEdAreaID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("ID", "" + ISLOID.intValue());
+                persistentState.setProperty("ID", "" + GenEdAreaID.intValue());
                 updateStatusMessage = "Gen Ed Area : " +  persistentState.getProperty("AreaName")
                         + " installed successfully!";
             }
@@ -253,7 +253,7 @@ public class GenEdArea extends EntityBase implements IView
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
 
-    // Probably not needed
+
     private void removeStateInDatabase()
     {
         try
@@ -281,20 +281,21 @@ public class GenEdArea extends EntityBase implements IView
     {
         Vector<String> v = new Vector<String>();
 
+        v.addElement(persistentState.getProperty("ID"));
         v.addElement(persistentState.getProperty("AreaName"));
-        v.addElement(persistentState.getProperty("Description"));
+        v.addElement(persistentState.getProperty("Notes"));
 
 
         return v;
     }
 
     // Short cut methods
-        public String getName(){
+    public String getName(){
         return persistentState.getProperty("AreaName");
     }
 
-    public String getDescription(){
-        return persistentState.getProperty("Description");
+    public String getNotes(){
+        return persistentState.getProperty("Notes");
     }
 
     //-----------------------------------------------------------------------------------

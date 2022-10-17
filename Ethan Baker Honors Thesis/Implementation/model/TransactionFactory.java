@@ -36,12 +36,12 @@ public class TransactionFactory
 		if (transType.equals("AddNewGenEdArea") == true)
 		{
 			retValue = new AddGenEdAreaTransaction();
-		}/*
-		else
-		if (transType.equals("UpdateISLO") == true)
-		{
-			retValue = new UpdateISLOTransaction();
 		}
+		else
+		if (transType.equals("UpdateGenEdArea") == true)
+		{
+			retValue = new ModifyGenEdAreaTransaction();
+		}/*
 		else
 		if (transType.equals("AddNewSemester") == true)
 		{

@@ -77,37 +77,36 @@ public class GenEdAreaCollection  extends EntityBase implements IView
     }
 
     //-----------------------------------------------------------
-    public void findByNameAndDescriptionPart(String namePart,
-                                             String descriptionPart)
+    public void findByNameAndNotesPart(String namePart, String notesPart)
     {
         String query = "SELECT * FROM " + myTableName + "";
         if ((namePart == null) || (namePart.length() == 0))
         {
-            if ((descriptionPart == null) ||
-                    (descriptionPart.length() == 0))
+            if ((notesPart == null) ||
+                    (notesPart.length() == 0))
             {
                 query += ""; // do nothing, query unchanged
             }
             else
             {
-                query += " WHERE (Description LIKE '%" +
-                        descriptionPart + "%')";
+                query += " WHERE (Notes LIKE '%" +
+                        notesPart + "%')";
             }
 
         }
         else
         {
-            query += " WHERE ((ISLOName LIKE '%" + namePart +
+            query += " WHERE ((AreaName LIKE '%" + namePart +
                     "%') ";
-            if ((descriptionPart == null) ||
-                    (descriptionPart.length() == 0))
+            if ((notesPart == null) ||
+                    (notesPart.length() == 0))
             {
                 query += ")";
             }
             else
             {
-                query += " AND (Description LIKE '%" +
-                        descriptionPart + "%'))";
+                query += " AND (Notes LIKE '%" +
+                        notesPart + "%'))";
             }
 
         }
@@ -182,19 +181,10 @@ public class GenEdAreaCollection  extends EntityBase implements IView
     }
 
     //----------------------------------------------------------
-    public GenEdArea retrieve(int genEdAreaNum)
+    public GenEdArea retrieve(int index)
     {
         GenEdArea retValue = null;
-        for (int cnt = 0; cnt < genEdAreas.size(); cnt++)
-        {
-            GenEdArea nextGenEdArea = genEdAreas.elementAt(cnt);
-            String nextGenEdAreaNum = (String)nextGenEdArea.getState("ID");
-            if (nextGenEdAreaNum.equals(""+genEdAreaNum) == true)
-            {
-                retValue = nextGenEdArea;
-                return retValue; // we should say 'break;' here
-            }
-        }
+        retValue = genEdAreas.elementAt(index);
 
         return retValue;
     }

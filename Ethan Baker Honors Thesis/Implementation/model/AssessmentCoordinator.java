@@ -1,6 +1,6 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
 //  Sandeep Mitra, State University of New York. - Brockport 
 //  (SUNY Brockport) 
 //	ALL RIGHTS RESERVED
@@ -108,7 +108,7 @@ public class AssessmentCoordinator implements IView, IModel
 		// just set up dependencies for
 		// DEBUG System.out.println("AssessmentCoordinator.sCR: key = " + key);
 		if ((key.equals("AddNewGenEdArea") == true) ||
-			(key.equals("UpdateISLO")== true) ||
+			(key.equals("UpdateGenEdArea")== true) ||
 			(key.equals("AddNewSemester") == true) ||
 			(key.equals("UpdateSemester") == true) ||
 			(key.equals("AddNewCategoryName") == true) ||

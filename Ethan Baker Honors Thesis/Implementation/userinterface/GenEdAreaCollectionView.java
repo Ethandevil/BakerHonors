@@ -197,18 +197,13 @@ public class GenEdAreaCollectionView extends View
         tableOfGenEdAreas.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
         tableOfGenEdAreas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        /*TableColumn isloNumberColumn = new TableColumn("#") ;
-        isloNumberColumn.setMaxWidth(20);
-        isloNumberColumn.setCellValueFactory(
-                new PropertyValueFactory<ISLOTableModel, String>("isloNumber"));*/
-
-        TableColumn genEdAreaNameColumn = new TableColumn("Gen Ed Area Name") ;
-        genEdAreaNameColumn.setMinWidth(50);
+        TableColumn genEdAreaNameColumn = new TableColumn("Name") ;
+        genEdAreaNameColumn.setMinWidth(440);
         genEdAreaNameColumn.setCellValueFactory(
                 new PropertyValueFactory<GenEdAreaTableModel, String>("genEdAreaName"));
 
         TableColumn notesColumn = new TableColumn("Notes") ;
-        notesColumn.setMinWidth(250);
+        notesColumn.setMinWidth(30);
         notesColumn.setCellValueFactory(
                 new PropertyValueFactory<GenEdAreaTableModel, String>("notes"));
 
@@ -248,7 +243,7 @@ public class GenEdAreaCollectionView extends View
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
 
-            myModel.stateChangeRequest("CancelGenEdAreaList", null);
+            myModel.stateChangeRequest("CancelAreaList", null);
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -294,9 +289,9 @@ public class GenEdAreaCollectionView extends View
 
         if(selectedItem != null)
         {
-            String selectedISLONumber = selectedItem.getIsloNumber();
+            String selectedGenEdAreaName = selectedItem.getGenEdAreaName();
 
-            myModel.stateChangeRequest("ISLOSelected", selectedISLONumber);
+            myModel.stateChangeRequest("GenEdAreaSelected", selectedGenEdAreaName);
         }
     }
 

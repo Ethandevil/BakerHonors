@@ -82,9 +82,9 @@ public class AddGenEdAreaTransaction extends Transaction
                     else
                     {
                         String descriptionOfGenEdArea = props.getProperty("Notes");
-                        if (descriptionOfGenEdArea.length() > GlobalVariables.MAX_GEN_ED_AREA_DESCRIPTION_LENGTH )
+                        if (descriptionOfGenEdArea.length() > GlobalVariables.MAX_GEN_ED_AREA_NOTES_LENGTH )
                         {
-                            transactionErrorMessage = "ERROR: Gen Ed Area notes entered too long (max = " + GlobalVariables.MAX_GEN_ED_AREA_DESCRIPTION_LENGTH + ")! ";
+                            transactionErrorMessage = "ERROR: Gen Ed Area notes entered too long (max = " + GlobalVariables.MAX_GEN_ED_AREA_NOTES_LENGTH + ")! ";
                         }
                         else
                         {

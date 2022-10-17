@@ -24,7 +24,7 @@ public class GlobalVariables
 {
 	//Used by clothing items
 	public static final int MAX_GEN_ED_AREA_NAME_LENGTH = 70;
-	public static final int MAX_GEN_ED_AREA_DESCRIPTION_LENGTH = 300;
+	public static final int MAX_GEN_ED_AREA_NOTES_LENGTH = 300;
 	public static final int MAX_REFLECTIONS_LENGTH = 4000;
 	public static final int MAX_FLAG_LENGTH = 300;
 	/*public static final int MIN_FNAME_LENGTH = 0;

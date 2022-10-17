@@ -1,7 +1,19 @@
-package userinterface;
+// tabs=4
+//************************************************************
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
+//
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
+// the express written consent of SUNY Brockport.
+//************************************************************
+//
 
 // specify the package
 
+package userinterface;
 
 // system imports
 import javafx.event.Event;
@@ -15,7 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,103 +36,95 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Vector;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.util.StringConverter;
 
+import java.util.Properties;
 
 // project imports
 import impresario.IModel;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-/** The class containing the Add Gen Ed Area View for the Gen Ed Assessment Data Management application */
+/** The class containing the Search Gen Ed Area View for the Gen Ed Assessment Data
+ *  Management application
+ */
 //==============================================================
-public class AddGenEdAreaView extends View
+public class SearchGenEdAreaView extends View
 {
 
-    // other private data
-    private final int labelWidth = 120;
-    private final int labelHeight = 25;
-
     // GUI components
+    protected TextField areaName;
+    protected TextField notes;
 
-    protected TextField genEdAreaName;
-    protected TextArea notes;
-
-
-    // other buttons here
     protected Button submitButton;
     protected Button cancelButton;
 
-
+    // For showing error message
     protected MessageView statusLog;
-    protected DropShadow shadow = new DropShadow();
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public AddGenEdAreaView(IModel aCoord)
+    public SearchGenEdAreaView(IModel sgeat)
     {
-        super(aCoord, "AddGenEdAreaView");
+        // sgeat - Search Gen Ed Area Transaction (any controller
+        // that requires Gen Ed Areas to be searched for)
+        super(sgeat, "SearchGenEdAreaView");
+
 
         // create a container for showing the contents
         VBox container = new VBox(10);
-        container.setPadding(new Insets(15, 5, 5, 5));
         container.setStyle("-fx-background-color: slategrey");
+        container.setPadding(new Insets(15, 5, 5, 5));
 
         // Add a title for this panel
         container.getChildren().add(createTitle());
 
-        // how do you add white space?
-        //container.getChildren().add(new Label(" "));
-
         // create our GUI components, add them to this Container
-        container.getChildren().add(createFormContents());
+        container.getChildren().add(createFormContent());
 
         container.getChildren().add(createStatusLog("             "));
 
         container.getChildren().add(createCopyrightPanel());
 
-        // container.setMinHeight(550);
-        //container.setMinWidth(550);
-
         getChildren().add(container);
 
         populateFields();
-        cancelButton.requestFocus();
+
 
         myModel.subscribe("TransactionError", this);
     }
 
-    // Create the labels and fields
-    //-------------------------------------------------------------
-    private VBox createTitle()
-    {
 
-        return new CommonTitleWithoutLogoPanel();
+    // Create Copyright Panel
+    //----------------------------------------------------------
+    private Text createCopyrightPanel()
+    {
+        return new CopyrightPanel();
     }
 
 
-    // Create the navigation buttons
-    //-------------------------------------------------------------
-    private VBox createFormContents()
-    {
 
+    // Create the title container
+    //-------------------------------------------------------------
+    private Node createTitle()
+    {
+        return new CommonTitleWithoutLogoPanel();
+
+    }
+
+    //-------------------------------------------------------------
+    protected String getActionText()
+    {
+        return "Enter General Ed Area Search Criteria: ";
+        //"(in full if known, or in part):";
+    }
+
+
+    // Create the main form content
+    //-------------------------------------------------------------
+    public VBox createFormContent()
+    {
         VBox vbox = new VBox(10);
 
         Text blankText = new Text("  ");
@@ -131,13 +134,52 @@ public class AddGenEdAreaView extends View
         blankText.setFill(Color.WHITE);
         vbox.getChildren().add(blankText);
 
-        Text prompt = new Text("Enter New Gen Ed Area Information:");
-        prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
+        Text prompt = new Text(getActionText());
+
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
+        prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         vbox.getChildren().add(prompt);
         vbox.setAlignment(Pos.CENTER);
+
+        GridPane grid0 = new GridPane();
+        grid0.setAlignment(Pos.CENTER);
+        grid0.setHgap(10);
+        grid0.setVgap(10);
+        grid0.setPadding(new Insets(0, 25, 10, 0));
+
+        Text isloNameLabel = new Text(" Area Name: ");
+        Font myFont = Font.font("Comic Sans", FontWeight.THIN, 16);
+        isloNameLabel.setFont(myFont);
+        isloNameLabel.setFill(Color.GOLD);
+        isloNameLabel.setWrappingWidth(150);
+        isloNameLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid0.add(isloNameLabel, 0, 1);
+
+        areaName = new TextField();
+        areaName.setStyle("-fx-focus-color: darkgreen;");
+        areaName.setOnAction((ActionEvent e) -> {
+            clearErrorMessage();
+            Properties props = new Properties();
+            String areaNm = areaName.getText();
+            if (areaNm.length() > 0)
+            {
+                props.setProperty("AreaName", areaNm);
+
+            }
+            String nts = notes.getText();
+            if (nts.length() > 0)
+            {
+                props.setProperty("Notes", nts);
+
+            }
+
+            myModel.stateChangeRequest("SearchArea", props);
+        });
+        grid0.add(areaName, 1, 1);
+
+        vbox.getChildren().add(grid0);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -145,33 +187,36 @@ public class AddGenEdAreaView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(0, 25, 10, 0));
 
-        Font myFont = Font.font("copperplate", FontWeight.THIN, 18);
-
-
-        Text genEdAreaNameLabel = new Text(" Name : ");
-
-        genEdAreaNameLabel.setFill(Color.GOLD);
-        genEdAreaNameLabel.setFont(myFont);
-        genEdAreaNameLabel.setWrappingWidth(150);
-        genEdAreaNameLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(genEdAreaNameLabel, 0, 2);
-
-        genEdAreaName = new TextField();
-        grid.add(genEdAreaName, 1, 2);
-
-        //the following code puts up the GUI controls that capture the optional "Notes" field in the GenEdArea DB table
         Text descripLabel = new Text(" Notes : ");
-        descripLabel.setFill(Color.GOLD);
         descripLabel.setFont(myFont);
+        descripLabel.setFill(Color.GOLD);
         descripLabel.setWrappingWidth(150);
         descripLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(descripLabel, 0, 3);
+        grid.add(descripLabel, 0, 1);
 
-        notes = new TextArea();
-        notes.setPrefColumnCount(20);
-        notes.setPrefRowCount(1);
-        notes.setWrapText(true);
-        grid.add(notes, 1, 3);
+        notes = new TextField();
+        notes.setStyle("-fx-focus-color: darkgreen;");
+        notes.setOnAction((ActionEvent e) -> {
+            clearErrorMessage();
+            Properties props = new Properties();
+            String areaNm = areaName.getText();
+            if (areaNm.length() > 0)
+            {
+                props.setProperty("AreaName", areaNm);
+
+            }
+            String nts = notes.getText();
+            if (nts.length() > 0)
+            {
+                props.setProperty("Notes", nts);
+
+            }
+
+            myModel.stateChangeRequest("SearchArea", props);
+
+        });
+        grid.add(notes, 1, 1);
+
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
@@ -181,39 +226,29 @@ public class AddGenEdAreaView extends View
         doneCont.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             doneCont.setStyle("-fx-background-color: SLATEGREY");
         });
-        ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
+        ImageView icon = new ImageView(new Image("/images/searchcolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Add", icon);
+        submitButton = new Button("Search",icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
-            clearOutlines();
             Properties props = new Properties();
-
-            String genEdAreaNm = genEdAreaName.getText();
-            if (genEdAreaNm.length() > 0 && genEdAreaNm.matches("[a-zA-Z0-9- ]+"))
+            String areaNm = areaName.getText();
+            if (areaNm.length() > 0)
             {
+                props.setProperty("AreaName", areaNm);
 
-                props.setProperty("AreaName", genEdAreaNm);
-                String descr = notes.getText();
-                if (descr.length() > 0 && descr.matches("[a-zA-Z0-9-,-. ]+"))
-                {
-                    props.setProperty("Notes", descr);
-                    myModel.stateChangeRequest("AreaData", props);
-                }
-                else
-                {
-                    notes.setStyle("-fx-border-color: firebrick;");
-                    displayErrorMessage("ERROR: Please enter a valid Gen Ed Area description!");
-                }
             }
-            else
+            String nts = notes.getText();
+
+            if (nts.length() > 0)
             {
-                genEdAreaName.setStyle("-fx-border-color: firebrick;");
-                displayErrorMessage("ERROR: Please enter a valid Gen Ed Area Name!");
+                props.setProperty("Notes", nts);
+
             }
 
+            myModel.stateChangeRequest("SearchArea", props);
 
 
         });
@@ -227,11 +262,11 @@ public class AddGenEdAreaView extends View
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        cancelButton = new Button("Return",icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
-            myModel.stateChangeRequest("CancelAddArea", null);
+            myModel.stateChangeRequest("CancelSearchArea", null);
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -242,41 +277,20 @@ public class AddGenEdAreaView extends View
         doneCont.getChildren().add(cancelButton);
 
         vbox.getChildren().add(grid);
-
         vbox.getChildren().add(doneCont);
-        clearOutlines();
-        vbox.addEventFilter(KeyEvent.KEY_RELEASED, event->{
-            if (event.getCode() == KeyCode.ENTER) {
-                submitButton.fire();
-            }
-        });
+        vbox.setAlignment(Pos.CENTER);
 
         return vbox;
-
     }
+
 
     // Create the status log field
     //-------------------------------------------------------------
-    private MessageView createStatusLog(String initialMessage)
+    protected MessageView createStatusLog(String initialMessage)
     {
-
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
-    }
-
-    //-------------------------------------------------------------
-    private void clearOutlines(){
-        genEdAreaName.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
-        notes.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
-    }
-
-
-    // Create Copyright Panel
-    //----------------------------------------------------------
-    private Text createCopyrightPanel()
-    {
-        return new CopyrightPanel();
     }
 
     //-------------------------------------------------------------
@@ -284,41 +298,23 @@ public class AddGenEdAreaView extends View
     {
         clearValues();
         clearErrorMessage();
-        notes.setText("NA");
-
     }
 
-
-    //-------------------------------------------------------------
+    //----------------------------------------------------------
     public void clearValues()
     {
-        genEdAreaName.clear();
+        areaName.clear();
         notes.clear();
+
     }
 
-
-
-
-
+    /**
+     * Update method
+     */
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-        if (key.equals("TransactionError") == true)
-        {
-            String val = (String)value;
-            if (val.startsWith("ERR") == true)
-            {
-                displayErrorMessage(val);
-            }
-            else
-            {
-                clearValues();
-                displayMessage(val);
-            }
-
-        }
-
-
+        clearValues();
     }
 
     /**
@@ -330,7 +326,6 @@ public class AddGenEdAreaView extends View
         statusLog.displayErrorMessage(message);
     }
 
-
     /**
      * Display info message
      */
@@ -340,7 +335,6 @@ public class AddGenEdAreaView extends View
         statusLog.displayMessage(message);
     }
 
-
     /**
      * Clear error message
      */
@@ -349,6 +343,11 @@ public class AddGenEdAreaView extends View
     {
         statusLog.clearErrorMessage();
     }
+
 }
+
+//---------------------------------------------------------------
+//	Revision History:
+//
 
 

@@ -29,19 +29,19 @@ public class ViewFactory {
 		else if(viewName.equals("AddGenEdAreaView") == true)
 		{
 			return new AddGenEdAreaView(model);
+		}
+		else if(viewName.equals("ModifyGenEdAreaView") == true)
+		{
+			return new ModifyGenEdAreaView(model);
+		}
+		else if(viewName.equals("GenEdAreaCollectionView") == true)
+		{
+			return new GenEdAreaCollectionView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaView") == true)
+		{
+			return new SearchGenEdAreaView(model);
 		}/*
-		else if(viewName.equals("ModifyISLOView") == true)
-		{
-			return new ModifyISLOView(model);
-		}
-		else if(viewName.equals("ISLOCollectionView") == true)
-		{
-			return new ISLOCollectionView(model);
-		}
-		else if(viewName.equals("SearchISLOView") == true)
-		{
-			return new SearchISLOView(model);
-		}
 		else if(viewName.equals("AddSemesterView") == true)
 		{
 			return new AddSemesterView(model);

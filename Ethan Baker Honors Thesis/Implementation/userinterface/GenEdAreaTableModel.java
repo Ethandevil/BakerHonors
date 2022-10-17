@@ -21,28 +21,28 @@ import javafx.beans.property.SimpleStringProperty;
 //==============================================================================
 public class GenEdAreaTableModel
 {
-    //private final SimpleStringProperty isloNumber;
+    private final SimpleStringProperty genEdAreaID;
     private final SimpleStringProperty genEdAreaName;
     private final SimpleStringProperty notes;
 
     //----------------------------------------------------------------------------
     public GenEdAreaTableModel(Vector<String> genEdAreaData)
     {
-        //isloNumber =  new SimpleStringProperty(isloData.elementAt(0));
+        genEdAreaID =  new SimpleStringProperty(genEdAreaData.elementAt(0));
         genEdAreaName =  new SimpleStringProperty(genEdAreaData.elementAt(1));
         notes =  new SimpleStringProperty(genEdAreaData.elementAt(2));
 
     }
 
     //----------------------------------------------------------------------------
-    /*public String getIsloNumber() {
-        return isloNumber.get();
+    public String getGenEdAreaID() {
+        return genEdAreaID.get();
     }
 
     //----------------------------------------------------------------------------
-    public void setIsloNumber(String num) {
-        isloNumber.set(num);
-    }*/
+    public void setGenEdAreaID(String num) {
+        genEdAreaID.set(num);
+    }
 
     //----------------------------------------------------------------------------
     public String getGenEdAreaName() {
