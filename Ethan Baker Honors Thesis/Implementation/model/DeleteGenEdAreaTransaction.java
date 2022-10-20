@@ -51,9 +51,9 @@ public class DeleteGenEdAreaTransaction extends Transaction{
     {
         dependencies = new Properties();
         dependencies.setProperty("CancelSearchArea", "CancelTransaction");
-        dependencies.setProperty("CancelAddArea", "CancelTransaction");
+        dependencies.setProperty("CancelDeleteGenEdArea", "CancelTransaction");
         dependencies.setProperty("CancelAreaList", "CancelTransaction");
-        dependencies.setProperty("AreaData", "TransactionError");
+        dependencies.setProperty("DeleteGenEdArea", "TransactionError");
         myRegistry.setDependencies(dependencies);
     }
 
@@ -80,7 +80,7 @@ public class DeleteGenEdAreaTransaction extends Transaction{
         }
     }
 
-    private void processGenEdAreaDelete(Properties props) {
+    private void processGenEdAreaDelete() {
         mySelectedGenEdArea.stateChangeRequest("Status", "Inactive");
         mySelectedGenEdArea.update();
         transactionErrorMessage = (String)mySelectedGenEdArea.getState("UpdateStatusMessage");
@@ -148,9 +148,9 @@ public class DeleteGenEdAreaTransaction extends Transaction{
             }
         }
         else
-        if (key.equals("AreaData") == true)
+        if (key.equals("DeleteGenEdArea") == true)
         {
-            processGenEdAreaDelete((Properties)value);
+            processGenEdAreaDelete();
         }
 
         myRegistry.updateSubscribers(key, this);

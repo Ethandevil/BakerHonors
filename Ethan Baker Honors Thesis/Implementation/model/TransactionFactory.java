@@ -41,7 +41,11 @@ public class TransactionFactory
 		if (transType.equals("UpdateGenEdArea") == true)
 		{
 			retValue = new ModifyGenEdAreaTransaction();
-		}/*
+		}
+		else if(transType.equals("DeleteGenEdArea") == true){
+			retValue = new DeleteGenEdAreaTransaction();
+		}
+		/*
 		else
 		if (transType.equals("AddNewSemester") == true)
 		{

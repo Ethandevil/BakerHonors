@@ -81,7 +81,7 @@ public class DeleteGenEdAreaView extends View {
     protected MessageView statusLog;
     protected DropShadow shadow = new DropShadow();
 
-    protected String keyToSendWithData = "";
+    protected String keyToSendWithData = "DeleteGenEdArea";
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
@@ -160,9 +160,7 @@ public class DeleteGenEdAreaView extends View {
             clearErrorMessage();
             clearOutlines();
 
-            Properties props = new Properties();
-            //props.setProperty("Status", "Inactive");
-            myModel.stateChangeRequest(keyToSendWithData, props);
+            myModel.stateChangeRequest(keyToSendWithData, null);
 
         });
 
@@ -192,7 +190,7 @@ public class DeleteGenEdAreaView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelTransaction", null);
+                myModel.stateChangeRequest("CancelDeleteGenEdArea", null);
             }
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -233,7 +231,7 @@ public class DeleteGenEdAreaView extends View {
 
     //-------------------------------------------------------------
     public void populateFields() {
-        String genEdAreaText = (String) myModel.getState("");
+        String genEdAreaText = (String) myModel.getState("AreaName");
         genEdAreaName.setText(genEdAreaText);
         genEdAreaName.setEditable(false);
     }

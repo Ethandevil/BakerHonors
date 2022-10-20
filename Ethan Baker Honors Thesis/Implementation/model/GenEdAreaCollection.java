@@ -78,7 +78,7 @@ public class GenEdAreaCollection  extends EntityBase implements IView
     //-----------------------------------------------------------
     public void findByNameAndNotesPart(String namePart, String notesPart)
     {
-        String query = "SELECT * FROM " + myTableName + "";
+        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
         if ((namePart == null) || (namePart.length() == 0))
         {
             if ((notesPart == null) ||
@@ -115,9 +115,17 @@ public class GenEdAreaCollection  extends EntityBase implements IView
     //-----------------------------------------------------------
     public void findAll()
     {
+        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
+        populateCollectionHelper(query);
+    }
+
+    //-----------------------------------------------------------
+    public void findAllIncludingInactive()
+    {
         String query = "SELECT * FROM " + myTableName + "";
         populateCollectionHelper(query);
     }
+
 
 
     //----------------------------------------------------------------------------------

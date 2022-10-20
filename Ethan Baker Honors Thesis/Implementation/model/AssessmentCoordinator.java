@@ -109,6 +109,7 @@ public class AssessmentCoordinator implements IView, IModel
 		// DEBUG System.out.println("AssessmentCoordinator.sCR: key = " + key);
 		if ((key.equals("AddNewGenEdArea") == true) ||
 			(key.equals("UpdateGenEdArea")== true) ||
+			(key.equals("DeleteGenEdArea")== true) ||
 			(key.equals("AddNewSemester") == true) ||
 			(key.equals("UpdateSemester") == true) ||
 			(key.equals("AddNewCategoryName") == true) ||
