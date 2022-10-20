@@ -1,3 +1,16 @@
+// tabs=4
+//************************************************************
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
+//
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
+// the express written consent of SUNY Brockport.
+//************************************************************
+//
+// specify the package
 package model;
 
 // system imports
@@ -112,7 +125,7 @@ public class GenEdArea extends EntityBase implements IView
                         + GenEdAreaName + " found.");
             }
             else
-                // There should be EXACTLY one ISLO. More than that is an error
+                // There should be EXACTLY one Gen Ed Area. More than that is an error
                 if (size != 1)
                 {
 
@@ -122,14 +135,14 @@ public class GenEdArea extends EntityBase implements IView
                 else
                 {
                     // copy all the retrieved data into persistent state
-                    Properties retrievedISLOData = allDataRetrieved.elementAt(0);
+                    Properties retrievedGenEdAreaData = allDataRetrieved.elementAt(0);
                     persistentState = new Properties();
 
-                    Enumeration allKeys = retrievedISLOData.propertyNames();
+                    Enumeration allKeys = retrievedGenEdAreaData.propertyNames();
                     while (allKeys.hasMoreElements() == true)
                     {
                         String nextKey = (String)allKeys.nextElement();
-                        String nextValue = retrievedISLOData.getProperty(nextKey);
+                        String nextValue = retrievedGenEdAreaData.getProperty(nextKey);
 
 
                         if (nextValue != null)

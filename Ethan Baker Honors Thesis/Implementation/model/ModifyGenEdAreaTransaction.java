@@ -64,10 +64,10 @@ public class ModifyGenEdAreaTransaction extends Transaction
     }
 
     /**
-     * This method encapsulates all the logic of creating the ISLO Collection and showing the view
+     * This method encapsulates all the logic of creating the Gen Ed Area Collection and showing the view
      */
     //----------------------------------------------------------
-    public void processTransaction(Properties props)
+    protected void processTransaction(Properties props)
     {
         myGenEdAreaList = new GenEdAreaCollection();
 

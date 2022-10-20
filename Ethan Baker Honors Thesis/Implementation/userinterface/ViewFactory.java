@@ -1,6 +1,6 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
 //  Sandeep Mitra, State University of New York. - Brockport
 //  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
@@ -41,7 +41,11 @@ public class ViewFactory {
 		else if(viewName.equals("SearchGenEdAreaView") == true)
 		{
 			return new SearchGenEdAreaView(model);
-		}/*
+		}
+		else if(viewName.equals("DeleteGenEdAreaView")){
+			//return new DeleteGenEdAreaView(model);
+		}
+		/*
 		else if(viewName.equals("AddSemesterView") == true)
 		{
 			return new AddSemesterView(model);
