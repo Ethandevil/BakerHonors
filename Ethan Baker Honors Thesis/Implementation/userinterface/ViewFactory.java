@@ -14,6 +14,7 @@
 package userinterface;
 
 import impresario.IModel;
+import model.AddGenEdAreaSLOTransaction;
 
 //==============================================================================
 public class ViewFactory {
@@ -44,6 +45,9 @@ public class ViewFactory {
 		}
 		else if(viewName.equals("DeleteGenEdAreaView")){
 			return new DeleteGenEdAreaView(model);
+		}
+		else if(viewName.equals("AddGenEdAreaSLOView")){
+			//return new AddGenEdAreaSLOView();
 		}
 		/*
 		else if(viewName.equals("AddSemesterView") == true)

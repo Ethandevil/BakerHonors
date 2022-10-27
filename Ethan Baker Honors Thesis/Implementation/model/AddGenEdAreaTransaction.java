@@ -28,7 +28,7 @@ import exception.MultiplePrimaryKeysException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the AddISLOTransaction for the ISLO Data Management application */
+/** The class containing the AddGenEdAreaTransaction for the Gen Ed Data Management application */
 //==============================================================
 public class AddGenEdAreaTransaction extends Transaction
 {
