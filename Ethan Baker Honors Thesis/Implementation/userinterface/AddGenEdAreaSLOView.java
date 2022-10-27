@@ -131,6 +131,13 @@ public class AddGenEdAreaSLOView extends View {
     protected VBox createFormContents() {
         VBox vbox = new VBox(10);
 
+        Text blankText = new Text("  ");
+        blankText.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        blankText.setWrappingWidth(350);
+        blankText.setTextAlignment(TextAlignment.CENTER);
+        blankText.setFill(Color.WHITE);
+        vbox.getChildren().add(blankText);
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -143,31 +150,42 @@ public class AddGenEdAreaSLOView extends View {
         genEdLabel.setFont(myFont);
         genEdLabel.setWrappingWidth(150);
         genEdLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(genEdLabel, 0, 0);
-        grid.add(genEdAreaName = new TextField(), 0, 1);
+        grid.add(genEdLabel, 0, 1);
+        grid.add(genEdAreaName = new TextField(), 1, 1);
 
-        Text prompt = new Text("Enter New SLO Information");
+        vbox.getChildren().add(grid);
+
+        Text prompt = new Text("Enter New SLO Information:");
+        prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
-        grid.add(prompt, 1, 1, 2, 1);
+
+        vbox.getChildren().add(prompt);
+        vbox.setAlignment(Pos.CENTER);
+
+        GridPane grid2 = new GridPane();
+        grid2.setAlignment(Pos.CENTER);
+        grid2.setHgap(10);
+        grid2.setVgap(10);
+        grid2.setPadding(new Insets(25, 25, 25, 25));
 
         Text sloTextLabel = new Text(" SLO Text : ");
         sloTextLabel.setFont(myFont);
         sloTextLabel.setWrappingWidth(150);
         sloTextLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(sloTextLabel, 2, 0);
-        grid.add(sloText = new TextArea(), 2, 1);
+        grid2.add(sloTextLabel, 0, 1);
+        grid2.add(sloText = new TextArea(), 1, 1);
 
-        Text notesLabel = new Text(" SLO Text : ");
+        Text notesLabel = new Text(" Notes : ");
         notesLabel.setFont(myFont);
         notesLabel.setWrappingWidth(150);
         notesLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(notesLabel, 3, 0);
-        grid.add(notes = new TextArea(), 3, 1);
+        grid2.add(notesLabel, 0, 2);
+        grid2.add(notes = new TextArea(), 1, 2);
 
 
-        ImageView icon = new ImageView(new Image("/images/remove_icon.png"));
+        ImageView icon = new ImageView(new Image("/images/savecolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
         submit = new Button("Confirm", icon);
@@ -239,7 +257,7 @@ public class AddGenEdAreaSLOView extends View {
         buttonContainer.getChildren().add(submit);
         buttonContainer.getChildren().add(cancelButton);
 
-        vbox.getChildren().add(grid);
+        vbox.getChildren().add(grid2);
         vbox.getChildren().add(buttonContainer);
 
         return vbox;
