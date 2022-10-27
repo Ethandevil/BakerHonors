@@ -30,13 +30,13 @@ import impresario.IView;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the Gen Ed Area information for the Gen Ed Data Management
+/** The class containing the ISLO information for the ISLO Data Management
  * application
  */
 //==============================================================
-public class GenEdArea extends EntityBase implements IView
+public class SLO extends EntityBase implements IView
 {
-    private static final String myTableName = "GenEdArea";
+    private static final String myTableName = "SLO";
 
     protected Properties dependencies;
 
@@ -45,14 +45,14 @@ public class GenEdArea extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public GenEdArea(String GenEdAreaID) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
+    public SLO(String SLOID) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
 
         setDependencies();
 
-        GenEdAreaID = GenEdAreaID.trim();
-        String query = "SELECT * FROM " + myTableName + " WHERE (ID = " + GenEdAreaID + ")";
+        SLOID = SLOID.trim();
+        String query = "SELECT * FROM " + myTableName + " WHERE (ID = " + SLOID + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -63,28 +63,28 @@ public class GenEdArea extends EntityBase implements IView
             // if size = 0 throw the Invalid Primary Key Exception
             if (size == 0)
             {
-                throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed ID : "
-                        + GenEdAreaID + " found.");
+                throw new InvalidPrimaryKeyException("No SLO matching SLO ID : "
+                        + SLOID + " found.");
             }
             else
-                // There should be EXACTLY one Gen Ed Area. More than that is an error
+                // There should be EXACTLY one SLO. More than that is an error
                 if (size != 1)
                 {
 
-                    throw new MultiplePrimaryKeysException("Multiple Gen Ed Areas matching Gen Ed Area ID : "
-                            + GenEdAreaID + " found.");
+                    throw new MultiplePrimaryKeysException("Multiple SLOs matching SLO ID : "
+                            + SLOID + " found.");
                 }
                 else
                 {
                     // copy all the retrieved data into persistent state
-                    Properties retrievedGenEdAreaData = allDataRetrieved.elementAt(0);
+                    Properties retrievedSLOData = allDataRetrieved.elementAt(0);
                     persistentState = new Properties();
 
-                    Enumeration allKeys = retrievedGenEdAreaData.propertyNames();
+                    Enumeration allKeys = retrievedSLOData.propertyNames();
                     while (allKeys.hasMoreElements() == true)
                     {
                         String nextKey = (String)allKeys.nextElement();
-                        String nextValue = retrievedGenEdAreaData.getProperty(nextKey);
+                        String nextValue = retrievedSLOData.getProperty(nextKey);
 
 
                         if (nextValue != null)
@@ -95,15 +95,15 @@ public class GenEdArea extends EntityBase implements IView
 
                 }
         }
-        // If Gen Ed Area found for this Gen Ed Area ID, throw an Invalid Primary key exception
+        // If SLO found for this SLO Number, throw an Invalid Primary key exception
         else
         {
-            throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Area ID : "
-                    + GenEdAreaID + " found.");
+            throw new InvalidPrimaryKeyException("No SLO matching SLO ID : "
+                    + SLOID + " found.");
         }
     }
 
-    public GenEdArea(String GenEdAreaName, boolean flag) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
+    /*public SLO(String GenEdAreaName, boolean flag) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
 
@@ -153,21 +153,19 @@ public class GenEdArea extends EntityBase implements IView
 
                 }
         }
-        // If Gen Ed Area found for this Gen Ed Area ID, throw an Invalid Primary key exception
+        // If ISLO found for this ISLO Number, throw an Invalid Primary key exception
         else
         {
             throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Area Name : "
                     + GenEdAreaName + " found.");
         }
-    }
-
-
+    }*/
 
     /**
-     * Alternate constructor. Can be used to create a NEW Gen Ed Area
+     * Alternate constructor. Can be used to create a NEW SLO
      */
     //----------------------------------------------------------
-    public GenEdArea(Properties props)
+    public SLO(Properties props)
     {
         super(myTableName);
 
@@ -222,10 +220,10 @@ public class GenEdArea extends EntityBase implements IView
 
 
     //-----------------------------------------------------------------------------------
-    public static int compare(GenEdArea a, GenEdArea b)
+    public static int compare(SLO a, SLO b)
     {
-        String aVal = (String)a.getState("AreaName");
-        String bVal = (String)b.getState("AreaName");
+        String aVal = (String)a.getState("SLOText");
+        String bVal = (String)b.getState("SLOText");
 
         return aVal.compareTo(bVal);
     }
@@ -248,20 +246,20 @@ public class GenEdArea extends EntityBase implements IView
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Gen Ed Area : " + persistentState.getProperty("AreaName") + " updated successfully!";
+                updateStatusMessage = "SLO : " + persistentState.getProperty("SLOText") + " updated successfully!";
             }
             else
             {
-                Integer GenEdAreaID =
+                Integer SLOID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("ID", "" + GenEdAreaID.intValue());
-                updateStatusMessage = "Gen Ed Area : " +  persistentState.getProperty("AreaName")
+                persistentState.setProperty("ID", "" + SLOID.intValue());
+                updateStatusMessage = "SLO : " +  persistentState.getProperty("SLOText")
                         + " installed successfully!";
             }
         }
         catch (SQLException ex)
         {
-            updateStatusMessage = "Error in installing Gen Ed Area data in database!";
+            updateStatusMessage = "Error in installing SLO data in database!";
         }
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
@@ -276,17 +274,17 @@ public class GenEdArea extends EntityBase implements IView
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Gen Ed Area : " + persistentState.getProperty("AreaName") + " removed successfully!";
+                updateStatusMessage = "SLO : " + persistentState.getProperty("SLOText") + " removed successfully!";
             }
         }
         catch (SQLException ex)
         {
-            updateStatusMessage = "Error in removing Gen Ed Area data in database!";
+            updateStatusMessage = "Error in removing SLO data in database!";
         }
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
     /**
-     * This method is needed solely to enable the Gen Ed Area information to be displayable in a table
+     * This method is needed solely to enable the SLO information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
@@ -295,7 +293,8 @@ public class GenEdArea extends EntityBase implements IView
         Vector<String> v = new Vector<String>();
 
         v.addElement(persistentState.getProperty("ID"));
-        v.addElement(persistentState.getProperty("AreaName"));
+        v.addElement(persistentState.getProperty("GenEdID"));
+        v.addElement(persistentState.getProperty("SLOText"));
         v.addElement(persistentState.getProperty("Notes"));
 
 
@@ -303,8 +302,8 @@ public class GenEdArea extends EntityBase implements IView
     }
 
     // Short cut methods
-    public String getName(){
-        return persistentState.getProperty("AreaName");
+    public String getText(){
+        return persistentState.getProperty("SLOText");
     }
 
     public String getNotes(){
