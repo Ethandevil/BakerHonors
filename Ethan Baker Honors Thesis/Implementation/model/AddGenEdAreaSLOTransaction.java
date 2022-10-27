@@ -56,9 +56,9 @@ public class AddGenEdAreaSLOTransaction extends Transaction
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelAddAreaSLO", "CancelTransaction");
-        dependencies.setProperty("CancelAreaSLOList", "CancelTransaction");
-        dependencies.setProperty("OK", "CancelTransaction");
+        dependencies.setProperty("CancelAddGenEdAreaSLO", "CancelTransaction");
+        dependencies.setProperty("CancelSearchArea", "CancelTransaction");
+        dependencies.setProperty("CancelAreaList", "CancelTransaction");
         dependencies.setProperty("AreaSLOData", "TransactionError");
 
         myRegistry.setDependencies(dependencies);

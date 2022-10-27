@@ -127,6 +127,12 @@ public class AddGenEdAreaSLOView extends View {
         return new CommonTitleWithoutLogoPanel();
     }
 
+    //-------------------------------------------------------------
+    protected String getActionText()
+    {
+        return "Enter New SLO Information:";
+    }
+
     //------------------------------------------------------------
     protected VBox createFormContents() {
         VBox vbox = new VBox(10);
@@ -155,7 +161,7 @@ public class AddGenEdAreaSLOView extends View {
 
         vbox.getChildren().add(grid);
 
-        Text prompt = new Text("Enter New SLO Information:");
+        Text prompt = new Text(getActionText());
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);

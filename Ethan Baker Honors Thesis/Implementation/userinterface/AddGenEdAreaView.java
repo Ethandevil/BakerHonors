@@ -129,6 +129,11 @@ public class AddGenEdAreaView extends View
         return new CommonTitleWithoutLogoPanel();
     }
 
+    protected String getActionText()
+    {
+        return "Enter New Gen Ed Area Information:";
+    }
+
 
     // Create the navigation buttons
     //-------------------------------------------------------------
@@ -144,7 +149,7 @@ public class AddGenEdAreaView extends View
         blankText.setFill(Color.WHITE);
         vbox.getChildren().add(blankText);
 
-        Text prompt = new Text("Enter New Gen Ed Area Information:");
+        Text prompt = new Text(getActionText());
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
