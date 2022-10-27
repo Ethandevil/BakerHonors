@@ -45,7 +45,8 @@ public class TransactionFactory
 		else if(transType.equals("DeleteGenEdArea") == true){
 			retValue = new DeleteGenEdAreaTransaction();
 		}
-		else if(transType.equals("AddGenEdAreaSLO")){
+		else if(transType.equals("AddNewGESLO")){
+			System.out.println("Here");
 			retValue = new AddGenEdAreaSLOTransaction();
 		}
 		/*

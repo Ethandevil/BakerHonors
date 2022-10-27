@@ -114,6 +114,7 @@ public class AddGenEdAreaSLOTransaction extends Transaction
                         else
                         {
 
+
                             mySLO = new SLO(props);
                             mySLO.update();
                             transactionErrorMessage = (String)mySLO.getState("UpdateStatusMessage");
@@ -140,6 +141,17 @@ public class AddGenEdAreaSLOTransaction extends Transaction
         if (key.equals("TransactionError") == true)
         {
             return transactionErrorMessage;
+        }
+        else if (key.equals("GenEdAreaList")){
+            return myGenEdAreaList;
+        }
+        else if(key.equals("AreaName")){
+            if (mySelectedGenEdArea != null) {
+                return mySelectedGenEdArea.getState("AreaName");
+            }
+            else{
+                return "";
+            }
         }
 
 
@@ -174,6 +186,9 @@ public class AddGenEdAreaSLOTransaction extends Transaction
         if (key.equals("AreaSLOData"))
         {
             processTransaction((Properties)value);
+        }
+        else if(key.equals("AreaData")){
+            processGenEdAreaSLOAdd((Properties)value);
         }
 
         myRegistry.updateSubscribers(key, this);
