@@ -30,7 +30,7 @@ import userinterface.View;
 import userinterface.ViewFactory;
 
 
-/** The class containing the ISLOCollection for the ISLO Data
+/** The class containing the GenEdAreaCollection for the Gen Ed Assessment
  * Management application
  */
 //==============================================================

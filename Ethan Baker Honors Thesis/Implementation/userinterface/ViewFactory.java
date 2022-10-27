@@ -47,7 +47,7 @@ public class ViewFactory {
 			return new DeleteGenEdAreaView(model);
 		}
 		else if(viewName.equals("AddGenEdAreaSLOView")){
-			//return new AddGenEdAreaSLOView();
+			return new AddGenEdAreaSLOView(model);
 		}
 		/*
 		else if(viewName.equals("AddSemesterView") == true)

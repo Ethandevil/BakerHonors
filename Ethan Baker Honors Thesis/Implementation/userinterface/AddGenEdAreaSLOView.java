@@ -185,10 +185,10 @@ public class AddGenEdAreaSLOView extends View {
         grid2.add(notes = new TextArea(), 1, 2);
 
 
-        ImageView icon = new ImageView(new Image("/images/savecolor.png"));
+        ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submit = new Button("Confirm", icon);
+        submit = new Button("Add", icon);
         submit.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submit.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -203,7 +203,7 @@ public class AddGenEdAreaSLOView extends View {
                 if (notesString.length() > 0 && notesString.matches("[a-zA-Z0-9-,-. ]+"))
                 {
                     props.setProperty("Notes", notesString);
-                    myModel.stateChangeRequest("AddGenEdAreaSLO", props);
+                    myModel.stateChangeRequest("AreaData", props);
                 }
                 else
                 {
