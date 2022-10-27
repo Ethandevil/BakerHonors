@@ -10,11 +10,9 @@
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
-
-package userinterface;
-
 // specify the package
 
+package userinterface;
 
 // system imports
 import javafx.event.Event;
@@ -63,34 +61,34 @@ import javafx.util.StringConverter;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Add Gen Ed Area View for the Gen Ed Assessment Data Management application */
+/** The class containing the Modify ISLOView  for the ISLO Data
+ *  Management Application
+ */
 //==============================================================
-public class AddGenEdAreaView extends View
-{
+public class AddGenEdAreaSLOView extends View {
 
     // other private data
     private final int labelWidth = 120;
     private final int labelHeight = 25;
 
     // GUI components
+    protected Button submit;
+    protected Button cancelButton;
 
     protected TextField genEdAreaName;
+    protected TextArea sloText;
     protected TextArea notes;
 
 
-    // other buttons here
-    protected Button submitButton;
-    protected Button cancelButton;
-
-
+    // other GUI Components here
     protected MessageView statusLog;
     protected DropShadow shadow = new DropShadow();
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public AddGenEdAreaView(IModel aCoord)
-    {
-        super(aCoord, "AddGenEdAreaView");
+    public AddGenEdAreaSLOView(IModel aCoord) {
+
+        super(aCoord, "AddGenEdAreaSLOView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -129,122 +127,108 @@ public class AddGenEdAreaView extends View
         return new CommonTitleWithoutLogoPanel();
     }
 
-
-    // Create the navigation buttons
-    //-------------------------------------------------------------
-    private VBox createFormContents()
-    {
-
+    //------------------------------------------------------------
+    protected VBox createFormContents() {
         VBox vbox = new VBox(10);
-
-        Text blankText = new Text("  ");
-        blankText.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        blankText.setWrappingWidth(350);
-        blankText.setTextAlignment(TextAlignment.CENTER);
-        blankText.setFill(Color.WHITE);
-        vbox.getChildren().add(blankText);
-
-        Text prompt = new Text("Enter New Gen Ed Area Information:");
-        prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
-        prompt.setWrappingWidth(400);
-        prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.BLACK);
-        vbox.getChildren().add(prompt);
-        vbox.setAlignment(Pos.CENTER);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(0, 25, 10, 0));
+        grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Font myFont = Font.font("copperplate", FontWeight.THIN, 18);
+        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+
+        Text genEdLabel = new Text(" Chosen Gen Ed Area : ");
+        genEdLabel.setFont(myFont);
+        genEdLabel.setWrappingWidth(150);
+        genEdLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(genEdLabel, 0, 0);
+        grid.add(genEdAreaName = new TextField(), 0, 1);
+
+        Text prompt = new Text("Enter New SLO Information");
+        prompt.setWrappingWidth(400);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        grid.add(prompt, 1, 1, 2, 1);
+
+        Text sloTextLabel = new Text(" SLO Text : ");
+        sloTextLabel.setFont(myFont);
+        sloTextLabel.setWrappingWidth(150);
+        sloTextLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(sloTextLabel, 2, 0);
+        grid.add(sloText = new TextArea(), 2, 1);
+
+        Text notesLabel = new Text(" SLO Text : ");
+        notesLabel.setFont(myFont);
+        notesLabel.setWrappingWidth(150);
+        notesLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(notesLabel, 3, 0);
+        grid.add(notes = new TextArea(), 3, 1);
 
 
-        Text genEdAreaNameLabel = new Text(" Name : ");
-
-        genEdAreaNameLabel.setFill(Color.GOLD);
-        genEdAreaNameLabel.setFont(myFont);
-        genEdAreaNameLabel.setWrappingWidth(150);
-        genEdAreaNameLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(genEdAreaNameLabel, 0, 2);
-
-        genEdAreaName = new TextField();
-        grid.add(genEdAreaName, 1, 2);
-
-        //the following code puts up the GUI controls that capture the optional "Notes" field in the GenEdArea DB table
-        Text descripLabel = new Text(" Notes : ");
-        descripLabel.setFill(Color.GOLD);
-        descripLabel.setFont(myFont);
-        descripLabel.setWrappingWidth(150);
-        descripLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(descripLabel, 0, 3);
-
-        notes = new TextArea();
-        notes.setPrefColumnCount(20);
-        notes.setPrefRowCount(1);
-        notes.setWrapText(true);
-        grid.add(notes, 1, 3);
-
-        HBox doneCont = new HBox(10);
-        doneCont.setAlignment(Pos.CENTER);
-        doneCont.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-            doneCont.setStyle("-fx-background-color: GOLD");
-        });
-        doneCont.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-            doneCont.setStyle("-fx-background-color: SLATEGREY");
-        });
-        ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
+        ImageView icon = new ImageView(new Image("/images/remove_icon.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Add", icon);
-        submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-        submitButton.setOnAction((ActionEvent e) -> {
+        submit = new Button("Confirm", icon);
+        submit.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+        submit.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
             clearOutlines();
             Properties props = new Properties();
 
-            String genEdAreaNm = genEdAreaName.getText();
-            if (genEdAreaNm.length() > 0 && genEdAreaNm.matches("[a-zA-Z0-9- ]+"))
+            String sloTextString = sloText.getText();
+            if (sloTextString.length() > 0 && sloTextString.matches("[a-zA-Z0-9- ]+"))
             {
-
-                props.setProperty("AreaName", genEdAreaNm);
-                String descr = notes.getText();
-                if (descr.length() > 0 && descr.matches("[a-zA-Z0-9-,-. ]+"))
+                props.setProperty("SLOText", sloTextString);
+                String notesString = notes.getText();
+                if (notesString.length() > 0 && notesString.matches("[a-zA-Z0-9-,-. ]+"))
                 {
-                    props.setProperty("Notes", descr);
-                    myModel.stateChangeRequest("AreaData", props);
+                    props.setProperty("Notes", notesString);
+                    myModel.stateChangeRequest("AddGenEdAreaSLO", props);
                 }
                 else
                 {
                     notes.setStyle("-fx-border-color: firebrick;");
-                    displayErrorMessage("ERROR: Please enter a valid Gen Ed Area description!");
+                    displayErrorMessage("ERROR: Please enter valid Gen Ed Area Notes!");
                 }
             }
             else
             {
                 genEdAreaName.setStyle("-fx-border-color: firebrick;");
-                displayErrorMessage("ERROR: Please enter a valid Gen Ed Area Name!");
+                displayErrorMessage("ERROR: Please enter a valid Gen Ed Area SLO!");
             }
 
+        });
 
+        submit.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            submit.setEffect(new DropShadow());
+        });
+        submit.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            submit.setEffect(null);
+        });
 
+        HBox buttonContainer = new HBox(10);
+        buttonContainer.setAlignment(Pos.CENTER);
+
+        buttonContainer.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            buttonContainer.setStyle("-fx-background-color: GOLD");
         });
-        submitButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-            submitButton.setEffect(new DropShadow());
+        buttonContainer.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            buttonContainer.setStyle("-fx-background-color: SLATEGREY");
         });
-        submitButton.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-            submitButton.setEffect(null);
-        });
-        doneCont.getChildren().add(submitButton);
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
         cancelButton = new Button("Return", icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-        cancelButton.setOnAction((ActionEvent e) -> {
-            clearErrorMessage();
-            myModel.stateChangeRequest("CancelAddArea", null);
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                clearErrorMessage();
+                myModel.stateChangeRequest("CancelAddGenEdAreaSLO", null);
+            }
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -252,26 +236,18 @@ public class AddGenEdAreaView extends View
         cancelButton.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             cancelButton.setEffect(null);
         });
-        doneCont.getChildren().add(cancelButton);
+        buttonContainer.getChildren().add(submit);
+        buttonContainer.getChildren().add(cancelButton);
 
         vbox.getChildren().add(grid);
-
-        vbox.getChildren().add(doneCont);
-        clearOutlines();
-        vbox.addEventFilter(KeyEvent.KEY_RELEASED, event->{
-            if (event.getCode() == KeyCode.ENTER) {
-                submitButton.fire();
-            }
-        });
+        vbox.getChildren().add(buttonContainer);
 
         return vbox;
-
     }
 
     // Create the status log field
     //-------------------------------------------------------------
-    private MessageView createStatusLog(String initialMessage)
-    {
+    private MessageView createStatusLog(String initialMessage) {
 
         statusLog = new MessageView(initialMessage);
 
@@ -281,9 +257,10 @@ public class AddGenEdAreaView extends View
     //-------------------------------------------------------------
     private void clearOutlines(){
         genEdAreaName.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
+        sloText.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
         notes.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
-    }
 
+    }
 
     // Create Copyright Panel
     //----------------------------------------------------------
@@ -293,75 +270,56 @@ public class AddGenEdAreaView extends View
     }
 
     //-------------------------------------------------------------
-    public void populateFields()
-    {
-        clearValues();
-        clearErrorMessage();
+    public void populateFields() {
+        String genEdAreaText = (String) myModel.getState("AreaName");
+        genEdAreaName.setText(genEdAreaText);
+        genEdAreaName.setEditable(false);
         notes.setText("NA");
-
     }
-
-
-    //-------------------------------------------------------------
-    public void clearValues()
-    {
-        genEdAreaName.clear();
-        notes.clear();
-    }
-
-
-
-
 
     //---------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
-        if (key.equals("TransactionError") == true)
-        {
-            String val = (String)value;
-            if (val.startsWith("ERR") == true)
-            {
-                displayErrorMessage(val);
+    public void updateState(String key, Object value) {
+        if (key.equals("TransactionError") == true) {
+            // display the passed text
+            String message = (String) value;
+            if ((message.startsWith("Err")) || (message.startsWith("ERR"))) {
+                displayErrorMessage(message);
+            } else {
+                displayMessage(message);
             }
-            else
-            {
-                clearValues();
-                displayMessage(val);
-            }
-
         }
-
-
     }
 
     /**
      * Display error message
      */
     //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
+    public void displayErrorMessage(String message) {
         statusLog.displayErrorMessage(message);
     }
 
-
     /**
-     * Display info message
+     * Display Informational message
      */
     //----------------------------------------------------------
-    public void displayMessage(String message)
-    {
+    public void displayMessage(String message) {
         statusLog.displayMessage(message);
     }
-
 
     /**
      * Clear error message
      */
     //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
+    public void clearErrorMessage() {
         statusLog.clearErrorMessage();
     }
+
+    //-------------------------------------------------------------
+    public void clearValues()
+    {
+        genEdAreaName.clear();
+        sloText.clear();
+        notes.clear();
+    }
+
 }
-
-
