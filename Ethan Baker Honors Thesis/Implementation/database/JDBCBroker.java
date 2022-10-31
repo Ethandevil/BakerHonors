@@ -82,7 +82,7 @@ public class JDBCBroker
 	protected JDBCBroker()
     	{
     		// DEBUG: System.out.println("JDBCBroker.JDBCBroker()");
-		props = new PropertyFile("C:\\Users\\elbak\\IdeaProjects\\BakerHonors\\Ethan Baker Honors Thesis\\Implementation\\dbConfig.ini");
+		props = new PropertyFile("/Users/mathias/IdeaProjects/BakerHonors/Ethan Baker Honors Thesis/Implementation/dbConfig.ini");
 		if (props != null)
 		{
 			dbName = props.getProperty("dbName");

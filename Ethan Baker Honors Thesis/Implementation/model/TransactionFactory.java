@@ -46,7 +46,6 @@ public class TransactionFactory
 			retValue = new DeleteGenEdAreaTransaction();
 		}
 		else if(transType.equals("AddNewGESLO")){
-			System.out.println("Here");
 			retValue = new AddGenEdAreaSLOTransaction();
 		}
 		/*
