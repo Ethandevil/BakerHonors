@@ -103,14 +103,14 @@ public class SLO extends EntityBase implements IView
         }
     }
 
-    /*public SLO(String GenEdAreaName, boolean flag) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
+    public SLO(String SLOText, boolean flag) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
 
         setDependencies();
 
-        GenEdAreaName = GenEdAreaName.trim();
-        String query = "SELECT * FROM " + myTableName + " WHERE (AreaName = '" + GenEdAreaName + "')";
+        SLOText = SLOText.trim();
+        String query = "SELECT * FROM " + myTableName + " WHERE (SLOText = '" + SLOText + "')";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -121,16 +121,16 @@ public class SLO extends EntityBase implements IView
             // if size = 0 throw the Invalid Primary Key Exception
             if (size == 0)
             {
-                throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Name : "
-                        + GenEdAreaName + " found.");
+                throw new InvalidPrimaryKeyException("No SLO matching SLO Text : "
+                        + SLOText + " found.");
             }
             else
-                // There should be EXACTLY one Gen Ed Area. More than that is an error
+                // There should be EXACTLY one SLO. More than that is an error
                 if (size != 1)
                 {
 
-                    throw new MultiplePrimaryKeysException("Multiple Gen Ed Areas matching Gen Ed Area Name : "
-                            + GenEdAreaName + " found.");
+                    throw new MultiplePrimaryKeysException("Multiple SLOs matching SLO Text : "
+                            + SLOText + " found.");
                 }
                 else
                 {
@@ -153,13 +153,13 @@ public class SLO extends EntityBase implements IView
 
                 }
         }
-        // If ISLO found for this ISLO Number, throw an Invalid Primary key exception
+        // If SLO found for this SLO Text, throw an Invalid Primary key exception
         else
         {
-            throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Area Name : "
-                    + GenEdAreaName + " found.");
+            throw new InvalidPrimaryKeyException("No SLO matching SLO Text : "
+                    + SLOText + " found.");
         }
-    }*/
+    }
 
     /**
      * Alternate constructor. Can be used to create a NEW SLO
