@@ -21,17 +21,28 @@ import javafx.beans.property.SimpleStringProperty;
 //==============================================================================
 public class SLOTableModel
 {
+    private final SimpleStringProperty sloID;
     private final SimpleStringProperty genEdAreaID;
-    private final SimpleStringProperty genEdAreaName;
+    private final SimpleStringProperty sloText;
     private final SimpleStringProperty notes;
 
     //----------------------------------------------------------------------------
     public SLOTableModel(Vector<String> genEdAreaData)
     {
-        genEdAreaID =  new SimpleStringProperty(genEdAreaData.elementAt(0));
-        genEdAreaName =  new SimpleStringProperty(genEdAreaData.elementAt(1));
-        notes =  new SimpleStringProperty(genEdAreaData.elementAt(2));
+        sloID =  new SimpleStringProperty(genEdAreaData.elementAt(0));
+        genEdAreaID =  new SimpleStringProperty(genEdAreaData.elementAt(1));
+        sloText =  new SimpleStringProperty(genEdAreaData.elementAt(2));
+        notes =  new SimpleStringProperty(genEdAreaData.elementAt(3));
+    }
 
+    //----------------------------------------------------------------------------
+    public String getSloID() {
+        return sloID.get();
+    }
+
+    //----------------------------------------------------------------------------
+    public void setSloID(String num) {
+        sloID.set(num);
     }
 
     //----------------------------------------------------------------------------
@@ -45,13 +56,13 @@ public class SLOTableModel
     }
 
     //----------------------------------------------------------------------------
-    public String getGenEdAreaName() {
-        return genEdAreaName.get();
+    public String getSloText() {
+        return sloText.get();
     }
 
     //----------------------------------------------------------------------------
-    public void setGenEdAreaName(String nm) {
-        genEdAreaName.set(nm);
+    public void setSloText(String text) {
+        sloText.set(text);
     }
 
     //----------------------------------------------------------------------------
@@ -63,6 +74,5 @@ public class SLOTableModel
     public void setNotes(String desc) {
         notes.set(desc);
     }
-
 
 }
