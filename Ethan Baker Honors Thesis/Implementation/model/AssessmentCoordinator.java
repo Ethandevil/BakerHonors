@@ -111,6 +111,7 @@ public class AssessmentCoordinator implements IView, IModel
 			(key.equals("UpdateGenEdArea")== true) ||
 			(key.equals("DeleteGenEdArea")== true) ||
 			(key.equals("AddNewGESLO")== true) ||
+			(key.equals("UpdateGESLO")== true) ||
 			(key.equals("AddNewSemester") == true) ||
 			(key.equals("UpdateSemester") == true) ||
 			(key.equals("AddNewCategoryName") == true) ||
