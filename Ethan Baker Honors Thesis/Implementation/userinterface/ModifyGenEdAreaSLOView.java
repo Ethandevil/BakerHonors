@@ -26,7 +26,7 @@ import javafx.scene.image.ImageView;
  *  Management Application
  */
 //==============================================================
-public class ModifyGenEdAreaSLOView extends AddGenEdAreaView
+public class ModifyGenEdAreaSLOView extends AddGenEdAreaSLOView
 {
 
     //
@@ -48,10 +48,14 @@ public class ModifyGenEdAreaSLOView extends AddGenEdAreaView
     public void populateFields()
     {
 
-        String genEdAreaNameVal = (String)myModel.getState("SLOText");
+        String genEdAreaNameVal = (String)myModel.getState("AreaName");
         if (genEdAreaNameVal != null)
         {
             genEdAreaName.setText(genEdAreaNameVal);
+        }
+        String sloTextVal = (String)myModel.getState("SLOText");
+        if (sloText != null) {
+            sloText.setText(sloTextVal);
         }
         String desc = (String)myModel.getState("Notes");
         if (desc != null)
@@ -59,11 +63,11 @@ public class ModifyGenEdAreaSLOView extends AddGenEdAreaView
             notes.setText(desc);
         }
 
-        submitButton.setText("Update"); //fix submitbutton
+        submit.setText("Update");
         ImageView icon = new ImageView(new Image("/images/savecolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton.setGraphic(icon);
+        submit.setGraphic(icon);
     }
 
     public void clearValues(){
