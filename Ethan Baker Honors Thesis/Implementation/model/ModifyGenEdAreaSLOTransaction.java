@@ -232,7 +232,7 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
             }
         }
         else
-        if (key.equals("SLOData") == true)
+        if (key.equals("AreaData") == true)
         {
             processSLOModify((Properties)value);
         }
@@ -283,7 +283,7 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
     //------------------------------------------------------
     protected Scene createModifySLOView()
     {
-        View newView = ViewFactory.createView("ModifySLOView", this);
+        View newView = ViewFactory.createView("ModifyGenEdAreaSLOView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;

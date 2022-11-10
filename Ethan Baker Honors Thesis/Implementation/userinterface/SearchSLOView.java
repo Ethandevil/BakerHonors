@@ -54,8 +54,7 @@ public class SearchSLOView extends View
 {
 
     // GUI components
-    protected TextField areaName;
-    protected TextField notes;
+    protected TextField SLOText;
 
     protected Button submitButton;
     protected Button cancelButton;
@@ -149,7 +148,7 @@ public class SearchSLOView extends View
         grid0.setVgap(10);
         grid0.setPadding(new Insets(0, 25, 10, 0));
 
-        Text isloNameLabel = new Text(" Area Name: ");
+        Text isloNameLabel = new Text(" SLO Text : ");
         Font myFont = Font.font("Comic Sans", FontWeight.THIN, 16);
         isloNameLabel.setFont(myFont);
         isloNameLabel.setFill(Color.GOLD);
@@ -157,27 +156,21 @@ public class SearchSLOView extends View
         isloNameLabel.setTextAlignment(TextAlignment.RIGHT);
         grid0.add(isloNameLabel, 0, 1);
 
-        areaName = new TextField();
-        areaName.setStyle("-fx-focus-color: darkgreen;");
-        areaName.setOnAction((ActionEvent e) -> {
+        SLOText = new TextField();
+        SLOText.setStyle("-fx-focus-color: darkgreen;");
+        SLOText.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
             Properties props = new Properties();
-            String areaNm = areaName.getText();
+            String areaNm = SLOText.getText();
             if (areaNm.length() > 0)
             {
-                props.setProperty("AreaName", areaNm);
-
-            }
-            String nts = notes.getText();
-            if (nts.length() > 0)
-            {
-                props.setProperty("Notes", nts);
+                props.setProperty("SLOText", areaNm);
 
             }
 
-            myModel.stateChangeRequest("SearchArea", props);
+            myModel.stateChangeRequest("SearchSLO", props);
         });
-        grid0.add(areaName, 1, 1);
+        grid0.add(SLOText, 1, 1);
 
         vbox.getChildren().add(grid0);
 
@@ -186,36 +179,6 @@ public class SearchSLOView extends View
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(0, 25, 10, 0));
-
-        Text descripLabel = new Text(" Notes : ");
-        descripLabel.setFont(myFont);
-        descripLabel.setFill(Color.GOLD);
-        descripLabel.setWrappingWidth(150);
-        descripLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(descripLabel, 0, 1);
-
-        notes = new TextField();
-        notes.setStyle("-fx-focus-color: darkgreen;");
-        notes.setOnAction((ActionEvent e) -> {
-            clearErrorMessage();
-            Properties props = new Properties();
-            String areaNm = areaName.getText();
-            if (areaNm.length() > 0)
-            {
-                props.setProperty("AreaName", areaNm);
-
-            }
-            String nts = notes.getText();
-            if (nts.length() > 0)
-            {
-                props.setProperty("Notes", nts);
-
-            }
-
-            myModel.stateChangeRequest("SearchArea", props);
-
-        });
-        grid.add(notes, 1, 1);
 
 
         HBox doneCont = new HBox(10);
@@ -234,21 +197,14 @@ public class SearchSLOView extends View
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
             Properties props = new Properties();
-            String areaNm = areaName.getText();
+            String areaNm = SLOText.getText();
             if (areaNm.length() > 0)
             {
-                props.setProperty("AreaName", areaNm);
-
-            }
-            String nts = notes.getText();
-
-            if (nts.length() > 0)
-            {
-                props.setProperty("Notes", nts);
+                props.setProperty("SLOText", areaNm);
 
             }
 
-            myModel.stateChangeRequest("SearchArea", props);
+            myModel.stateChangeRequest("SearchSLO", props);
 
 
         });
@@ -266,7 +222,7 @@ public class SearchSLOView extends View
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
-            myModel.stateChangeRequest("CancelSearchArea", null);
+            myModel.stateChangeRequest("CancelSearchSLO", null);
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -303,9 +259,7 @@ public class SearchSLOView extends View
     //----------------------------------------------------------
     public void clearValues()
     {
-        areaName.clear();
-        notes.clear();
-
+        SLOText.clear();
     }
 
     /**
