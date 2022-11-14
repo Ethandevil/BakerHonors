@@ -60,12 +60,13 @@ public class TransactionFactory
 		if (transType.equals("UpdateSemester") == true)
 		{
 			retValue = new UpdateSemesterTransaction();
-		}/*
+		}
 		else
 		if (transType.equals("AddNewOffering") == true)
 		{
+			System.out.println("HERE");
 			retValue = new AddOfferingTransaction();
-		}
+		}/*
 		else
 		if (transType.equals("UpdateOffering") == true)
 		{
