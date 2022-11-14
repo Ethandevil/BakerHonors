@@ -58,14 +58,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 
-import model.GenEdArea;
-import model.GenEdAreaCollection;
+import model.SLO;
+import model.SLOCollection;
 
 //==============================================================================
 public class SLOCollectionView extends View
 {
     protected Text promptText;
-    protected TableView<GenEdAreaTableModel> tableOfSLOs;
+    protected TableView<SLOTableModel> tableOfSLOs;
     protected Button cancelButton;
     protected Button submitButton;
     protected MessageView statusLog;
@@ -75,7 +75,7 @@ public class SLOCollectionView extends View
     public SLOCollectionView(IModel mislot)
     {
         // mislot - model - Modify ISLO Transaction acronym -> Rename
-        super(mislot, "GenEdAreaCollectionView");
+        super(mislot, "SLOCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -114,13 +114,13 @@ public class SLOCollectionView extends View
     protected void getEntryTableModelValues()
     {
 
-        ObservableList<GenEdAreaTableModel> tableData = FXCollections.observableArrayList();
+        ObservableList<SLOTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            GenEdAreaCollection genEdAreaCollection =
-                    (GenEdAreaCollection)myModel.getState("SLOList");
+            SLOCollection mySLOCollection =
+                    (SLOCollection)myModel.getState("SLOList");
 
-            Vector entryList = (Vector)genEdAreaCollection.getState("SLOs");
+            Vector entryList = (Vector)mySLOCollection.getState("SLOs");
 
             if (entryList.size() > 0)
             {
@@ -130,11 +130,11 @@ public class SLOCollectionView extends View
                 while (entries.hasMoreElements() == true)
                 {
 
-                    GenEdArea nextGenEdArea = (GenEdArea)entries.nextElement();
-                    Vector<String> view = nextGenEdArea.getEntryListView();
+                    SLO nextSLO = (SLO)entries.nextElement();
+                    Vector<String> view = nextSLO.getEntryListView();
 
                     // add this list entry to the list
-                    GenEdAreaTableModel nextTableRowData = new GenEdAreaTableModel(view);
+                    SLOTableModel nextTableRowData = new SLOTableModel(view);
                     tableData.add(nextTableRowData);
 
                 }
@@ -192,7 +192,7 @@ public class SLOCollectionView extends View
         promptText.setTextAlignment(TextAlignment.CENTER);
         vbox.getChildren().add(promptText);
 
-        tableOfSLOs = new TableView<GenEdAreaTableModel>();
+        tableOfSLOs = new TableView<SLOTableModel>();
         tableOfSLOs.setEffect(new DropShadow());
         tableOfSLOs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
         tableOfSLOs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -213,7 +213,7 @@ public class SLOCollectionView extends View
         tableOfSLOs.setOnMousePressed((MouseEvent event) -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
 
-                processGenEdAreaSelected();
+                processSLOSelected();
             }
         });
         ImageView icon = new ImageView(new Image("/images/check.png"));
@@ -226,7 +226,7 @@ public class SLOCollectionView extends View
             clearErrorMessage();
             // do the inquiry
 
-            processGenEdAreaSelected();
+            processSLOSelected();
         });
         submitButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             submitButton.setEffect(new DropShadow());
@@ -283,15 +283,15 @@ public class SLOCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processGenEdAreaSelected()
+    protected void processSLOSelected()
     {
-        GenEdAreaTableModel selectedItem = tableOfSLOs.getSelectionModel().getSelectedItem();
+        SLOTableModel selectedItem = tableOfSLOs.getSelectionModel().getSelectedItem();
 
         if(selectedItem != null)
         {
-            String selectedGenEdAreaName = selectedItem.getGenEdAreaName();
+            String selectedSLOText = selectedItem.getSloText();
 
-            myModel.stateChangeRequest("SLOSelected", selectedGenEdAreaName);
+            myModel.stateChangeRequest("SLOSelected", selectedSLOText);
         }
     }
 

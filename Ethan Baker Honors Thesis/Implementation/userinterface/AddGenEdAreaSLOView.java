@@ -177,23 +177,26 @@ public class AddGenEdAreaSLOView extends View {
         grid2.setVgap(10);
         grid2.setPadding(new Insets(25, 25, 25, 25));
 
-        sloText.setPrefHeight(150);
-        sloText.setPrefWidth(300);
+        sloText = new TextArea();
+        sloText.setPrefHeight(100);
+        //sloText.setPrefWidth(300);
+        sloText.setWrapText(true);
         Text sloTextLabel = new Text(" SLO Text : ");
         sloTextLabel.setFont(myFont);
         sloTextLabel.setWrappingWidth(150);
         sloTextLabel.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(sloTextLabel, 0, 1);
-        grid2.add(sloText = new TextArea(), 1, 1);
+        grid2.add(sloText, 1, 1);
 
-        notes.setPrefHeight(150);
-        notes.setPrefWidth(300);
+        notes = new TextArea();
+        notes.setMaxHeight(50);
+        //notes.setPrefWidth(300);
         Text notesLabel = new Text(" Notes : ");
         notesLabel.setFont(myFont);
         notesLabel.setWrappingWidth(150);
         notesLabel.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(notesLabel, 0, 2);
-        grid2.add(notes = new TextArea(), 1, 2);
+        grid2.add(notes, 1, 2);
 
         ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
         icon.setFitHeight(15);
@@ -206,11 +209,11 @@ public class AddGenEdAreaSLOView extends View {
             Properties props = new Properties();
 
             String sloTextString = sloText.getText();
-            if (sloTextString.length() > 0 && sloTextString.matches("[a-zA-Z0-9- ]+"))
+            if (sloTextString.length() > 0 && sloTextString.matches("[a-zA-Z0-9- ().]+"))
             {
                 props.setProperty("SLOText", sloTextString);
                 String notesString = notes.getText();
-                if (notesString.length() > 0 && notesString.matches("[a-zA-Z0-9-,-. ]+"))
+                if (notesString.length() > 0 && notesString.matches("[a-zA-Z0-9-,-. ().]+"))
                 {
                     props.setProperty("Notes", notesString);
                     myModel.stateChangeRequest("AreaData", props);
