@@ -33,9 +33,9 @@ public class ModifyGenEdAreaSLOView extends AddGenEdAreaSLOView
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public ModifyGenEdAreaSLOView(IModel genEdArea)
+    public ModifyGenEdAreaSLOView(IModel SLO)
     {
-        super(genEdArea);
+        super(SLO);
     }
 
     //-------------------------------------------------------------
@@ -52,6 +52,7 @@ public class ModifyGenEdAreaSLOView extends AddGenEdAreaSLOView
         if (genEdAreaNameVal != null)
         {
             genEdAreaName.setText(genEdAreaNameVal);
+            genEdAreaName.setEditable(false);
         }
         String sloTextVal = (String)myModel.getState("SLOText");
         if (sloText != null) {

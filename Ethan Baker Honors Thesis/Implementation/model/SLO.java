@@ -246,15 +246,14 @@ public class SLO extends EntityBase implements IView
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "SLO : " + persistentState.getProperty("SLOText") + " updated successfully!";
+                updateStatusMessage = "SLO data updated successfully!";
             }
             else
             {
                 Integer SLOID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("ID", "" + SLOID.intValue());
-                updateStatusMessage = "SLO : " +  persistentState.getProperty("SLOText")
-                        + " installed successfully!";
+                updateStatusMessage = "SLO data installed successfully!";
             }
         }
         catch (SQLException ex)

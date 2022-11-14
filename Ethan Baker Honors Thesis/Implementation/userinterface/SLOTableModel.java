@@ -27,12 +27,12 @@ public class SLOTableModel
     private final SimpleStringProperty notes;
 
     //----------------------------------------------------------------------------
-    public SLOTableModel(Vector<String> genEdAreaData)
+    public SLOTableModel(Vector<String> SLOData)
     {
-        sloID =  new SimpleStringProperty(genEdAreaData.elementAt(0));
-        genEdAreaID =  new SimpleStringProperty(genEdAreaData.elementAt(1));
-        sloText =  new SimpleStringProperty(genEdAreaData.elementAt(2));
-        notes =  new SimpleStringProperty(genEdAreaData.elementAt(3));
+        sloID =  new SimpleStringProperty(SLOData.elementAt(0));
+        genEdAreaID =  new SimpleStringProperty(SLOData.elementAt(1));
+        sloText =  new SimpleStringProperty(SLOData.elementAt(2));
+        notes =  new SimpleStringProperty(SLOData.elementAt(3));
     }
 
     //----------------------------------------------------------------------------

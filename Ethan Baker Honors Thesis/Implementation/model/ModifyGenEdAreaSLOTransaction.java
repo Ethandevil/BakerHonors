@@ -35,6 +35,8 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
 
     private SLOCollection mySLOList;
     private SLO mySelectedSLO;
+    private GenEdAreaCollection myGenEdAreaList;
+    private GenEdArea mySelectedGenEdArea;
 
 
     // GUI Components
@@ -55,19 +57,45 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelSearchSLO", "CancelTransaction");
+        dependencies.setProperty("CancelAddGenEdAreaSLO", "CancelTransaction");
+        dependencies.setProperty("CancelSearchArea", "CancelTransaction");
         dependencies.setProperty("CancelAddSLO", "CancelTransaction");
         dependencies.setProperty("CancelSLOList", "CancelTransaction");
-        dependencies.setProperty("SLOData", "TransactionError");
+        dependencies.setProperty("AreaData", "TransactionError");
+        dependencies.setProperty("CancelAreaList", "CancelTransaction");
 
         myRegistry.setDependencies(dependencies);
+    }
+
+    /**
+     * This method encapsulates all the logic of creating the Gen Ed Area Collection and showing the view
+     */
+    //----------------------------------------------------------
+    protected  void processTransaction(Properties props)
+    {
+        myGenEdAreaList = new GenEdAreaCollection();
+
+        String genEdAreaNm = props.getProperty("AreaName");
+        String notes = props.getProperty("Notes");
+        myGenEdAreaList.findByNameAndNotesPart(genEdAreaNm, notes);
+
+        try
+        {
+            Scene newScene = createGenEdAreaCollectionView();
+            swapToView(newScene);
+        }
+        catch (Exception ex)
+        {
+            new Event(Event.getLeafLevelClassName(this), "processTransaction",
+                    "Error in creating GenEdAreaCollectionView", Event.ERROR);
+        }
     }
 
     /**
      * This method encapsulates all the logic of creating the SLO Collection and showing the view
      */
     //----------------------------------------------------------
-    protected void processTransaction(Properties props)
+    protected void processSearchSLOTransaction(Properties props)
     {
         mySLOList = new SLOCollection();
 
@@ -173,6 +201,9 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
         {
             return mySLOList;
         }
+        else if (key.equals("GenEdAreaList")){
+            return myGenEdAreaList;
+        }
         else
         if (key.equals("SLOText") == true)
         {
@@ -189,6 +220,14 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
             else
                 return "";
         }
+        else if(key.equals("AreaName")){
+            if (mySelectedGenEdArea != null) {
+                return mySelectedGenEdArea.getState("AreaName");
+            }
+            else{
+                return "";
+            }
+        }
         else
         if (key.equals("TransactionError") == true)
         {
@@ -203,17 +242,34 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
     {
         // DEBUG System.out.println("UpdateISLOTransaction.sCR: key: " + key);
 
-        if ((key.equals("DoYourJob") == true) || (key.equals("CancelSLOList") == true))
+        if (key.equals("DoYourJob") || key.equals("CancelSLOList"))
         {
             doYourJob();
         }
-        else
-        if (key.equals("SearchSLO") == true)
-        {
-            processTransaction((Properties)value);
+        else if(key.equals("SearchArea")){
+            processTransaction((Properties) value);
+        }
+        else if(key.equals("GenEdAreaSelected")){
+            String genEdAreaNameSent = (String)value;
+            mySelectedGenEdArea = myGenEdAreaList.retrieve(genEdAreaNameSent);
+            mySLOList = new SLOCollection();
+            mySLOList.findByGenEdArea((String)mySelectedGenEdArea.getState("ID"));
+            try{
+                Scene newScene = createSLOCollectionView();
+                swapToView(newScene);
+            }
+            catch (Exception ex){
+                new Event(Event.getLeafLevelClassName(this), "processTransaction",
+                        "Error in creating AddGenEdAreaSLOView", Event.ERROR);
+            }
         }
         else
-        if (key.equals("SLOSelected") == true)
+        if (key.equals("SearchSLO"))
+        {
+            processSearchSLOTransaction((Properties)value);
+        }
+        else
+        if (key.equals("SLOSelected"))
         {
             String SLOTextSent = (String)value;
             mySelectedSLO = mySLOList.retrieve(SLOTextSent);
@@ -232,7 +288,7 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
             }
         }
         else
-        if (key.equals("AreaData") == true)
+        if (key.equals("AreaData"))
         {
             processSLOModify((Properties)value);
         }
@@ -247,14 +303,14 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
     //------------------------------------------------------
     protected Scene createView()
     {
-        Scene currentScene = myViews.get("SearchSLOView");
+        Scene currentScene = myViews.get("SearchGenEdAreaView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchSLOView", this);
+            View newView = ViewFactory.createView("SearchGenEdAreaView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchSLOView", currentScene);
+            myViews.put("SearchGenEdAreaView", currentScene);
 
             return currentScene;
         }
@@ -262,6 +318,18 @@ public class ModifyGenEdAreaSLOTransaction extends Transaction
         {
             return currentScene;
         }
+    }
+
+    /**
+     * Create the view containing the table of all matching Gen Ed Areas on the search criteria sent
+     */
+    //------------------------------------------------------
+    protected Scene createGenEdAreaCollectionView()
+    {
+        View newView = ViewFactory.createView("GenEdAreaCollectionView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
     }
 
     /**

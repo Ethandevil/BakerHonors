@@ -78,7 +78,8 @@ public class SLOCollection  extends EntityBase implements IView
     //-----------------------------------------------------------
     public void findByTextAndNotesPart(String textPart, String notesPart)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
+        //String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')"; todo
+        String query = "SELECT * FROM " + myTableName;
         if ((textPart == null) || (textPart.length() == 0))
         {
             if ((notesPart == null) ||
@@ -125,6 +126,13 @@ public class SLOCollection  extends EntityBase implements IView
         String query = "SELECT * FROM " + myTableName + "";
         populateCollectionHelper(query);
     }
+
+    //-----------------------------------------------------------
+    public void findByGenEdArea(String genEdAreaID){
+        String query = "SELECT * FROM " + myTableName + " WHERE (GenEdID = " + genEdAreaID + ")";
+        populateCollectionHelper(query);
+    }
+
 
 
 
