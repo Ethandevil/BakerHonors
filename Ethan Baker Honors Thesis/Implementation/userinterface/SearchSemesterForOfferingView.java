@@ -56,8 +56,8 @@ import javafx.util.StringConverter;
 import impresario.IModel;
 import model.Transaction;
 
-/** The class containing the Search Semester View  for linking Semester and ISLO 
- * for the ISLO Data
+/** The class containing the Search Semester View  for linking Semester and Gen Ed Area
+ * for the Gen Ed Area Data
  *  Management Application
  */
 //==============================================================
@@ -78,7 +78,7 @@ public class SearchSemesterForOfferingView extends SearchSemesterView
 
 	//---------------------------------------------------------
 	protected String getPromptString() {
-		return "Select/Enter Semester to link to ISLO information:";
+		return "Select/Enter Semester to link to Gen Ed Area information:";
 	}
 }
 

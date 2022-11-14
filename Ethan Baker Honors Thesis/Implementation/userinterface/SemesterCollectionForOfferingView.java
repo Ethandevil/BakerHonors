@@ -78,7 +78,7 @@ public class SemesterCollectionForOfferingView extends SemesterCollectionView
 	
 	//---------------------------------------------------------
 	protected String getPromptText() {
-		return "Select the semester you wish to link an ISLO to:";
+		return "Select the semester you wish to link a Gen Ed Area to:";
 	}
 
 	

@@ -27,14 +27,14 @@ import exception.MultiplePrimaryKeysException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the AddOfferingTransaction for the ISLO Data Management application */
+/** The class containing the AddOfferingTransaction for the Gen Ed Area Data Management application */
 //==============================================================
 public class AddOfferingTransaction extends Transaction
 {
 	private SemesterCollection mySemesterList;
 	private Semester mySelectedSemester;
-	private ISLOCollection myISLOList;
-	private ISLO mySelectedISLO;
+	private GenEdAreaCollection myGenEdAreaList;
+	private GenEdArea mySelectedGenEdArea;
 
 
 	// GUI Components
@@ -56,9 +56,9 @@ public class AddOfferingTransaction extends Transaction
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("CancelSemesterList", "CancelTransaction");
-		dependencies.setProperty("CancelSearchISLO", "CancelTransaction");
-		dependencies.setProperty("CancelISLOList", "CancelTransaction");
-		dependencies.setProperty("ISLOSelected", "TransactionError");
+		dependencies.setProperty("CancelSearchGenEdArea", "CancelTransaction");
+		dependencies.setProperty("CancelGenEdAreaList", "CancelTransaction");
+		dependencies.setProperty("GenEdAreaSelected", "TransactionError");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -70,18 +70,18 @@ public class AddOfferingTransaction extends Transaction
 	//----------------------------------------------------------
 	public void processTransaction(Properties props)
 	{
-		String isloId;
+		String genId;
 		String semId;
 
-		if (props.getProperty("ISLOID") != null)
+		if (props.getProperty("ID") != null)
 		{
-			isloId = props.getProperty("ISLOID");
+			genId = props.getProperty("ID");
 			if (props.getProperty("SemesterID") != null){
 				semId = props.getProperty("SemesterID");
 				try {
-					Offering newOffering = new Offering(isloId, semId);
+					Offering newOffering = new Offering(genId, semId);
 					transactionErrorMessage = "ERROR: Chosen semester (" + mySelectedSemester.getSemester() +
-					" " + mySelectedSemester.getYear() + ") and ISLO are already linked!";				
+					" " + mySelectedSemester.getYear() + ") and Gen Ed Area are already linked!";
 				}
 				catch (InvalidPrimaryKeyException ex) {
 					Offering newOffering = new Offering(props);
@@ -91,7 +91,7 @@ public class AddOfferingTransaction extends Transaction
 				}
 				catch (MultiplePrimaryKeysException ex) {
 					transactionErrorMessage = "ERROR: Chosen semester (" + mySelectedSemester.getSemester() +
-					" " + mySelectedSemester.getYear() + ") and ISLO are already linked multiple times!";
+					" " + mySelectedSemester.getYear() + ") and Gen Ed Area are already linked multiple times!";
 
 				}
 
@@ -105,7 +105,7 @@ public class AddOfferingTransaction extends Transaction
 		}
 		else 
 		{
-			transactionErrorMessage = "ERROR: ISLO Choice missing!";
+			transactionErrorMessage = "ERROR: Gen Ed Area Choice missing!";
 
 		}
 
@@ -120,9 +120,9 @@ public class AddOfferingTransaction extends Transaction
 			return mySemesterList;
 		}
 		else
-		if (key.equals("ISLOList") == true)
+		if (key.equals("GenEdAreaList") == true)
 		{
-			return myISLOList;
+			return myGenEdAreaList;
 		}
 
 		else
@@ -177,7 +177,7 @@ public class AddOfferingTransaction extends Transaction
 					try
 					{
 
-						Scene newScene = createSearchISLOView();
+						Scene newScene = createSearchGenEdAreaView();
 
 						swapToView(newScene);
 
@@ -185,46 +185,46 @@ public class AddOfferingTransaction extends Transaction
 					catch (Exception ex)
 					{
 						new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-								"Error in creating SearchISLOView", Event.ERROR);
+								"Error in creating SearchGenEdAreaView", Event.ERROR);
 						ex.printStackTrace();
 					}
 				}
 
 		else
-		if (key.equals("SearchISLO") == true) {
+		if (key.equals("SearchGenEdArea") == true) {
 
 			Properties props = (Properties)value;
 
-			myISLOList = new ISLOCollection();
+			myGenEdAreaList = new GenEdAreaCollection();
 	
-			String isloNm = props.getProperty("ISLOName");
-			String desc = props.getProperty("Description");
-			myISLOList.findByNameAndDescriptionPart(isloNm, desc);
+			String genNm = props.getProperty("GenEdAreaName");
+			String desc = props.getProperty("Notes");
+			myGenEdAreaList.findByNameAndNotesPart(genNm, desc);
 		
 			try
 			{	
-				Scene newScene = createISLOCollectionView();	
+				Scene newScene = createGenEdAreaCollectionView();
 				swapToView(newScene);
 			}
 			catch (Exception ex)
 			{
 			new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-					"Error in creating ISLOCollectionView", Event.ERROR);
+					"Error in creating GenEdAreaCollectionView", Event.ERROR);
 			}
 
 		}
 		else
-			if (key.equals("ISLOSelected") == true)
+			if (key.equals("GenEdAreaSelected") == true)
 			{
-				String isloNumSent = (String)value;
-					int isloNumSentVal =
-						Integer.parseInt(isloNumSent);
-					mySelectedISLO = myISLOList.retrieve(isloNumSentVal);
+				String genNumSent = (String)value;
+					int genNumSentVal =
+						Integer.parseInt(genNumSent);
+					mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSentVal);
 
 				Properties props = new Properties();
-				if (mySelectedISLO != null)
+				if (mySelectedGenEdArea != null)
 				{
-					props.setProperty("ISLOID", (String)mySelectedISLO.getState("ID"));
+					props.setProperty("ID", (String)mySelectedGenEdArea.getState("ID"));
 				}
 				if (mySelectedSemester != null)
 				{
@@ -276,17 +276,17 @@ public class AddOfferingTransaction extends Transaction
 	}
 
 	//------------------------------------------------------
-	protected Scene createSearchISLOView()
+	protected Scene createSearchGenEdAreaView()
 	{
 		
-		Scene currentScene = myViews.get("SearchISLOForOfferingView");
+		Scene currentScene = myViews.get("SearchGenEdAreaForOfferingView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("SearchISLOForOfferingView", this);
+			View newView = ViewFactory.createView("SearchGenEdAreaForOfferingView", this);
 			currentScene = new Scene(newView);
-			myViews.put("SearchISLOForOfferingView", currentScene);
+			myViews.put("SearchGenEdAreaForOfferingView", currentScene);
 
 			return currentScene;
 		}
@@ -298,9 +298,9 @@ public class AddOfferingTransaction extends Transaction
 	}
 
 	//------------------------------------------------------
-	protected Scene createISLOCollectionView()
+	protected Scene createGenEdAreaCollectionView()
 	{
-		View newView = ViewFactory.createView("ISLOCollectionForOfferingView", this);
+		View newView = ViewFactory.createView("GenEdAreaCollectionForOfferingView", this);
 		Scene currentScene = new Scene(newView);
 
 		return currentScene;
