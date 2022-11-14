@@ -186,7 +186,7 @@ public class GenEdArea extends EntityBase implements IView
         }
     }
 
-    //-----------------------------------------------------------------------------------
+    //----------------------------------------------------------
     private void setDependencies()
     {
         dependencies = new Properties();
@@ -199,6 +199,9 @@ public class GenEdArea extends EntityBase implements IView
     {
         if (key.equals("UpdateStatusMessage") == true)
             return updateStatusMessage;
+        else if(key.equals("GenEdID")){
+            return persistentState.getProperty("ID");
+        }
 
         return persistentState.getProperty(key);
     }

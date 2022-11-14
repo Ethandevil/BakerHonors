@@ -49,7 +49,15 @@ public class ViewFactory {
 		else if(viewName.equals("AddGenEdAreaSLOView")){
 			return new AddGenEdAreaSLOView(model);
 		}
-		/*
+		else if(viewName.equals("ModifyGenEdAreaSLOView")){
+			return new ModifyGenEdAreaSLOView(model);
+		}
+		else if(viewName.equals("SearchSLOView")){
+			return new SearchSLOView(model);
+		}
+		else if(viewName.equals("SLOCollectionView")){
+			return new SLOCollectionView(model);
+		}
 		else if(viewName.equals("AddSemesterView") == true)
 		{
 			return new AddSemesterView(model);
@@ -66,7 +74,7 @@ public class ViewFactory {
 		{
 			return new SemesterCollectionView(model);
 		}
-
+/*
 		else if(viewName.equals("SearchSemesterForOfferingView") == true)
         	{
            		return new SearchSemesterForOfferingView(model);

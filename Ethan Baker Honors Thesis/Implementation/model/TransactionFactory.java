@@ -48,7 +48,9 @@ public class TransactionFactory
 		else if(transType.equals("AddNewGESLO")){
 			retValue = new AddGenEdAreaSLOTransaction();
 		}
-		/*
+		else if(transType.equals("UpdateGESLO")){
+			retValue = new ModifyGenEdAreaSLOTransaction();
+		}
 		else
 		if (transType.equals("AddNewSemester") == true)
 		{
@@ -58,7 +60,7 @@ public class TransactionFactory
 		if (transType.equals("UpdateSemester") == true)
 		{
 			retValue = new UpdateSemesterTransaction();
-		}
+		}/*
 		else
 		if (transType.equals("AddNewOffering") == true)
 		{

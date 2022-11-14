@@ -114,7 +114,7 @@ public class AddGenEdAreaSLOTransaction extends Transaction
                         else
                         {
 
-
+                            props.setProperty("GenEdID", (String)mySelectedGenEdArea.getState("GenEdID"));
                             mySLO = new SLO(props);
                             mySLO.update();
                             transactionErrorMessage = (String)mySLO.getState("UpdateStatusMessage");
