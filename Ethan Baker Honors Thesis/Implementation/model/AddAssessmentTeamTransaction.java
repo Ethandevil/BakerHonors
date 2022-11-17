@@ -13,11 +13,8 @@
 package model;
 
 // system imports
-import utilities.GlobalVariables;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.Properties;
-import java.util.Vector;
 
 // project imports
 import event.Event;
@@ -27,9 +24,9 @@ import exception.MultiplePrimaryKeysException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the AddOfferingTransaction for the Gen Ed Area Data Management application */
+/** The class containing the AddAssessmentTeamTransaction for the Gen Ed Area Data Management application */
 //==============================================================
-public class AddOfferingTransaction extends Transaction
+public class AddAssessmentTeamTransaction extends Transaction
 {
 	private SemesterCollection mySemesterList;
 	private Semester mySelectedSemester;
@@ -46,7 +43,7 @@ public class AddOfferingTransaction extends Transaction
 	 *
 	 */
 	//----------------------------------------------------------
-	public AddOfferingTransaction() throws Exception
+	public AddAssessmentTeamTransaction() throws Exception
 	{
 		super();
 	}
@@ -56,8 +53,8 @@ public class AddOfferingTransaction extends Transaction
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("CancelSemesterList", "CancelTransaction");
-		dependencies.setProperty("CancelSearchGenEdArea", "CancelTransaction");
-		dependencies.setProperty("CancelGenEdAreaList", "CancelTransaction");
+		dependencies.setProperty("CancelSearchArea", "CancelTransaction");
+		dependencies.setProperty("CancelAreaList", "CancelTransaction");
 		dependencies.setProperty("GenEdAreaSelected", "TransactionError");
 
 		myRegistry.setDependencies(dependencies);
@@ -79,12 +76,12 @@ public class AddOfferingTransaction extends Transaction
 			if (props.getProperty("SemesterID") != null){
 				semId = props.getProperty("SemesterID");
 				try {
-					Offering newOffering = new Offering(genId, semId);
+					AssessmentTeam newOffering = new AssessmentTeam(genId, semId);
 					transactionErrorMessage = "ERROR: Chosen semester (" + mySelectedSemester.getSemester() +
 					" " + mySelectedSemester.getYear() + ") and Gen Ed Area are already linked!";
 				}
 				catch (InvalidPrimaryKeyException ex) {
-					Offering newOffering = new Offering(props);
+					AssessmentTeam newOffering = new AssessmentTeam(props);
 					newOffering.update();
 					transactionErrorMessage = (String)newOffering.getState("UpdateStatusMessage");
 
@@ -191,7 +188,7 @@ public class AddOfferingTransaction extends Transaction
 				}
 
 		else
-		if (key.equals("SearchGenEdArea") == true) {
+		if (key.equals("SearchArea") == true) {
 
 			Properties props = (Properties)value;
 
@@ -217,9 +214,8 @@ public class AddOfferingTransaction extends Transaction
 			if (key.equals("GenEdAreaSelected") == true)
 			{
 				String genNumSent = (String)value;
-					int genNumSentVal =
-						Integer.parseInt(genNumSent);
-					mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSentVal);
+
+					mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
 
 				Properties props = new Properties();
 				if (mySelectedGenEdArea != null)
@@ -244,14 +240,14 @@ public class AddOfferingTransaction extends Transaction
 	//------------------------------------------------------
 	protected Scene createView()
 	{
-		Scene currentScene = myViews.get("SearchSemesterForOfferingView");
+		Scene currentScene = myViews.get("SearchSemesterForAssessmentTeamView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("SearchSemesterForOfferingView", this);
+			View newView = ViewFactory.createView("SearchSemesterForAssessmentTeamView", this);
 			currentScene = new Scene(newView);
-			myViews.put("SearchSemesterForOfferingView", currentScene);
+			myViews.put("SearchSemesterForAssessmentTeamView", currentScene);
 
 			return currentScene;
 		}
@@ -268,7 +264,7 @@ public class AddOfferingTransaction extends Transaction
 	//------------------------------------------------------
 	protected Scene createSemesterCollectionView()
 	{
-		View newView = ViewFactory.createView("SemesterCollectionForOfferingView", this);
+		View newView = ViewFactory.createView("SemesterCollectionForAssessmentTeamView", this);
 		Scene currentScene = new Scene(newView);
 
 		return currentScene;
@@ -279,14 +275,14 @@ public class AddOfferingTransaction extends Transaction
 	protected Scene createSearchGenEdAreaView()
 	{
 		
-		Scene currentScene = myViews.get("SearchGenEdAreaForOfferingView");
+		Scene currentScene = myViews.get("SearchGenEdAreaForAssessmentTeamView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("SearchGenEdAreaForOfferingView", this);
+			View newView = ViewFactory.createView("SearchGenEdAreaForAssessmentTeamView", this);
 			currentScene = new Scene(newView);
-			myViews.put("SearchGenEdAreaForOfferingView", currentScene);
+			myViews.put("SearchGenEdAreaForAssessmentTeamView", currentScene);
 
 			return currentScene;
 		}
@@ -300,7 +296,7 @@ public class AddOfferingTransaction extends Transaction
 	//------------------------------------------------------
 	protected Scene createGenEdAreaCollectionView()
 	{
-		View newView = ViewFactory.createView("GenEdAreaCollectionForOfferingView", this);
+		View newView = ViewFactory.createView("GenEdAreaCollectionForAssessmentTeamView", this);
 		Scene currentScene = new Scene(newView);
 
 		return currentScene;

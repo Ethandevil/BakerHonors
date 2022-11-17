@@ -116,11 +116,11 @@ public class AssessmentCoordinator implements IView, IModel
 			(key.equals("UpdateSemester") == true) ||
 			(key.equals("AddNewCategoryName") == true) ||
 			(key.equals("UpdateCategoryName") == true) ||
-			(key.equals("AddNewOffering") == true) ||
-			(key.equals("UpdateOffering") == true) ||
-			(key.equals("AddNewOfferingTeacher") == true) ||
-			(key.equals("UpdateOfferingTeacher") == true) ||
-			(key.equals("DeleteOfferingTeacher") == true) ||
+			(key.equals("AddNewAssessmentTeam") == true) ||
+			(key.equals("UpdateAssessmentTeam") == true) ||
+			(key.equals("AddCourseToTeam") == true) ||
+			(key.equals("UpdateCourseInTeam") == true) ||
+			(key.equals("DeleteCourseInTeam") == true) ||
 			(key.equals("AddNewStudentCategorization") == true) ||
 			(key.equals("UpdateStudentCategorization") == true) ||
 			(key.equals("Reports") == true))

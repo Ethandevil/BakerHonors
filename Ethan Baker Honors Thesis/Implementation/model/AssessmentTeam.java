@@ -23,18 +23,14 @@ import java.util.Vector;
 // project imports
 import exception.InvalidPrimaryKeyException;
 import exception.MultiplePrimaryKeysException;
-import database.*;
 
 import impresario.IView;
-
-import userinterface.View;
-import userinterface.ViewFactory;
 
 /** The class containing the Offering information for the Gen Ed Area Data Management
  * application
  */
 //==============================================================
-public class Offering extends EntityBase implements IView
+public class AssessmentTeam extends EntityBase implements IView
 {
     private static final String myTableName = "AssessmentTeam";
 
@@ -45,7 +41,7 @@ public class Offering extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public Offering(String genEdAreaId, String semId) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
+    public AssessmentTeam(String genEdAreaId, String semId) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
 
@@ -107,7 +103,7 @@ public class Offering extends EntityBase implements IView
      * Alternate constructor. Can be used to create a NEW offering
      */
     //----------------------------------------------------------
-    public Offering(Properties props)
+    public AssessmentTeam(Properties props)
     {
         super(myTableName);
 
@@ -162,7 +158,7 @@ public class Offering extends EntityBase implements IView
 
 
     //-----------------------------------------------------------------------------------
-    public static int compare(Offering a, Offering b)
+    public static int compare(AssessmentTeam a, AssessmentTeam b)
     {
         String aVal = (String)a.getState("GenEdAreaID");
         String bVal = (String)b.getState("GenEdAreaID");

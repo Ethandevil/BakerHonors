@@ -16,25 +16,25 @@ package model;
 // system imports
 import java.util.Vector;
 
-/** The class containing the Offering Display information for the Gen Ed Assessment Data Management
+/** The class containing the Assessment Team Display information for the Gen Ed Assessment Data Management
  * application
  */
 //==============================================================
-public class OfferingDisplay
+public class AssessmentTeamDisplay
 {
 
     //
-	private String offeringID;
+	private String assessmentTeamID;
 	private String semName;
 	private String year;
 	private String areaName;
 
     // constructor for this class
     //----------------------------------------------------------
-    public OfferingDisplay(String offrngID,
+    public AssessmentTeamDisplay(String offrngID,
 	String semNm, String yr, String areaNm) {
 		
-		offeringID = offrngID;
+		assessmentTeamID = offrngID;
 		semName = semNm;
 		year = yr;
 		areaName = areaNm;
@@ -47,7 +47,7 @@ public class OfferingDisplay
 	}
 
 //-----------------------------------------------------------------------------------
-    public static int compare(OfferingDisplay a, OfferingDisplay b)
+    public static int compare(AssessmentTeamDisplay a, AssessmentTeamDisplay b)
     {
         String aVal = a.getGenEdAreaName();
         String bVal = b.getGenEdAreaName();
@@ -56,7 +56,7 @@ public class OfferingDisplay
 
     
     /**
-     * This method is needed solely to enable the Offering Display information to be displayable in a table
+     * This method is needed solely to enable the Assessment Team Display information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class OfferingDisplay
     {
         Vector<String> v = new Vector<String>();
 
-		v.add(offeringID);
+		v.add(assessmentTeamID);
 		v.add(areaName);
 		v.add(semName + " " + year);
 

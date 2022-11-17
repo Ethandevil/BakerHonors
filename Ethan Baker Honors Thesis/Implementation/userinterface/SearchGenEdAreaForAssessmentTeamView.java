@@ -24,12 +24,12 @@ import impresario.IModel;
  *  for the Gen Ed Area Data Management application
  */
 //==============================================================
-public class SearchGenEdAreaForOfferingView extends SearchGenEdAreaView
+public class SearchGenEdAreaForAssessmentTeamView extends SearchGenEdAreaView
 {
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchGenEdAreaForOfferingView(IModel mdl)
+	public SearchGenEdAreaForAssessmentTeamView(IModel mdl)
 	{
 		
 		super(mdl);

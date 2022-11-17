@@ -62,15 +62,15 @@ public class TransactionFactory
 			retValue = new UpdateSemesterTransaction();
 		}
 		else
-		if (transType.equals("AddNewOffering") == true)
+		if (transType.equals("AddNewAssessmentTeam") == true)
 		{
 			System.out.println("HERE");
-			retValue = new AddOfferingTransaction();
-		}/*
+			retValue = new AddAssessmentTeamTransaction();
+		}
 		else
-		if (transType.equals("UpdateOffering") == true)
+		if (transType.equals("UpdateAssessmentTeam") == true)
 		{
-			retValue = new UpdateOfferingTransaction();
+			retValue = new ModifyAssessmentTeamTransaction();
 		}
 		else
 		if (transType.equals("AddNewCategoryName") == true)
@@ -81,7 +81,7 @@ public class TransactionFactory
 		if (transType.equals("UpdateCategoryName") == true)
 		{
 			retValue = new UpdatePerformanceCategoryTransaction();
-		}
+		}/*
 		else
 		if (transType.equals("AddNewOfferingTeacher") == true)
 		{

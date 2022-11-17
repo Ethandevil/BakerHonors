@@ -74,39 +74,38 @@ public class ViewFactory {
 		{
 			return new SemesterCollectionView(model);
 		}
-/*
-		else if(viewName.equals("SearchSemesterForOfferingView") == true)
+		else if(viewName.equals("SearchSemesterForAssessmentTeamView") == true)
         	{
-           		return new SearchSemesterForOfferingView(model);
+           		return new SearchSemesterForAssessmentTeamView(model);
         	}
-        	else if(viewName.equals("SemesterCollectionForOfferingView") == true)
+        	else if(viewName.equals("SemesterCollectionForAssessmentTeamView") == true)
         	{
-            	return new SemesterCollectionForOfferingView(model);
+            	return new SemesterCollectionForAssessmentTeamView(model);
         	}
-		else if(viewName.equals("ISLOCollectionForOfferingView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForAssessmentTeamView") == true)
 		{
-			return new ISLOCollectionForOfferingView(model);
+			return new GenEdAreaCollectionForAssessmentTeamView(model);
 		}
-		else if(viewName.equals("SearchISLOForOfferingView") == true)
+		else if(viewName.equals("SearchGenEdAreaForAssessmentTeamView") == true)
 		{
-			return new SearchISLOForOfferingView(model);
-		}
-		else if(viewName.equals("SearchISLOForModifyingOfferingView") == true)
+			return new SearchGenEdAreaForAssessmentTeamView(model);
+		}/*
+		else if(viewName.equals("SearchGenEdAreaForModifyingAssessmentTeamView") == true)
 		{
-			return new SearchISLOForModifyingOfferingView(model);
+			return new SearchGenEdAreaForModifyingAssessmentTeamView(model);
 		}
-		else if(viewName.equals("ISLOCollectionForModifyingOfferingView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForModifyingAssessmentTeamView") == true)
 		{
-			return new ISLOCollectionForModifyingOfferingView(model);
+			return new GenEdAreaCollectionForModifyingAssessmentTeamView(model);
 		}
-        	else if(viewName.equals("OfferingDisplayCollectionView") == true)
+        	else if(viewName.equals("AssessmentTeamDisplayCollectionView") == true)
 		{
-			return new OfferingDisplayCollectionView(model);
+			return new AssessmentTeamDisplayCollectionView(model);
 		}
-       	 else if(viewName.equals("SemesterCollectionForModifyOfferingView") == true)
+       	 else if(viewName.equals("SemesterCollectionForModifyAssessmentTeamView") == true)
        	{
-           		return new SemesterCollectionForModifyOfferingView(model);
-        	}
+           		return new SemesterCollectionForModifyAssessmentTeamView(model);
+		   }*/
 		else if(viewName.equals("AddPerformanceCategoryView") == true)
 		{
 			return new AddPerformanceCategoryView(model);
@@ -118,7 +117,7 @@ public class ViewFactory {
 		else if(viewName.equals("ModifyPerformanceCategoryView") == true)
 		{
 			return new ModifyPerformanceCategoryView(model);
-		}
+		}/*
         	else if(viewName.equals("SearchISLOForOfferingTeacherView") == true)
 		{
 			return new SearchISLOForOfferingTeacherView(model);

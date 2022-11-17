@@ -62,25 +62,58 @@ import model.Semester;
 import model.SemesterCollection;
 
 //==============================================================================
-public class SemesterCollectionForOfferingView extends SemesterCollectionView
+public class SemesterCollectionForModifyOfferingView extends SemesterCollectionView
 {
 	
         
 	//--------------------------------------------------------------------------
-	public SemesterCollectionForOfferingView(IModel model)
+	public SemesterCollectionForModifyOfferingView(IModel model)
 	{
 		
 		super(model);
-
+		myModel.subscribe("TransactionError", this);
 		
 	}
 
 	
 	//---------------------------------------------------------
 	protected String getPromptText() {
-		return "Select the semester you wish to link a Gen Ed Area to:";
+		return "Select the new semester you wish to link the ISLO \"" + myModel.getState("ISLOName") + "\" to:";
 	}
 
 	
+    //---------------------------------------------------------
+    public void updateState(String key, Object value) {
+        if (key.equals("TransactionError") == true) {
+            // display the passed text
+            String message = (String) value;
+            if ((message.startsWith("Err")) || (message.startsWith("ERR"))) {
+                displayErrorMessage(message);
+            } else {
+                displayMessage(message);
+            }
+
+        }
+    }
+
+    /**
+	 * Display error message
+	 */
+	//----------------------------------------------------------
+	public void displayErrorMessage(String message)
+	{
+		statusLog.displayErrorMessage(message);
+	}
+
+
+	/**
+	 * Display info message
+	 */
+	//----------------------------------------------------------
+	public void displayMessage(String message)
+	{
+		statusLog.displayMessage(message);
+	}
+
 
 }

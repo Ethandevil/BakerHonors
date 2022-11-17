@@ -14,36 +14,28 @@
 package model;
 
 // system imports
-import utilities.GlobalVariables;
 import java.util.Properties;
 import java.util.Vector;
-import javafx.scene.Scene;
 
 // project imports
-import exception.InvalidPrimaryKeyException;
-import event.Event;
-import database.*;
 
 import impresario.IView;
-
-import userinterface.View;
-import userinterface.ViewFactory;
 
 
 /** The class containing the Offering Collection for the Gen Ed Assessment Data
  * Management application 
  */
 //==============================================================
-public class OfferingCollection  extends EntityBase implements IView
+public class AssessmentTeamCollection  extends EntityBase implements IView
 {
 	private static final String myTableName = "AssessmentTeam";
 
-	private Vector<Offering> offerings;
+	private Vector<AssessmentTeam> assessmentTeams;
 	// GUI Components
 
 	// constructor for this class
 	//----------------------------------------------------------
-	public OfferingCollection( ) 
+	public AssessmentTeamCollection( )
 	{
 		super(myTableName);
 
@@ -58,17 +50,17 @@ public class OfferingCollection  extends EntityBase implements IView
 
 		if (allDataRetrieved != null)
 		{
-			offerings = new Vector<Offering>();
+			assessmentTeams = new Vector<AssessmentTeam>();
 
 			for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
 			{
-				Properties nextOfferingData = allDataRetrieved.elementAt(cnt);
+				Properties nextAssessmentTeamData = allDataRetrieved.elementAt(cnt);
 
-				Offering ofrng = new Offering(nextOfferingData);
+				AssessmentTeam assmnttm = new AssessmentTeam(nextAssessmentTeamData);
 
-				if (ofrng != null)
+				if (assmnttm != null)
 				{
-					addOffering(ofrng);
+					addAssessmentTeam(assmnttm);
 				}
 			}
 
@@ -92,26 +84,26 @@ public class OfferingCollection  extends EntityBase implements IView
 
 	
 	//----------------------------------------------------------------------------------
-	private void addOffering(Offering o)
+	private void addAssessmentTeam(AssessmentTeam a)
 	{
-		int index = findIndexToAdd(o);
-		offerings.insertElementAt(o,index); // To build up a collection sorted on some key
+		int index = findIndexToAdd(a);
+		assessmentTeams.insertElementAt(a,index); // To build up a collection sorted on some key
 	}
 
 	//----------------------------------------------------------------------------------
-	private int findIndexToAdd(Offering o)
+	private int findIndexToAdd(AssessmentTeam o)
 	{
 		int low=0;
-		int high = offerings.size()-1;
+		int high = assessmentTeams.size()-1;
 		int middle;
 
 		while (low <=high)
 		{
 			middle = (low+high)/2;
 
-			Offering midSession = offerings.elementAt(middle);
+			AssessmentTeam midSession = assessmentTeams.elementAt(middle);
 
-			int result = Offering.compare(o,midSession);
+			int result = AssessmentTeam.compare(o,midSession);
 
 			if (result ==0)
 			{
@@ -136,10 +128,10 @@ public class OfferingCollection  extends EntityBase implements IView
 	//----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("Offerings"))
-			return offerings;
+		if (key.equals("AssessmentTeams"))
+			return assessmentTeams;
 		else
-			if (key.equals("OfferingList"))
+			if (key.equals("AssessmentTeamList"))
 				return this;
 		return null;
 	}
@@ -151,16 +143,16 @@ public class OfferingCollection  extends EntityBase implements IView
 	}
 
 	//----------------------------------------------------------
-	public Offering retrieve(String offeringID)
+	public AssessmentTeam retrieve(String assessmentTeamID)
 	{
-		Offering retValue = null;
-		for (int cnt = 0; cnt < offerings.size(); cnt++)
+		AssessmentTeam retValue = null;
+		for (int cnt = 0; cnt < assessmentTeams.size(); cnt++)
 		{
-			Offering nextOffering = offerings.elementAt(cnt);
-			String nextOfferingId = (String)nextOffering.getState("ID");
-			if (nextOfferingId.equals(""+offeringID) == true)
+			AssessmentTeam nextAssessmentTeam = assessmentTeams.elementAt(cnt);
+			String nextAssessmentTeamId = (String)nextAssessmentTeam.getState("ID");
+			if (nextAssessmentTeamId.equals(""+assessmentTeamID) == true)
 			{
-				retValue = nextOffering;
+				retValue = nextAssessmentTeam;
 				return retValue; // we should say 'break;' here
 			}
 		}

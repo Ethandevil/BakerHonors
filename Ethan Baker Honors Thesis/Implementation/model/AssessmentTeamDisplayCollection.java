@@ -19,42 +19,42 @@ import java.util.Vector;
 // project imports
 import event.Event;
 
-/** The class containing the Offering Display Collection for the Gen Ed Assessment Data Management
+/** The class containing the Assessment Team Display Collection for the Gen Ed Assessment Data Management
  * application
  */
 //==============================================================
-public class OfferingDisplayCollection
+public class AssessmentTeamDisplayCollection
 {
 
     //
-	private Vector<OfferingDisplay> odisps;
+	private Vector<AssessmentTeamDisplay> atdisps;
 
     // constructor for this class
     //----------------------------------------------------------
-    public OfferingDisplayCollection() {
+    public AssessmentTeamDisplayCollection() {
 		
-		odisps = new Vector<OfferingDisplay>();
+		atdisps = new Vector<AssessmentTeamDisplay>();
     }
 
 	//---------------------------------------------------------
-	public OfferingDisplayCollection(OfferingCollection oc)
+	public AssessmentTeamDisplayCollection(AssessmentTeamCollection oc)
 	{
-		odisps = new Vector<OfferingDisplay>();
-		Vector<Offering> currOfferings = (Vector)oc.getState("Offerings");
-		for (int cnt = 0; cnt < currOfferings.size(); cnt++)
+		atdisps = new Vector<AssessmentTeamDisplay>();
+		Vector<AssessmentTeam> currAssessmentTeams = (Vector)oc.getState("AssessmentTeams");
+		for (int cnt = 0; cnt < currAssessmentTeams.size(); cnt++)
 		{
-			Offering nextOffering = currOfferings.get(cnt);
-			String offId = (String)nextOffering.getState("ID");
-			String areaId = (String)nextOffering.getState("GenEdAreaID");
-			String semId = (String)nextOffering.getState("SemesterID");
+			AssessmentTeam nextAssessmentTeam = currAssessmentTeams.get(cnt);
+			String offId = (String)nextAssessmentTeam.getState("ID");
+			String areaId = (String)nextAssessmentTeam.getState("GenEdAreaID");
+			String semId = (String)nextAssessmentTeam.getState("SemesterID");
 			try {
 				GenEdArea nextGenEdArea = new GenEdArea(areaId);
 				String areaNm = nextGenEdArea.getName();
 				Semester nextSem = new Semester(semId);
 				String semName = nextSem.getSemester();
 				String semYr = nextSem.getYear();
-				OfferingDisplay od = new OfferingDisplay(offId, semName, semYr, areaNm);
-				addOfferingDisplay(od);
+				AssessmentTeamDisplay od = new AssessmentTeamDisplay(offId, semName, semYr, areaNm);
+				addAssessmentTeamDisplay(od);
 			}
 			catch (Exception ex) {
 				new Event(Event.getLeafLevelClassName(this), "<init>",
@@ -64,27 +64,26 @@ public class OfferingDisplayCollection
 	}
 	
 	//--------------------------------------------------------
-	public void addOfferingDisplay(OfferingDisplay od)
+	public void addAssessmentTeamDisplay(AssessmentTeamDisplay od)
 	{
 		int index = findIndexToAdd(od);
-		odisps.insertElementAt(od,index); // To build up a collection sorted on some key
+		atdisps.insertElementAt(od,index); // To build up a collection sorted on some key
 	}
 
 	//----------------------------------------------------------------------------------
-	private int findIndexToAdd(OfferingDisplay od)
+	private int findIndexToAdd(AssessmentTeamDisplay atd)
 	{
 		int low=0;
-		int high = odisps.size()-1;
+		int high = atdisps.size()-1;
 		int middle;
 
 		while (low <=high)
 		{
 			middle = (low+high)/2;
 
-			OfferingDisplay midSession = odisps.elementAt(middle);
+			AssessmentTeamDisplay midSession = atdisps.elementAt(middle);
 
-			int result = OfferingDisplay.compare(od,midSession);
-
+			int result = AssessmentTeamDisplay.compare(atd,midSession);
 			if (result ==0)
 			{
 				return middle;
@@ -103,10 +102,10 @@ public class OfferingDisplayCollection
 
 
 	//-----------------------------------------------------------
-	public OfferingDisplay retrieve(int index) {
+	public AssessmentTeamDisplay retrieve(int index) {
 	
-		if ((index >= 0) && (index < odisps.size())) {
-			return odisps.elementAt(index);
+		if ((index >= 0) && (index < atdisps.size())) {
+			return atdisps.elementAt(index);
 		}
 		else {
 			return null;
@@ -115,14 +114,14 @@ public class OfferingDisplayCollection
 
 	//-----------------------------------------------------------
 	public int getSize() {
-		if (odisps != null) return odisps.size();
+		if (atdisps != null) return atdisps.size();
 			else
 		return 0;
 	}
 
 	//---------------------------------------------------------
-	public Vector getOfferingDisplays() {
-		return odisps;
+	public Vector getAssessmentTeamDisplays() {
+		return atdisps;
 	}
     
 
