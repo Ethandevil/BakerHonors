@@ -15,59 +15,17 @@
 package userinterface;
 
 // system imports
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.util.Vector;
-import java.util.Enumeration;
 
 // project imports
 import impresario.IModel;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.InnerShadow;
-
-import model.Semester;
-import model.SemesterCollection;
 
 //==============================================================================
-public class SemesterCollectionForModifyOfferingView extends SemesterCollectionView
+public class SemesterCollectionForModifyAssessmentTeamView extends SemesterCollectionView
 {
 	
         
 	//--------------------------------------------------------------------------
-	public SemesterCollectionForModifyOfferingView(IModel model)
+	public SemesterCollectionForModifyAssessmentTeamView(IModel model)
 	{
 		
 		super(model);
@@ -78,7 +36,7 @@ public class SemesterCollectionForModifyOfferingView extends SemesterCollectionV
 	
 	//---------------------------------------------------------
 	protected String getPromptText() {
-		return "Select the new semester you wish to link the ISLO \"" + myModel.getState("ISLOName") + "\" to:";
+		return "Select the new semester you wish to link the Gen Ed Area \"" + myModel.getState("AreaName") + "\" to:";
 	}
 
 	

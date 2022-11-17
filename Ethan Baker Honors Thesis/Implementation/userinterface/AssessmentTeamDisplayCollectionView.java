@@ -15,25 +15,16 @@
 package userinterface;
 
 // system imports
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -44,7 +35,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.Vector;
@@ -52,29 +42,24 @@ import java.util.Enumeration;
 
 // project imports
 import impresario.IModel;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.InnerShadow;
-
-import model.OfferingDisplay;
-import model.OfferingDisplayCollection;
+import model.AssessmentTeamDisplayCollection;
+import model.AssessmentTeamDisplay;
 
 //==============================================================================
-public class OfferingDisplayCollectionView extends View
+public class AssessmentTeamDisplayCollectionView extends View
 {
-	protected TableView<OfferingDisplayTableModel> tableOfODs;
+	protected TableView<AssessmentTeamDisplayTableModel> tableOfATDs;
 	protected Button cancelButton;
 	protected Button submitButton;
 	protected MessageView statusLog;
 	protected Text actionText; 
         
 	//--------------------------------------------------------------------------
-	public OfferingDisplayCollectionView(IModel modt)
+	public AssessmentTeamDisplayCollectionView(IModel modt)
 	{
 		// mdot - model - Modify Offering Display Transaction acronym
-		super(modt, "OfferingDisplayCollectionView");
+		super(modt, "AssessmentTeamDisplayCollectionView");
 		
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -93,7 +78,7 @@ public class OfferingDisplayCollectionView extends View
 		
 		populateFields();
 		
-		tableOfODs.getSelectionModel().select(0); //autoselect first element
+		tableOfATDs.getSelectionModel().select(0); //autoselect first element
 	}
 
 	
@@ -115,13 +100,13 @@ public class OfferingDisplayCollectionView extends View
 	protected void getEntryTableModelValues()
 	{
 
-		ObservableList<OfferingDisplayTableModel> tableData = FXCollections.observableArrayList();
+		ObservableList<AssessmentTeamDisplayTableModel> tableData = FXCollections.observableArrayList();
 		try
 		{
-			OfferingDisplayCollection odCollection = 
-					(OfferingDisplayCollection)myModel.getState("OfferingDisplayList");
+			AssessmentTeamDisplayCollection atdCollection =
+					(AssessmentTeamDisplayCollection)myModel.getState("AssessmentTeamDisplayList");
 
-			Vector entryList = odCollection.getOfferingDisplays();
+			Vector entryList = atdCollection.getAssessmentTeamDisplays();
 
 			if (entryList.size() > 0)
 			{
@@ -130,30 +115,30 @@ public class OfferingDisplayCollectionView extends View
 
 				while (entries.hasMoreElements() == true)
 				{
-					
-					OfferingDisplay nextOD = (OfferingDisplay)entries.nextElement();
+
+					AssessmentTeamDisplay nextOD = (AssessmentTeamDisplay)entries.nextElement();
 					Vector<String> view = nextOD.getEntryListView();
 
 					// add this list entry to the list
-					OfferingDisplayTableModel nextTableRowData = new OfferingDisplayTableModel(view);
+					AssessmentTeamDisplayTableModel nextTableRowData = new AssessmentTeamDisplayTableModel(view);
 					tableData.add(nextTableRowData);
 
 				}
 				if(entryList.size() == 1)
-					actionText.setText(entryList.size()+" Matching ISLO-Semester Link Found!");
+					actionText.setText(entryList.size()+" Matching Gen Ed Area-Semester Link Found!");
 				else 
-					actionText.setText(entryList.size()+" Matching ISLO-Semester Links Found!");
+					actionText.setText(entryList.size()+" Matching Gen Ed Area-Semester Links Found!");
 
 				actionText.setFill(Color.LIGHTGREEN);
 			}
 			else
 			{
 				
-				actionText.setText("No matching ISLO-Semester Links Found!");
+				actionText.setText("No matching Gen Ed Area-Semester Links Found!");
 				actionText.setFill(Color.FIREBRICK);
 			}
 
-			tableOfODs.setItems(tableData);
+			tableOfATDs.setItems(tableData);
 		}
 		catch (Exception e) {//SQLException e) {
 			// Need to handle this exception
@@ -192,25 +177,25 @@ public class OfferingDisplayCollectionView extends View
 		promptText.setTextAlignment(TextAlignment.CENTER);
 		vbox.getChildren().add(promptText);
 		
-		tableOfODs = new TableView<OfferingDisplayTableModel>();
-		tableOfODs.setEffect(new DropShadow());
-		tableOfODs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
-			 	tableOfODs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		tableOfATDs = new TableView<AssessmentTeamDisplayTableModel>();
+		tableOfATDs.setEffect(new DropShadow());
+		tableOfATDs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
+			 	tableOfATDs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 		
-		TableColumn isloNameColumn = new TableColumn("ISLO Name") ;
+		TableColumn isloNameColumn = new TableColumn("Gen Ed Area Name") ;
 		isloNameColumn.setMinWidth(200);
 		isloNameColumn.setCellValueFactory(
-				new PropertyValueFactory<OfferingDisplayTableModel, String>("isloName"));
+				new PropertyValueFactory<AssessmentTeamDisplayTableModel, String>("areaName"));
 
 		TableColumn semYearColumn = new TableColumn("Semester") ;
 		semYearColumn.setMinWidth(100);
 		semYearColumn.setCellValueFactory(
-				new PropertyValueFactory<OfferingDisplayTableModel, String>("semAndYear"));
+				new PropertyValueFactory<AssessmentTeamDisplayTableModel, String>("semAndYear"));
 
-		tableOfODs.getColumns().addAll(	isloNameColumn, semYearColumn);
+		tableOfATDs.getColumns().addAll(	isloNameColumn, semYearColumn);
 
-		tableOfODs.setOnMousePressed((MouseEvent event) -> {
+		tableOfATDs.setOnMousePressed((MouseEvent event) -> {
 			if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
 				
                       processODSelected();
@@ -268,9 +253,9 @@ public class OfferingDisplayCollectionView extends View
 		actionText.setTextAlignment(TextAlignment.CENTER);
 
 		vbox.getChildren().add(grid);
-		tableOfODs.setPrefHeight(200);
-        tableOfODs.setMaxWidth(300);
-		vbox.getChildren().add(tableOfODs);
+		tableOfATDs.setPrefHeight(200);
+        tableOfATDs.setMaxWidth(300);
+		vbox.getChildren().add(tableOfATDs);
 		vbox.getChildren().add(btnContainer);
 		vbox.getChildren().add(actionText);
 		vbox.setPadding(new Insets(10,10,10,10));
@@ -282,13 +267,13 @@ public class OfferingDisplayCollectionView extends View
 	//--------------------------------------------------------------------------
 	protected void processODSelected()
 	{
-		OfferingDisplayTableModel selectedItem = tableOfODs.getSelectionModel().getSelectedItem();
+		AssessmentTeamDisplayTableModel selectedItem = tableOfATDs.getSelectionModel().getSelectedItem();
 
 		if(selectedItem != null)
 		{
-			String selectedODId = selectedItem.getOfferingId();
+			String selectedODId = selectedItem.getAssessmentTeamId();
 
-			myModel.stateChangeRequest("OfferingSelected", selectedODId);
+			myModel.stateChangeRequest("AssessmentTeamSelected", selectedODId);
 		}
 	}
         
