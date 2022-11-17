@@ -1,8 +1,8 @@
 // tabs=4
 //************************************************************
-//   COPYRIGHT 2021, Kyle D. Adams, Matthew E. Morgan 
-//    and Sandeep Mitra, State University of New York. - 
-//   Brockport (SUNY Brockport)
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
 // This file is the product of SUNY Brockport and cannot
@@ -36,7 +36,7 @@ import userinterface.ViewFactory;
 //==============================================================
 public class Offering extends EntityBase implements IView
 {
-    private static final String myTableName = "Offering";
+    private static final String myTableName = "AssessmentTeam";
 
     protected Properties dependencies;
 
@@ -45,13 +45,14 @@ public class Offering extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public Offering(String isloId, String semId) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
+    public Offering(String genEdAreaId, String semId) throws InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
 
         setDependencies();
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (ISLOID = " + isloId + " AND SemesterID = " + semId +")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (GenEdAreaID = " + genEdAreaId + " AND SemesterID = "
+                + semId +")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -62,14 +63,16 @@ public class Offering extends EntityBase implements IView
             // if size = 0 throw the Invalid Primary Key Exception
             if (size == 0)
             {
-                throw new InvalidPrimaryKeyException("No Matching Offerings for: ISLO Id: " + isloId + ", Semester Id: " + semId + ") found.");
+                throw new InvalidPrimaryKeyException("No Matching Offerings for: Gen Ed Area Id: "
+                        + genEdAreaId + ", Semester Id: " + semId + ") found.");
             }
             else
                 // There should be EXACTLY one offering. More than that is an error
                 if (size != 1)
                 {
 
-                    throw new MultiplePrimaryKeysException("Multiple offerings matching: ISLO Id: " + isloId + ", Semester Id: " + semId + ") found.");
+                    throw new MultiplePrimaryKeysException("Multiple offerings matching: Gen Ed Area Id: "
+                            + genEdAreaId + ", Semester Id: " + semId + ") found.");
                 }
                 else
                 {
@@ -95,7 +98,8 @@ public class Offering extends EntityBase implements IView
         // If offering not found for this data, throw an Invalid Primary key exception
         else
         {
-            throw new InvalidPrimaryKeyException("No offerings matching: ISLO Id: " + isloId + ", Semester Id: " + semId + ") found.");
+            throw new InvalidPrimaryKeyException("No offerings matching: Gen Ed Area Id: " + genEdAreaId
+                    + ", Semester Id: " + semId + ") found.");
         }
     }
 
@@ -160,8 +164,8 @@ public class Offering extends EntityBase implements IView
     //-----------------------------------------------------------------------------------
     public static int compare(Offering a, Offering b)
     {
-        String aVal = (String)a.getState("ISLOID");
-        String bVal = (String)b.getState("ISLOID");
+        String aVal = (String)a.getState("GenEdAreaID");
+        String bVal = (String)b.getState("GenEdAreaID");
 
         return aVal.compareTo(bVal);
     }
@@ -193,7 +197,7 @@ public class Offering extends EntityBase implements IView
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Selected ISLO and Semester: (" + semName +
+                updateStatusMessage = "Selected Gen Ed Area and Semester: (" + semName +
 					" " + semYr + ") link updated successfully!";
             }
 
@@ -202,7 +206,7 @@ public class Offering extends EntityBase implements IView
                 Integer offeringID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("ID", "" + offeringID.intValue());
-                updateStatusMessage = "Selected ISLO and Semester: (" + semName +
+                updateStatusMessage = "Selected Gen Ed Area and Semester: (" + semName +
 					" " + semYr + ") linked successfully!";
             }
 

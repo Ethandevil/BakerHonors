@@ -165,6 +165,9 @@ public class Semester extends EntityBase implements IView
     {
         if (key.equals("UpdateStatusMessage") == true)
             return updateStatusMessage;
+        else if(key.equals("ID")){
+            return persistentState.getProperty("ID");
+        }
 
         return persistentState.getProperty(key);
     }
