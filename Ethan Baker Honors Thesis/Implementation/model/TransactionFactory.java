@@ -82,6 +82,9 @@ public class TransactionFactory
 		{
 			retValue = new UpdatePerformanceCategoryTransaction();
 		}
+		else if (transType.equals("AddNewReflectionQuestion")){
+			retValue = new AddReflectionQuestionTransaction();
+		}
 		else if(transType.equals("UpdateReflectionQuestion")){
 			retValue = new ModifyReflectionQuestionTransaction();
 		}

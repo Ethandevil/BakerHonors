@@ -49,7 +49,7 @@ public class MessageView extends Text
 		setFont(Font.font("COPPERPLATE", FontWeight.BOLD, 16));
 		setFill(Color.BLUE);
 		setTextAlignment(TextAlignment.LEFT);
-		setWrappingWidth(400);
+		setWrappingWidth(500);
 		
 	}
 

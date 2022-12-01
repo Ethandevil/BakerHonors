@@ -215,13 +215,13 @@ public class AssessmentCoordinatorView extends View
 		HBox assessmentTeamCont = new HBox(10);
 		assessmentTeamCont.setAlignment(Pos.CENTER);
 
-		addAssessmentTeamButton = new Button("Setup Assessment Team");
+		addAssessmentTeamButton = new Button("Link GE Area to Semester");
 		addAssessmentTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
 		addAssessmentTeamButton.setOnAction((ActionEvent e) -> {
 			myModel.stateChangeRequest("AddNewAssessmentTeam", null);
 		});
 
-		updateAssessmentTeamButton = new Button("Update Assessment Team");
+		updateAssessmentTeamButton = new Button("Update GE Area-Semester Link");
 		updateAssessmentTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
 		updateAssessmentTeamButton.setOnAction((ActionEvent e) -> {
 			myModel.stateChangeRequest("UpdateAssessmentTeam", null);

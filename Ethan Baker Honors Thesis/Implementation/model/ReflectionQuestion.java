@@ -250,15 +250,14 @@ public class ReflectionQuestion extends EntityBase implements IView {
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Reflection Question : " + persistentState.getProperty("QuestionText") + " updated successfully!";
+                updateStatusMessage = "Reflection Question updated successfully with designated text!";
             }
             else
             {
                 Integer reflectionQuestionID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("ID", "" + reflectionQuestionID.intValue());
-                updateStatusMessage = "Reflection Question : " +  persistentState.getProperty("QuestionText")
-                        + " installed successfully!";
+                updateStatusMessage = "Reflection Question installed successfully with designated text!";
             }
         }
         catch (SQLException ex)
@@ -278,7 +277,7 @@ public class ReflectionQuestion extends EntityBase implements IView {
                 Properties whereClause = new Properties();
                 whereClause.setProperty("ID", persistentState.getProperty("ID"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Reflection Question : " + persistentState.getProperty("QuestionText") + " removed successfully!";
+                updateStatusMessage = "Reflection Question removed successfully!";
             }
         }
         catch (SQLException ex)

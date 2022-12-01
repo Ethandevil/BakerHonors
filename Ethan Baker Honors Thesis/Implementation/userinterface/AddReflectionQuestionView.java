@@ -173,8 +173,8 @@ public class AddReflectionQuestionView extends View
         grid.add(questionTextLabel, 0, 2);
 
         questionText = new TextArea();
-        questionText.setPrefColumnCount(20);
-        questionText.setPrefRowCount(1);
+        questionText.setPrefColumnCount(30);
+        questionText.setPrefRowCount(3);
         questionText.setWrapText(true);
         grid.add(questionText, 1, 2);
 
@@ -197,9 +197,10 @@ public class AddReflectionQuestionView extends View
             Properties props = new Properties();
 
             String questionTextNm = questionText.getText();
-            if (questionTextNm.length() > 0 && questionTextNm.matches("[a-zA-Z0-9- ]+"))
+            if (questionTextNm.length() > 0 && questionTextNm.matches("[a-zA-Z0-9-:()?, ]+"))
             {
                 props.setProperty("QuestionText", questionTextNm);
+                myModel.stateChangeRequest("QuestionData", props);
             }
             else
             {

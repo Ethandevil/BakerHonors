@@ -60,6 +60,9 @@ import javafx.scene.effect.InnerShadow;
 import model.ReflectionQuestion;
 import model.ReflectionQuestionCollection;
 
+/** The class containing the Reflection Question Collection View for the Gen Ed Assessment Data
+ *  Management application
+ */
 //==============================================================================
 public class ReflectionQuestionCollectionView extends View {
     protected Text promptText;
@@ -196,7 +199,7 @@ public class ReflectionQuestionCollectionView extends View {
         tableOfReflectionQuestions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TableColumn reflectionQuestionTextColumn = new TableColumn("Text") ;
-        reflectionQuestionTextColumn.setMinWidth(440);
+        reflectionQuestionTextColumn.setMinWidth(540);
         reflectionQuestionTextColumn.setCellValueFactory(
                 new PropertyValueFactory<ReflectionQuestionTableModel, String>("reflectionQuestionText"));
 
@@ -265,7 +268,7 @@ public class ReflectionQuestionCollectionView extends View {
 
         vbox.getChildren().add(grid);
         tableOfReflectionQuestions.setPrefHeight(200);
-        tableOfReflectionQuestions.setPrefWidth(500);
+        tableOfReflectionQuestions.setPrefWidth(550);
         vbox.getChildren().add(tableOfReflectionQuestions);
         vbox.getChildren().add(btnContainer);
         vbox.getChildren().add(actionText);

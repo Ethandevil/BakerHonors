@@ -117,7 +117,23 @@ public class ViewFactory {
 		else if(viewName.equals("ModifyPerformanceCategoryView") == true)
 		{
 			return new ModifyPerformanceCategoryView(model);
-		}/*
+		}
+		else if(viewName.equals("SearchReflectionQuestionView") == true)
+		{
+			return new SearchReflectionQuestionView(model);
+		}
+		else if(viewName.equals("ReflectionQuestionCollectionView") == true)
+		{
+			return new ReflectionQuestionCollectionView(model);
+		}
+		else if (viewName.equals("AddReflectionQuestionView")){
+			return new AddReflectionQuestionView(model);
+		}
+		else if(viewName.equals("ModifyReflectionQuestionView") == true)
+		{
+			return new ModifyReflectionQuestionView(model);
+		}
+		/*
         	else if(viewName.equals("SearchISLOForOfferingTeacherView") == true)
 		{
 			return new SearchISLOForOfferingTeacherView(model);

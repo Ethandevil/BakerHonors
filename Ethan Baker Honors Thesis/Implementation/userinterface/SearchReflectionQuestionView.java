@@ -33,6 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -45,13 +46,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-/** The class containing the Search Gen Ed Area View for the Gen Ed Assessment Data
+/** The class containing the Search Reflection Question View for the Gen Ed Assessment Data
  *  Management application
  */
 //==============================================================
 public class SearchReflectionQuestionView extends View {
     // GUI components
-    protected TextField questionText;
+    protected TextArea questionText;
 
     protected Button submitButton;
     protected Button cancelButton;
@@ -153,20 +154,12 @@ public class SearchReflectionQuestionView extends View {
         questionTextLabel.setTextAlignment(TextAlignment.RIGHT);
         grid0.add(questionTextLabel, 0, 1);
 
-        questionText = new TextField();
+        questionText = new TextArea();
+        questionText.setPrefColumnCount(30);
+        questionText.setPrefRowCount(3);
+        questionText.setWrapText(true);
         questionText.setStyle("-fx-focus-color: darkgreen;");
-        questionText.setOnAction((ActionEvent e) -> {
-            clearErrorMessage();
-            Properties props = new Properties();
-            String questionTxt = questionText.getText();
-            if (questionTxt.length() > 0)
-            {
-                props.setProperty("QuestionText", questionTxt);
 
-            }
-
-            myModel.stateChangeRequest("SearchQuestion", props);
-        });
         grid0.add(questionText, 1, 1);
 
         vbox.getChildren().add(grid0);
