@@ -28,6 +28,7 @@ public class GlobalVariables
 	public static final int MAX_GEN_ED_AREA_NOTES_LENGTH = 300;
 	public static final int MAX_SLO_TEXT_LENGTH = 500;
 	public static final int MAX_SLO_NOTES_LENGTH = 1000;
+	public static final int MAX_REFLECTION_QUESTION_TEXT_LENGTH = 1000;
 	public static final int MAX_REFLECTIONS_LENGTH = 4000;
 	public static final int MAX_FLAG_LENGTH = 300;
 	/*public static final int MIN_FNAME_LENGTH = 0;
