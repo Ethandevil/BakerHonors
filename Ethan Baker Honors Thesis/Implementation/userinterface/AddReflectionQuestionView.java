@@ -74,7 +74,7 @@ public class AddReflectionQuestionView extends View
 
     // GUI components
 
-    protected TextField questionText;
+    protected TextArea questionText;
 
     // other buttons here
     protected Button submitButton;
@@ -172,7 +172,10 @@ public class AddReflectionQuestionView extends View
         questionTextLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(questionTextLabel, 0, 2);
 
-        questionText = new TextField();
+        questionText = new TextArea();
+        questionText.setPrefColumnCount(20);
+        questionText.setPrefRowCount(1);
+        questionText.setWrapText(true);
         grid.add(questionText, 1, 2);
 
         HBox doneCont = new HBox(10);
