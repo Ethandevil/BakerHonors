@@ -81,7 +81,11 @@ public class TransactionFactory
 		if (transType.equals("UpdateCategoryName") == true)
 		{
 			retValue = new UpdatePerformanceCategoryTransaction();
-		}/*
+		}
+		else if(transType.equals("UpdateReflectionQuestion")){
+			retValue = new ModifyReflectionQuestionTransaction();
+		}
+		/*
 		else
 		if (transType.equals("AddNewOfferingTeacher") == true)
 		{

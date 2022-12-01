@@ -123,7 +123,9 @@ public class AssessmentCoordinator implements IView, IModel
 			(key.equals("DeleteCourseInTeam") == true) ||
 			(key.equals("AddNewStudentCategorization") == true) ||
 			(key.equals("UpdateStudentCategorization") == true) ||
-			(key.equals("Reports") == true))
+			(key.equals("Reports") == true) ||
+			(key.equals("AddNewReflectionQuestion")) ||
+			(key.equals("UpdateReflectionQuestion")))
 		{
 
 			String transType = key;
