@@ -152,7 +152,7 @@ public class ReflectionQuestion extends EntityBase implements IView {
 
                 }
         }
-        // If Gen Ed Area found for this Gen Ed Area ID, throw an Invalid Primary key exception
+        // If Reflection Question found for this Reflection Question ID, throw an Invalid Primary key exception
         else
         {
             throw new InvalidPrimaryKeyException("No Reflection Question matching Text : "

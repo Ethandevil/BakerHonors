@@ -77,7 +77,7 @@ public class ReflectionQuestionCollection extends EntityBase implements IView {
     //-----------------------------------------------------------
     public void findByTextPart(String textPart)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
+        String query = "SELECT * FROM " + myTableName + "";
         if ((textPart == null) || (textPart.length() == 0))
         {
             query += ""; // do nothing, query unchanged
@@ -93,7 +93,7 @@ public class ReflectionQuestionCollection extends EntityBase implements IView {
     //-----------------------------------------------------------
     public void findAll()
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
+        String query = "SELECT * FROM " + myTableName + "";
         populateCollectionHelper(query);
     }
 
