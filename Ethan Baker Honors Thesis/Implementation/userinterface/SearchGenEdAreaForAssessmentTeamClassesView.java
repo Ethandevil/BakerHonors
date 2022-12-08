@@ -16,46 +16,20 @@
 package userinterface;
 
 // system imports
-import javafx.event.Event;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.util.Properties;
 
 // project imports
 import impresario.IModel;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 /** The class containing the Search ISLO View for adding a teacher/course to
  *  a linked ISLO for the ISLO Data Management application 
  */
 //==============================================================
-public class SearchISLOForOfferingTeacherView extends SearchISLOView
+public class SearchGenEdAreaForAssessmentTeamClassesView extends SearchGenEdAreaView
 {
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchISLOForOfferingTeacherView(IModel mdl)
+	public SearchGenEdAreaForAssessmentTeamClassesView(IModel mdl)
 	{
 		
 		super(mdl);
@@ -66,7 +40,7 @@ public class SearchISLOForOfferingTeacherView extends SearchISLOView
 	//-------------------------------------------------------------
 	protected String getActionText()
 	{
-		return "Enter ISLO Search Criteria: ";
+		return "Enter Gen Ed Area Search Criteria: ";
 	}
 
 

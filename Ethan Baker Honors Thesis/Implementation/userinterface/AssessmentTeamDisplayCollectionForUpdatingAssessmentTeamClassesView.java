@@ -3,19 +3,18 @@ package userinterface;
 import impresario.IModel;
 //==============================================================================
 
-public class OfferingDisplayCollectionForUpdatingOfferingTeacherView extends OfferingDisplayCollectionView{
+public class AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView extends AssessmentTeamDisplayCollectionView{
 
         //--------------------------------------------------------------------------
-        public OfferingDisplayCollectionForUpdatingOfferingTeacherView(IModel modt)
+        public AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView(IModel modt)
         {
-            // mdot - model - Modify Offering Display Transaction acronym
             super(modt);
 
         }
 
         //---------------------------------------------------------
         protected String getPromptText() {
-            return "Select the semester for modifying a course/teacher:";
+            return "Select the semester for modifying a course:";
         }
 
 
