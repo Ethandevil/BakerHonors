@@ -40,7 +40,7 @@ import javafx.scene.input.MouseEvent;
 import impresario.IModel;
 
 /**
- * The class containing the Add AssessmentTeamClassesView for the ISLO Data Management application
+ * The class containing the AddAssessmentTeamClassesView for the Gen Ed Area Data Management application
  */
 //==============================================================
 public class AddAssessmentTeamClassesView extends View {
@@ -67,9 +67,9 @@ public class AddAssessmentTeamClassesView extends View {
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public AddAssessmentTeamClassesView(IModel OfferingTeacher) {
+    public AddAssessmentTeamClassesView(IModel AssessmentTeamClasses) {
 
-        super(OfferingTeacher, "AddAssessmentTeamClassesView");
+        super(AssessmentTeamClasses, "AddAssessmentTeamClassesView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -84,7 +84,6 @@ public class AddAssessmentTeamClassesView extends View {
 
         // create our GUI components, add them to this Container
         container.getChildren().add(createFormContents());
-        // DEBUG System.out.println("Add offering teacher view: created form contents");
         container.getChildren().add(createStatusLog("                               "));
 
         container.getChildren().add(createCopyrightPanel());
@@ -97,7 +96,6 @@ public class AddAssessmentTeamClassesView extends View {
         getChildren().add(container);
 
         populateFields();
-        // DEBUG System.out.println("Add offering teacher view: populated fields");
         cancelButton.requestFocus();
 
         keyToSendWithData = "AssessmentTeamClassesData";
@@ -113,7 +111,7 @@ public class AddAssessmentTeamClassesView extends View {
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Add course code and number for:";
+        return "Add course code and course number for:";
     }
     //------------------------------------------------------------
     protected VBox createFormContents() {
@@ -174,15 +172,6 @@ public class AddAssessmentTeamClassesView extends View {
         number.setMaxWidth(80);
 
 
-        /*Text teachName = new Text(" Teacher Name : ");
-        myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
-        teachName.setFont(myFont);
-        teachName.setWrappingWidth(150);
-        teachName.setTextAlignment(TextAlignment.RIGHT);
-        grid2.add(teachName,0,2);
-        grid2.add(name = new TextField(),1,2);*/
-
-
         ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
@@ -194,10 +183,8 @@ public class AddAssessmentTeamClassesView extends View {
 
             String curseCode = (String) crsCode.getText();
             String courseNumber = number.getText();
-            //String teacherName = name.getText();
 
             try {
-                //Integer mattIsStupid = Integer.parseInt(courseNumber);
                 if (!(curseCode.length() > 0))
                 {
                     crsCode.setStyle("-fx-border-color: firebrick;");
@@ -208,7 +195,6 @@ public class AddAssessmentTeamClassesView extends View {
                     Properties props = new Properties();
                     props.setProperty("CourseDisciplineCode", curseCode);
                     props.setProperty("CourseNumber", courseNumber);
-                    //props.setProperty("TeacherName", teacherName);
                     myModel.stateChangeRequest(keyToSendWithData, props);
                 }
             }

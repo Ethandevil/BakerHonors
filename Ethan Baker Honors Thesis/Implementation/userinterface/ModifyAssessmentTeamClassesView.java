@@ -24,7 +24,7 @@ public class ModifyAssessmentTeamClassesView extends AddAssessmentTeamClassesVie
     }
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Modify course number and/or course code for:";
+        return "Modify course code and/or course number for:";
     }
     //---------------------------------------------------------
 
@@ -44,7 +44,6 @@ public class ModifyAssessmentTeamClassesView extends AddAssessmentTeamClassesVie
     public void populateFields() {
         String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        //String teacher = (String)myModel.getState("teacherName");
         String courseCode =  (String)myModel.getState("courseCode");
         String courseNum = (String)myModel.getState("courseNum");
 
@@ -63,10 +62,6 @@ public class ModifyAssessmentTeamClassesView extends AddAssessmentTeamClassesVie
         {
             number.setText(courseNum);
         }
-        /*if (teacher != null)
-        {
-            name.setText(teacher);
-        }*/
         submitButton.setText("Update"); //fix submitbutton
         ImageView icon = new ImageView(new Image("/images/savecolor.png"));
         icon.setFitHeight(15);

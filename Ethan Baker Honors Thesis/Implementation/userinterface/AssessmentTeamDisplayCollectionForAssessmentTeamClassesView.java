@@ -32,7 +32,7 @@ public class AssessmentTeamDisplayCollectionForAssessmentTeamClassesView extends
 	
 	//---------------------------------------------------------
 	protected String getPromptText() {
-		return "Select the semester for adding a new course/teacher:";
+		return "Select the semester for adding a new course: ";
 	}
 	
 	

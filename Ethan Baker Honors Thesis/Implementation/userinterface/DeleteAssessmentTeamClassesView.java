@@ -21,21 +21,17 @@ public class DeleteAssessmentTeamClassesView extends ModifyAssessmentTeamClasses
 
     public DeleteAssessmentTeamClassesView(IModel AssessmentTeamClasses) {
         super(AssessmentTeamClasses);
-        // DEBUG System.out.println("Delete offering teacher view constructed");
     }
     protected String getPromptText() {
-        return "Are you sure you would like to remove this sampled course for:";
+        return "Are you sure you would like to remove this assessment team class for:";
     }
     //-------------------------------------------------------------
     public void populateFields() {
         String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        //String teacher = (String)myModel.getState("teacherName");
         String courseCode =  (String)myModel.getState("courseCode");
         String courseNum = (String)myModel.getState("courseNum");
 
-        /* System.out.println("ISLO: " + islo + "; Sem: " + semester + "; teacher: " + teacher +
-                "; crs code: " + courseCode + "; crs num: " + courseNum); */
         if (genEd != null)
         {
             genEdArea.setText(genEd);
@@ -54,17 +50,10 @@ public class DeleteAssessmentTeamClassesView extends ModifyAssessmentTeamClasses
             number.setText(courseNum);
             number.setEditable(false);
         }
-        /*if (teacher != null)
-        {
-            name.setText(teacher);
-            name.setEditable(false);
-        }*/
-        // DEBUG System.out.println("Matt was here");
         submitButton.setText("Confirm Delete"); //fix submitbutton
         ImageView icon = new ImageView(new Image("/images/remove_icon.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
         submitButton.setGraphic(icon);
-        // DEBUG System.out.println("Kyle was here");
     }
 }

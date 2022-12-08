@@ -20,8 +20,8 @@ package userinterface;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Search ISLO View for adding a teacher/course to
- *  a linked ISLO for the ISLO Data Management application 
+/** The class containing the Search Gen Ed Area View for adding a course to
+ *  a linked Gen Ed Area for the Gen Ed Area Data Management application
  */
 //==============================================================
 public class SearchGenEdAreaForAssessmentTeamClassesView extends SearchGenEdAreaView

@@ -118,10 +118,10 @@ public class AssessmentTeamClassesCollectionView extends View
         ObservableList<AssessmentTeamClassesTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            AssessmentTeamClassesCollection odCollection =
+            AssessmentTeamClassesCollection adCollection =
                     (AssessmentTeamClassesCollection)myModel.getState("AssessmentTeamClassesDisplayList");
 
-            Vector entryList = odCollection.getOfferingTeacherDisplays();
+            Vector entryList = adCollection.getOfferingTeacherDisplays(); //needs to be changed
 
             if (entryList.size() > 0)
             {
@@ -140,16 +140,16 @@ public class AssessmentTeamClassesCollectionView extends View
 
                 }
                 if(entryList.size() == 1)
-                    actionText.setText(entryList.size()+" Matching Sampled Course Found!");
+                    actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
                 else
-                    actionText.setText(entryList.size()+" Matching Sampled Courses Found!");
+                    actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
 
                 actionText.setFill(Color.LIGHTGREEN);
             }
             else
             {
 
-                actionText.setText("No matching Sampled Courses Found!");
+                actionText.setText("No matching Assessment Team Classes Found!");
                 actionText.setFill(Color.FIREBRICK);
             }
 
@@ -172,7 +172,7 @@ public class AssessmentTeamClassesCollectionView extends View
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Select a sampled course to modify/delete for:";
+        return "Select an assessment team class to modify/delete for:";
     }
 
     // Create the main form content
@@ -222,11 +222,6 @@ public class AssessmentTeamClassesCollectionView extends View
         cNumColumn.setMinWidth(50);
         cNumColumn.setCellValueFactory(
                 new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseNumber"));
-
-        /*TableColumn tchColumn = new TableColumn("Teacher") ;
-        tchColumn.setMinWidth(150);
-        tchColumn.setCellValueFactory(
-                new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("teacherName"));*/
 
         tableOfATCs.getColumns().addAll(cCodeColumn, cNumColumn);
 
