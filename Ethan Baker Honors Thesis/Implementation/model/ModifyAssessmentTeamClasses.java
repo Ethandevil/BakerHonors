@@ -31,7 +31,7 @@ import userinterface.ViewFactory;
  * The class containing the AddOfferingTransaction for the ISLO Data Management application
  */
 //==============================================================
-public class UpdateOfferingTeacherTransaction extends Transaction {
+public class ModifyAssessmentTeamClasses extends Transaction {
     private OfferingCollection myOfferingList;
     private OfferingDisplayCollection myOfferingDisplayList;
     private Offering mySelectedOffering;
@@ -49,7 +49,7 @@ public class UpdateOfferingTeacherTransaction extends Transaction {
      * Constructor for this class.
      */
     //----------------------------------------------------------
-    public UpdateOfferingTeacherTransaction() throws Exception {
+    public ModifyAssessmentTeamClasses() throws Exception {
         super();
     }
 

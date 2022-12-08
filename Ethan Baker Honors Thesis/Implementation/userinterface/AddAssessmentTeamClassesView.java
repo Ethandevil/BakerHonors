@@ -43,7 +43,7 @@ import impresario.IModel;
  * The class containing the Add Performance Category View for the ISLO Data Management application
  */
 //==============================================================
-public class AddOfferingTeacherView extends View {
+public class AddAssessmentTeamClassesView extends View {
 
     // other private data
     private final int labelWidth = 120;
@@ -68,9 +68,9 @@ public class AddOfferingTeacherView extends View {
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public AddOfferingTeacherView(IModel OfferingTeacher) {
+    public AddAssessmentTeamClassesView(IModel OfferingTeacher) {
 
-        super(OfferingTeacher, "AddOfferingTeacherView");
+        super(OfferingTeacher, "AddAssessmentTeamClassesView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);

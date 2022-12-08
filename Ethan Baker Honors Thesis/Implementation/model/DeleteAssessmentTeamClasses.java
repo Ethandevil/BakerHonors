@@ -21,9 +21,9 @@ import userinterface.ViewFactory;
 
 import java.util.Properties;
 
-public class DeleteOfferingTeacherTransaction extends UpdateOfferingTeacherTransaction {
+public class DeleteAssessmentTeamClasses extends UpdateOfferingTeacherTransaction {
 
-    public DeleteOfferingTeacherTransaction() throws Exception {
+    public DeleteAssessmentTeamClasses() throws Exception {
         super();
 		// DEBUG System.out.println("Delete Offering Teacher Transaction");
     }

@@ -17,9 +17,9 @@ import impresario.IModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class DeleteOfferingTeacherView extends ModifyOfferingTeacherView{
+public class DeleteAssessmentTeamClassesView extends ModifyOfferingTeacherView{
 
-    public DeleteOfferingTeacherView(IModel OfferingTeacher) {
+    public DeleteAssessmentTeamClassesView(IModel OfferingTeacher) {
         super(OfferingTeacher);
         // DEBUG System.out.println("Delete offering teacher view constructed");
     }

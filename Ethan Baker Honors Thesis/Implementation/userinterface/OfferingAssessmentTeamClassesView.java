@@ -49,7 +49,7 @@ import model.OfferingTeacher;
 import model.OfferingTeacherCollection;
 
 //==============================================================================
-public class OfferingTeacherCollectionView extends View
+public class OfferingAssessmentTeamClassesView extends View
 {
     protected TableView<OfferingTeacherTableModel> tableOfOTs;
     protected Button cancelButton;
@@ -59,7 +59,7 @@ public class OfferingTeacherCollectionView extends View
     protected Text ISLO;
     protected Text sem;
     //--------------------------------------------------------------------------
-    public OfferingTeacherCollectionView(IModel modt)
+    public OfferingAssessmentTeamClassesView(IModel modt)
     {
         // mdot - model - Modify Offering Display Transaction acronym
         super(modt, "OfferingTeacherCollectionView");

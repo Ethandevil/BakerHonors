@@ -17,9 +17,9 @@ import impresario.IModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ModifyOfferingTeacherView extends AddOfferingTeacherView{
+public class ModifyAssessmentTeamClassesView extends AddOfferingTeacherView{
 
-    public ModifyOfferingTeacherView(IModel OfferingTeacher) {
+    public ModifyAssessmentTeamClassesView(IModel OfferingTeacher) {
         super(OfferingTeacher);
     }
     //---------------------------------------------------------
