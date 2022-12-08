@@ -17,14 +17,14 @@ import impresario.IModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ModifyAssessmentTeamClassesView extends AddOfferingTeacherView{
+public class ModifyAssessmentTeamClassesView extends AddAssessmentTeamClassesView{
 
-    public ModifyAssessmentTeamClassesView(IModel OfferingTeacher) {
-        super(OfferingTeacher);
+    public ModifyAssessmentTeamClassesView(IModel AssessmentTeamClasses) {
+        super(AssessmentTeamClasses);
     }
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Modify course number and/or teacher name for:";
+        return "Modify course number and/or course code for:";
     }
     //---------------------------------------------------------
 
@@ -42,17 +42,15 @@ public class ModifyAssessmentTeamClassesView extends AddOfferingTeacherView{
     }
     //-------------------------------------------------------------
     public void populateFields() {
-        String islo = (String)myModel.getState("ISLOData");
+        String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        String teacher = (String)myModel.getState("teacherName");
+        //String teacher = (String)myModel.getState("teacherName");
         String courseCode =  (String)myModel.getState("courseCode");
         String courseNum = (String)myModel.getState("courseNum");
 
-        /* System.out.println("ISLO: " + islo + "; Sem: " + semester + "; teacher: " + teacher +
-                "; crs code: " + courseCode + "; crs num: " + courseNum); */
-        if (islo != null)
+        if (genEd != null)
         {
-            ISLO.setText(islo);
+            genEdArea.setText(genEd);
         }
         if (semester != null)
         {
@@ -65,16 +63,15 @@ public class ModifyAssessmentTeamClassesView extends AddOfferingTeacherView{
         {
             number.setText(courseNum);
         }
-        if (teacher != null)
+        /*if (teacher != null)
         {
             name.setText(teacher);
-        }
+        }*/
         submitButton.setText("Update"); //fix submitbutton
         ImageView icon = new ImageView(new Image("/images/savecolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
         submitButton.setGraphic(icon);
-
     }
 
 }

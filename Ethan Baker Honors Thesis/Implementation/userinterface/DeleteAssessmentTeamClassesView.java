@@ -17,10 +17,10 @@ import impresario.IModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class DeleteAssessmentTeamClassesView extends ModifyOfferingTeacherView{
+public class DeleteAssessmentTeamClassesView extends ModifyAssessmentTeamClassesView{
 
-    public DeleteAssessmentTeamClassesView(IModel OfferingTeacher) {
-        super(OfferingTeacher);
+    public DeleteAssessmentTeamClassesView(IModel AssessmentTeamClasses) {
+        super(AssessmentTeamClasses);
         // DEBUG System.out.println("Delete offering teacher view constructed");
     }
     protected String getPromptText() {
@@ -28,17 +28,17 @@ public class DeleteAssessmentTeamClassesView extends ModifyOfferingTeacherView{
     }
     //-------------------------------------------------------------
     public void populateFields() {
-        String islo = (String)myModel.getState("ISLOData");
+        String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        String teacher = (String)myModel.getState("teacherName");
+        //String teacher = (String)myModel.getState("teacherName");
         String courseCode =  (String)myModel.getState("courseCode");
         String courseNum = (String)myModel.getState("courseNum");
 
         /* System.out.println("ISLO: " + islo + "; Sem: " + semester + "; teacher: " + teacher +
                 "; crs code: " + courseCode + "; crs num: " + courseNum); */
-        if (islo != null)
+        if (genEd != null)
         {
-            ISLO.setText(islo);
+            genEdArea.setText(genEd);
 
         }
         if (semester != null)
@@ -54,11 +54,11 @@ public class DeleteAssessmentTeamClassesView extends ModifyOfferingTeacherView{
             number.setText(courseNum);
             number.setEditable(false);
         }
-        if (teacher != null)
+        /*if (teacher != null)
         {
             name.setText(teacher);
             name.setEditable(false);
-        }
+        }*/
         // DEBUG System.out.println("Matt was here");
         submitButton.setText("Confirm Delete"); //fix submitbutton
         ImageView icon = new ImageView(new Image("/images/remove_icon.png"));
@@ -66,7 +66,5 @@ public class DeleteAssessmentTeamClassesView extends ModifyOfferingTeacherView{
         icon.setFitWidth(15);
         submitButton.setGraphic(icon);
         // DEBUG System.out.println("Kyle was here");
-
     }
-
 }

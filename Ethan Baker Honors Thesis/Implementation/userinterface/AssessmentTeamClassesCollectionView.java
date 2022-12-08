@@ -43,26 +43,24 @@ import java.util.Enumeration;
 import impresario.IModel;
 import javafx.scene.effect.DropShadow;
 
-import model.OfferingDisplay;
-import model.OfferingDisplayCollection;
-import model.OfferingTeacher;
-import model.OfferingTeacherCollection;
+import model.AssessmentTeamClasses;
+import model.AssessmentTeamClassesCollection;
 
 //==============================================================================
-public class OfferingAssessmentTeamClassesView extends View
+public class AssessmentTeamClassesCollectionView extends View
 {
-    protected TableView<OfferingTeacherTableModel> tableOfOTs;
+    protected TableView<AssessmentTeamClassesTableModel> tableOfATCs;
     protected Button cancelButton;
     protected Button submitButton;
     protected MessageView statusLog;
     protected Text actionText;
-    protected Text ISLO;
+    protected Text genEdArea;
     protected Text sem;
     //--------------------------------------------------------------------------
-    public OfferingAssessmentTeamClassesView(IModel modt)
+    public AssessmentTeamClassesCollectionView(IModel modt)
     {
         // mdot - model - Modify Offering Display Transaction acronym
-        super(modt, "OfferingTeacherCollectionView");
+        super(modt, "AssessmentTeamClassesCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -82,7 +80,7 @@ public class OfferingAssessmentTeamClassesView extends View
 
         populateFields();
 
-        tableOfOTs.getSelectionModel().select(0); //autoselect first element
+        tableOfATCs.getSelectionModel().select(0); //autoselect first element
         myModel.subscribe("TransactionError", this);
     }
 
@@ -100,11 +98,11 @@ public class OfferingAssessmentTeamClassesView extends View
     {
         getEntryTableModelValues();
 
-        String islo = (String)myModel.getState("ISLOData");
+        String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        if (islo != null)
+        if (genEd != null)
         {
-            ISLO.setText(islo);
+            genEdArea.setText(genEd);
         }
         if (semester != null)
         {
@@ -117,11 +115,11 @@ public class OfferingAssessmentTeamClassesView extends View
     protected void getEntryTableModelValues()
     {
 
-        ObservableList<OfferingTeacherTableModel> tableData = FXCollections.observableArrayList();
+        ObservableList<AssessmentTeamClassesTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            OfferingTeacherCollection odCollection =
-                    (OfferingTeacherCollection)myModel.getState("OfferingTeacherDisplayList");
+            AssessmentTeamClassesCollection odCollection =
+                    (AssessmentTeamClassesCollection)myModel.getState("AssessmentTeamClassesDisplayList");
 
             Vector entryList = odCollection.getOfferingTeacherDisplays();
 
@@ -133,11 +131,11 @@ public class OfferingAssessmentTeamClassesView extends View
                 while (entries.hasMoreElements() == true)
                 {
 
-                    OfferingTeacher nextOT = (OfferingTeacher)entries.nextElement();
+                    AssessmentTeamClasses nextOT = (AssessmentTeamClasses) entries.nextElement();
                     Vector<String> view = nextOT.getEntryListView();
 
                     // add this list entry to the list
-                    OfferingTeacherTableModel nextTableRowData = new OfferingTeacherTableModel(view);
+                    AssessmentTeamClassesTableModel nextTableRowData = new AssessmentTeamClassesTableModel(view);
                     tableData.add(nextTableRowData);
 
                 }
@@ -155,7 +153,7 @@ public class OfferingAssessmentTeamClassesView extends View
                 actionText.setFill(Color.FIREBRICK);
             }
 
-            tableOfOTs.setItems(tableData);
+            tableOfATCs.setItems(tableData);
         }
         catch (Exception e) {//SQLException e) {
             // Need to handle this exception
@@ -194,13 +192,13 @@ public class OfferingAssessmentTeamClassesView extends View
         promptText.setTextAlignment(TextAlignment.CENTER);
         vbox.getChildren().add(promptText);
 
-        Text numberLabel = new Text(" ISLO : ");
+        Text genEdLabel = new Text(" Gen Ed Area : ");
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
-        numberLabel.setFont(myFont);
-        numberLabel.setWrappingWidth(150);
-        numberLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(numberLabel, 0, 1);
-        grid.add(ISLO = new Text(), 1, 1);
+        genEdLabel.setFont(myFont);
+        genEdLabel.setWrappingWidth(150);
+        genEdLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(genEdLabel, 0, 1);
+        grid.add(genEdArea = new Text(), 1, 1);
 
         Text semLabel = new Text(" Semester : ");
         semLabel.setFont(myFont);
@@ -209,30 +207,30 @@ public class OfferingAssessmentTeamClassesView extends View
         grid.add(semLabel, 0, 2);
         grid.add(sem = new Text(), 1, 2);
 
-        tableOfOTs = new TableView<OfferingTeacherTableModel>();
-        tableOfOTs.setEffect(new DropShadow());
-        tableOfOTs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
-        tableOfOTs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableOfATCs = new TableView<AssessmentTeamClassesTableModel>();
+        tableOfATCs.setEffect(new DropShadow());
+        tableOfATCs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
+        tableOfATCs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
         TableColumn cCodeColumn = new TableColumn("Course Code") ;
         cCodeColumn.setMinWidth(50);
         cCodeColumn.setCellValueFactory(
-                new PropertyValueFactory<OfferingDisplayTableModel, String>("courseDisciplineCode"));
+                new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseDisciplineCode"));
 
         TableColumn cNumColumn = new TableColumn("Course Number") ;
         cNumColumn.setMinWidth(50);
         cNumColumn.setCellValueFactory(
-                new PropertyValueFactory<OfferingDisplayTableModel, String>("courseNumber"));
+                new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseNumber"));
 
-        TableColumn tchColumn = new TableColumn("Teacher") ;
+        /*TableColumn tchColumn = new TableColumn("Teacher") ;
         tchColumn.setMinWidth(150);
         tchColumn.setCellValueFactory(
-                new PropertyValueFactory<OfferingDisplayTableModel, String>("teacherName"));
+                new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("teacherName"));*/
 
-        tableOfOTs.getColumns().addAll(	cCodeColumn, cNumColumn,tchColumn);
+        tableOfATCs.getColumns().addAll(cCodeColumn, cNumColumn);
 
-        tableOfOTs.setOnMousePressed((MouseEvent event) -> {
+        tableOfATCs.setOnMousePressed((MouseEvent event) -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
 
                 processOTSelected();
@@ -265,7 +263,7 @@ public class OfferingAssessmentTeamClassesView extends View
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
 
-            myModel.stateChangeRequest("CancelOfferingList", null);
+            myModel.stateChangeRequest("CancelAssessmentTeamClassesList", null);
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -290,9 +288,9 @@ public class OfferingAssessmentTeamClassesView extends View
         actionText.setTextAlignment(TextAlignment.CENTER);
 
         vbox.getChildren().add(grid);
-        tableOfOTs.setPrefHeight(200);
-        tableOfOTs.setMaxWidth(300);
-        vbox.getChildren().add(tableOfOTs);
+        tableOfATCs.setPrefHeight(200);
+        tableOfATCs.setMaxWidth(300);
+        vbox.getChildren().add(tableOfATCs);
         vbox.getChildren().add(btnContainer);
         vbox.getChildren().add(actionText);
         vbox.setPadding(new Insets(10,10,10,10));
@@ -304,13 +302,13 @@ public class OfferingAssessmentTeamClassesView extends View
     //--------------------------------------------------------------------------
     protected void processOTSelected()
     {
-        OfferingTeacherTableModel selectedItem = tableOfOTs.getSelectionModel().getSelectedItem();
+        AssessmentTeamClassesTableModel selectedItem = tableOfATCs.getSelectionModel().getSelectedItem();
 
         if(selectedItem != null)
         {
             String selectedOTId = selectedItem.getId();
 
-            myModel.stateChangeRequest("OfferingTeacherSelected", selectedOTId);
+            myModel.stateChangeRequest("AssessmentTeamClassSelected", selectedOTId);
         }
     }
 
@@ -362,6 +360,4 @@ public class OfferingAssessmentTeamClassesView extends View
     {
         statusLog.clearErrorMessage();
     }
-
-
 }

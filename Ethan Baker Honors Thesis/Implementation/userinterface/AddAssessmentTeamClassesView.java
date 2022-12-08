@@ -40,7 +40,7 @@ import javafx.scene.input.MouseEvent;
 import impresario.IModel;
 
 /**
- * The class containing the Add Performance Category View for the ISLO Data Management application
+ * The class containing the Add AssessmentTeamClassesView for the ISLO Data Management application
  */
 //==============================================================
 public class AddAssessmentTeamClassesView extends View {
@@ -54,8 +54,7 @@ public class AddAssessmentTeamClassesView extends View {
     protected Button submitButton;
     protected TextField crsCode;
     protected TextField number;
-    protected TextField name;
-    protected Text ISLO;
+    protected Text genEdArea;
     protected Text sem;
 
     // other GUI Components here
@@ -101,7 +100,7 @@ public class AddAssessmentTeamClassesView extends View {
         // DEBUG System.out.println("Add offering teacher view: populated fields");
         cancelButton.requestFocus();
 
-        keyToSendWithData = "PerformanceCategoryData";
+        keyToSendWithData = "AssessmentTeamClassesData";
         myModel.subscribe("TransactionError", this);
     }
 
@@ -114,7 +113,7 @@ public class AddAssessmentTeamClassesView extends View {
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Add course number and teacher name for:";
+        return "Add course code and number for:";
     }
     //------------------------------------------------------------
     protected VBox createFormContents() {
@@ -133,13 +132,13 @@ public class AddAssessmentTeamClassesView extends View {
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Text numberLabel = new Text(" ISLO : ");
+        Text genEdLabel = new Text(" Gen Ed Area : ");
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
-        numberLabel.setFont(myFont);
-        numberLabel.setWrappingWidth(150);
-        numberLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(numberLabel, 0, 1);
-        grid.add(ISLO = new Text(), 1, 1);
+        genEdLabel.setFont(myFont);
+        genEdLabel.setWrappingWidth(150);
+        genEdLabel.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(genEdLabel, 0, 1);
+        grid.add(genEdArea = new Text(), 1, 1);
 
         Text semLabel = new Text(" Semester : ");
         semLabel.setFont(myFont);
@@ -175,13 +174,13 @@ public class AddAssessmentTeamClassesView extends View {
         number.setMaxWidth(80);
 
 
-        Text teachName = new Text(" Teacher Name : ");
+        /*Text teachName = new Text(" Teacher Name : ");
         myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
         teachName.setFont(myFont);
         teachName.setWrappingWidth(150);
         teachName.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(teachName,0,2);
-        grid2.add(name = new TextField(),1,2);
+        grid2.add(name = new TextField(),1,2);*/
 
 
         ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
@@ -195,11 +194,11 @@ public class AddAssessmentTeamClassesView extends View {
 
             String curseCode = (String) crsCode.getText();
             String courseNumber = number.getText();
-            String teacherName = name.getText();
+            //String teacherName = name.getText();
 
             try {
                 //Integer mattIsStupid = Integer.parseInt(courseNumber);
-                if (!(curseCode.length() >0))
+                if (!(curseCode.length() > 0))
                 {
                     crsCode.setStyle("-fx-border-color: firebrick;");
                     displayErrorMessage("ERROR: Please enter a proper course code");
@@ -209,8 +208,8 @@ public class AddAssessmentTeamClassesView extends View {
                     Properties props = new Properties();
                     props.setProperty("CourseDisciplineCode", curseCode);
                     props.setProperty("CourseNumber", courseNumber);
-                    props.setProperty("TeacherName", teacherName);
-                    myModel.stateChangeRequest("OfferingTeacherData", props);
+                    //props.setProperty("TeacherName", teacherName);
+                    myModel.stateChangeRequest(keyToSendWithData, props);
                 }
             }
             catch (Exception ex)
@@ -249,7 +248,7 @@ public class AddAssessmentTeamClassesView extends View {
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelAddOfferingTeacher", null);
+                myModel.stateChangeRequest("CancelAddAssessmentTeamClasses", null);
             }
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -285,11 +284,11 @@ public class AddAssessmentTeamClassesView extends View {
 
     //-------------------------------------------------------------
     public void populateFields() {
-        String islo = (String)myModel.getState("ISLOData");
+        String genEd = (String)myModel.getState("GenEdAreaData");
         String semester = (String)myModel.getState("SemData");
-        if (islo != null)
+        if (genEd != null)
         {
-            ISLO.setText(islo);
+            genEdArea.setText(genEd);
         }
         if (semester != null)
         {
@@ -298,7 +297,6 @@ public class AddAssessmentTeamClassesView extends View {
     }
     //-------------------------------------------------------
     protected void clearOutlines() {
-        name.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
         number.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
     }
 
@@ -337,7 +335,6 @@ public class AddAssessmentTeamClassesView extends View {
      */
     //----------------------------------------------------------
     public void clearData() {
-        name.setText("");
         number.setText("");
 
     }
