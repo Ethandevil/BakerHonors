@@ -30,7 +30,7 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
 {
     private static final String myTableName = "AssessmentTeamClasses";
 
-    private Vector<AssessmentTeam> assessmentTeams;
+    private Vector<AssessmentTeamClasses> assessmentTeamClasses;
     // GUI Components
 
     // constructor for this class
@@ -50,17 +50,17 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
 
         if (allDataRetrieved != null)
         {
-            assessmentTeams = new Vector<AssessmentTeam>();
+            assessmentTeamClasses = new Vector<AssessmentTeamClasses>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
-                Properties nextAssessmentTeamData = allDataRetrieved.elementAt(cnt);
+                Properties nextAssessmentTeamClassesData = allDataRetrieved.elementAt(cnt);
 
-                AssessmentTeam assmntTeam = new AssessmentTeam(nextAssessmentTeamData);
+                AssessmentTeamClasses assmntTeamClasses = new AssessmentTeamClasses(nextAssessmentTeamClassesData);
 
-                if (assmntTeam != null)
+                if (assmntTeamClasses != null)
                 {
-                    addAssessmentTeam(assmntTeam);
+                    addAssessmentTeamClasses(assmntTeamClasses);
                 }
             }
 
@@ -84,26 +84,26 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
 
 
     //----------------------------------------------------------------------------------
-    private void addAssessmentTeam(AssessmentTeam at)
+    private void addAssessmentTeamClasses(AssessmentTeamClasses atc)
     {
-        int index = findIndexToAdd(at);
-        assessmentTeams.insertElementAt(at,index); // To build up a collection sorted on some key
+        int index = findIndexToAdd(atc);
+        assessmentTeamClasses.insertElementAt(atc,index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(AssessmentTeam ot)
+    private int findIndexToAdd(AssessmentTeamClasses atc)
     {
         int low=0;
-        int high = assessmentTeams.size()-1;
+        int high = assessmentTeamClasses.size()-1;
         int middle;
 
         while (low <=high)
         {
             middle = (low+high)/2;
 
-            AssessmentTeam midSession = assessmentTeams.elementAt(middle);
+            AssessmentTeamClasses midSession = assessmentTeamClasses.elementAt(middle);
 
-            int result = AssessmentTeam.compare(ot,midSession);
+            int result = AssessmentTeamClasses.compare(atc,midSession);
 
             if (result ==0)
             {
@@ -128,10 +128,10 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("AssessmentTeams"))
-            return assessmentTeams;
+        if (key.equals("AssessmentTeamClasses"))
+            return assessmentTeamClasses;
         else
-        if (key.equals("AssessmentTeamsList"))
+        if (key.equals("AssessmentTeamClassesList"))
             return this;
         return null;
     }
@@ -143,16 +143,16 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
     }
 
     //----------------------------------------------------------
-    public AssessmentTeam retrieve(String assessmentTeamID)
+    public AssessmentTeamClasses retrieve(String assessmentTeamClassesID)
     {
-        AssessmentTeam retValue = null;
-        for (int cnt = 0; cnt < assessmentTeams.size(); cnt++)
+        AssessmentTeamClasses retValue = null;
+        for (int cnt = 0; cnt < assessmentTeamClasses.size(); cnt++)
         {
-            AssessmentTeam nextAssessmentTeam = assessmentTeams.elementAt(cnt);
-            String nextAssessmentTeamId = (String)nextAssessmentTeam.getState("ID");
-            if (nextAssessmentTeamId.equals(""+assessmentTeamID) == true)
+            AssessmentTeamClasses nextAssessmentTeamClasses = assessmentTeamClasses.elementAt(cnt);
+            String nextAssessmentTeamClassesId = (String)nextAssessmentTeamClasses.getState("ID");
+            if (nextAssessmentTeamClassesId.equals(""+assessmentTeamClassesID) == true)
             {
-                retValue = nextAssessmentTeam;
+                retValue = nextAssessmentTeamClasses;
                 return retValue; // we should say 'break;' here
             }
         }
@@ -162,7 +162,7 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
 
     public Vector getOfferingTeacherDisplays()
     {
-        return assessmentTeams;
+        return assessmentTeamClasses;
     }
     /** Called via the IView relationship */
     //----------------------------------------------------------

@@ -21,9 +21,9 @@ import userinterface.ViewFactory;
 
 import java.util.Properties;
 
-public class DeleteAssessmentTeamClasses extends UpdateOfferingTeacherTransaction {
+public class DeleteAssessmentTeamClassesTransaction extends ModifyAssessmentTeamClassesTransaction {
 
-    public DeleteAssessmentTeamClasses() throws Exception {
+    public DeleteAssessmentTeamClassesTransaction() throws Exception {
         super();
 		// DEBUG System.out.println("Delete Offering Teacher Transaction");
     }
@@ -31,9 +31,9 @@ public class DeleteAssessmentTeamClasses extends UpdateOfferingTeacherTransactio
     /**
      * Create the view for user to update data to for sampled course
      */
-    protected Scene createModifyOfferingTeacherView() {
+    protected Scene createModifyAssessmentTeamClassesView() {
 		// DEBUG System.out.println("Delete Offering Teacher Trans: about to create delete offering teacher view");
-        View newView = ViewFactory.createView("DeleteOfferingTeacherView", this);
+        View newView = ViewFactory.createView("DeleteAssessmentTeamClassesView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;
@@ -44,21 +44,19 @@ public class DeleteAssessmentTeamClasses extends UpdateOfferingTeacherTransactio
      * Helper method for Offering Teacher update
      */
     //--------------------------------------------------------------------------
-    protected void OfferingTeacherModificationHelper(Properties props)
+    protected void AssessmentTeamClassesModificationHelper(Properties props)
     {
-        String otNm = props.getProperty("TeacherName");
-        String otNum = props.getProperty("CourseNumber");
-        String otCode = props.getProperty("CourseDisciplineCode");
+        String atcNum = props.getProperty("CourseNumber");
+        String atcCode = props.getProperty("CourseDisciplineCode");
 
 
         // Everything OK
-        myOfferingTeacher.stateChangeRequest("TeacherName", otNm);
-        myOfferingTeacher.stateChangeRequest("CourseNumber", otNum);
-        myOfferingTeacher.stateChangeRequest("CourseDisciplineCode", otCode);
+        myAssessmentTeamClasses.stateChangeRequest("CourseNumber", atcNum);
+        myAssessmentTeamClasses.stateChangeRequest("CourseDisciplineCode", atcCode);
         try {
-            OfferingTeacher someOT = new OfferingTeacher(otCode, otNum, otNm);
-            myOfferingTeacher.remove();
-            transactionErrorMessage = (String)myOfferingTeacher.getState("UpdateStatusMessage");
+            AssessmentTeamClasses someOT = new AssessmentTeamClasses(atcCode, atcNum);
+            myAssessmentTeamClasses.remove();
+            transactionErrorMessage = (String)myAssessmentTeamClasses.getState("UpdateStatusMessage");
         }
         catch (InvalidPrimaryKeyException excep) {
 

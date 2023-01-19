@@ -22,15 +22,15 @@ import event.Event;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the AddOfferingTransaction for the ISLO Data Management application */
+/** The class containing the AddAssessmentTeamClassesTransaction for the Gen Ed Data Management application */
 //==============================================================
 public class AddAssessmentTeamClassesTransaction extends Transaction
 {
-    private OfferingCollection myOfferingList;
-    private OfferingDisplayCollection myOfferingDisplayList;
-    private Offering mySelectedOffering;
-    private ISLOCollection myISLOList;
-    private ISLO mySelectedISLO;
+    private AssessmentTeamCollection myAssessmentTeamList;
+    private AssessmentTeamDisplayCollection myAssessmentTeamDisplayList;
+    private AssessmentTeam mySelectedAssessmentTeam;
+    private GenEdAreaCollection myGenEdAreaList;
+    private GenEdArea mySelectedGenEdArea;
 
 
 
@@ -52,11 +52,11 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelOfferingList", "CancelTransaction");
-        dependencies.setProperty("CancelSearchISLO", "CancelTransaction");
-        dependencies.setProperty("CancelISLOList", "CancelTransaction");
-        dependencies.setProperty("CancelAddOfferingTeacher", "CancelTransaction");
-        dependencies.setProperty("OfferingTeacherData", "TransactionError");
+        dependencies.setProperty("CancelAssessmentTeamList", "CancelTransaction");
+        dependencies.setProperty("CancelSearchArea", "CancelTransaction");
+        dependencies.setProperty("CancelAreaList", "CancelTransaction");
+        dependencies.setProperty("CancelAddAssessmentTeamClasses", "CancelTransaction");
+        dependencies.setProperty("AssessmentTeamClassesData", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -67,26 +67,26 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
     public Object getState(String key)
     {
 
-        if (key.equals("OfferingList") == true)
+        if (key.equals("AssessmentTeamList") == true)
         {
-            return myOfferingList;
+            return mySelectedAssessmentTeam;
         }
         else
         if (key.equals("OfferingDisplayList") == true)
         {
-            return myOfferingDisplayList;
+            return myAssessmentTeamDisplayList;
         }
         else
-        if (key.equals("ISLOList") == true)
+        if (key.equals("GenEdAreaList") == true)
         {
-            return myISLOList;
+            return myGenEdAreaList;
         }
 
         else
-        if (key.equals("ISLOData") == true)
+        if (key.equals("GenEdAreaData") == true)
         {
-            if (mySelectedISLO != null)
-                return mySelectedISLO.getState("ISLOName");
+            if (mySelectedGenEdArea != null)
+                return mySelectedGenEdArea.getState("AreaName");
             else
                 return "";
 
@@ -94,8 +94,8 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
         else
         if (key.equals("SemData") == true)
         {
-            if (mySelectedOffering != null) {
-                String kyleAndMatt = (String)mySelectedOffering.getState("SemesterID");
+            if (mySelectedAssessmentTeam != null) {
+                String kyleAndMatt = (String)mySelectedAssessmentTeam.getState("SemesterID");
                 if (kyleAndMatt != null) {
                     try {
                         Semester selectedSemester = new Semester(kyleAndMatt);
@@ -130,76 +130,76 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
             doYourJob();
         }
         else
-        if (key.equals("OfferingSelected") == true)
+        if (key.equals("AssessmentTeamSelected") == true)
         {
-            String offeringId = (String)value;
+            String assessmentTeamId = (String)value;
 
-            mySelectedOffering = myOfferingList.retrieve(offeringId);
+            mySelectedAssessmentTeam = myAssessmentTeamList.retrieve(assessmentTeamId);
 
 
             try
             {
-                Scene newScene = createAddOfferingTeacherView();
+                Scene newScene = createAddAssessmentTeamClassesView();
                 swapToView(newScene);
             }
             catch (Exception ex)
             {
                 new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Error in creating add new Offering Teacher View", Event.ERROR);
+                        "Error in creating add new Assessment Team View", Event.ERROR);
             }
         }
         else
-        if (key.equals("OfferingTeacherData") == true)
+        if (key.equals("AssessmentTeamClassesData") == true)
         {
             Properties sandeepIsStupid = (Properties) value;
-            sandeepIsStupid.setProperty("OfferingID", (String)mySelectedOffering.getState("ID"));
+            sandeepIsStupid.setProperty("AssessmentTeamID", (String)mySelectedAssessmentTeam.getState("ID"));
             sandeepIsStupid.setProperty("Deletable", "Yes");
-            OfferingTeacher teachersAreHorrible = new OfferingTeacher(sandeepIsStupid);
+            AssessmentTeamClasses teachersAreHorrible = new AssessmentTeamClasses(sandeepIsStupid);
             teachersAreHorrible.update();
             transactionErrorMessage = (String)teachersAreHorrible.getState("UpdateStatusMessage");
         }
         else
-        if (key.equals("SearchISLO") == true) {
+        if (key.equals("SearchArea") == true) {
 
             Properties props = (Properties)value;
 
-            myISLOList = new ISLOCollection();
+            myGenEdAreaList = new GenEdAreaCollection();
 
-            String isloNm = props.getProperty("ISLOName");
-            String desc = props.getProperty("Description");
-            myISLOList.findByNameAndDescriptionPart(isloNm, desc);
+            String areaNm = props.getProperty("AreaName");
+            String notes = props.getProperty("Notes");
+            myGenEdAreaList.findByNameAndNotesPart(areaNm, notes);
 
             try
             {
-                Scene newScene = createISLOCollectionView();
+                Scene newScene = createGenEdAreaCollectionView();
                 swapToView(newScene);
             }
             catch (Exception ex)
             {
                 new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-                        "Error in creating ISLOCollectionView", Event.ERROR);
+                        "Error in creating GenEdAreaCollectionView", Event.ERROR);
             }
 
         }
         else
-        if (key.equals("ISLOSelected") == true)
+        if (key.equals("GenEdAreaSelected") == true)
         {
-            String isloNumSent = (String)value;
-            int isloNumSentVal = Integer.parseInt(isloNumSent);
-            mySelectedISLO = myISLOList.retrieve(isloNumSentVal);
+            String areaNameSent = (String)value;
+            int areaNameSentVal = Integer.parseInt(areaNameSent);
+            mySelectedGenEdArea = myGenEdAreaList.retrieve(areaNameSentVal);
 
-            myOfferingList = new OfferingCollection();
-            myOfferingList.findByISLOId((String)mySelectedISLO.getState("ID"));
-            myOfferingDisplayList = new OfferingDisplayCollection(myOfferingList);
+            myAssessmentTeamList = new AssessmentTeamCollection();
+            myAssessmentTeamList.findByGenEdAreaId((String)mySelectedGenEdArea.getState("ID"));
+            myAssessmentTeamDisplayList = new AssessmentTeamDisplayCollection(myAssessmentTeamList);
 
             try
             {
-                Scene newScene = createOfferingDisplayCollectionView();
+                Scene newScene = createAssessmentTeamDisplayCollectionView();
                 swapToView(newScene);
             }
             catch (Exception ex) {
                 new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-                        "Error in creating OfferingDisplayCollectionView", Event.ERROR);
+                        "Error in creating AssessmentTeamDisplayCollectionView", Event.ERROR);
             }
         }
 
@@ -213,14 +213,14 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
     //------------------------------------------------------
     protected Scene createView()
     {
-        Scene currentScene = myViews.get("SearchISLOForOfferingTeacherView");
+        Scene currentScene = myViews.get("SearchGenEdAreaForAssessmentTeamClassesView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchISLOForOfferingTeacherView", this);
+            View newView = ViewFactory.createView("SearchGenEdAreaForAssessmentTeamClassesView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchISLOForOfferingTeacherView", currentScene);
+            myViews.put("SearchGenEdAreaForAssessmentTeamClassesView", currentScene);
 
             return currentScene;
         }
@@ -232,20 +232,20 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
 
 
     /**
-     * Create the view containing the table of all matching offerings on the ISLO sent
+     * Create the view containing the table of all matching Assessment Teams on the GenEdArea sent
      */
     //------------------------------------------------------
-    protected Scene createOfferingDisplayCollectionView()
+    protected Scene createAssessmentTeamDisplayCollectionView()
     {
 
-        Scene currentScene = myViews.get("OfferingDisplayCollectionForOfferingTeacherView");
+        Scene currentScene = myViews.get("AssessmentTeamDisplayCollectionForAssessmentTeamClassesView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("OfferingDisplayCollectionForOfferingTeacherView", this);
+            View newView = ViewFactory.createView("AssessmentTeamDisplayCollectionForAssessmentTeamClassesView", this);
             currentScene = new Scene(newView);
-            myViews.put("OfferingDisplayCollectionForOfferingTeacherView", currentScene);
+            myViews.put("AssessmentTeamDisplayCollectionForAssessmentTeamClassesView", currentScene);
 
             return currentScene;
         }
@@ -258,9 +258,9 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
 
 
     //------------------------------------------------------
-    protected Scene createISLOCollectionView()
+    protected Scene createGenEdAreaCollectionView()
     {
-        View newView = ViewFactory.createView("ISLOCollectionForOfferingTeacherView", this);
+        View newView = ViewFactory.createView("GenEdAreaCollectionForAssessmentTeamCoursesView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;
@@ -268,11 +268,11 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
     }
 
     /**
-     * Create the view for user to input teacher data to link to ISLO-Semester
+     * Create the view for user to input teacher data to link to GenEdArea-Semester
      * */
-    protected Scene createAddOfferingTeacherView()
+    protected Scene createAddAssessmentTeamClassesView()
     {
-        View newView = ViewFactory.createView("AddOfferingTeacherView", this);
+        View newView = ViewFactory.createView("AddAssessmentTeamClassesView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;

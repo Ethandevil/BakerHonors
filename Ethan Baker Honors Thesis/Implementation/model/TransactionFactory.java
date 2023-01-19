@@ -88,22 +88,21 @@ public class TransactionFactory
 		else if(transType.equals("UpdateReflectionQuestion")){
 			retValue = new ModifyReflectionQuestionTransaction();
 		}
-		/*
 		else
-		if (transType.equals("AddNewOfferingTeacher") == true)
+		if (transType.equals("AddCourseToTeam") == true)
 		{
-			retValue = new AddOfferingTeacherTransaction();
+			retValue = new AddAssessmentTeamClassesTransaction();
 		}
 		else
-		if (transType.equals("UpdateOfferingTeacher") == true)
+		if (transType.equals("UpdateCourseInTeam") == true)
 		{
-			retValue = new UpdateOfferingTeacherTransaction();
+			retValue = new ModifyAssessmentTeamClassesTransaction();
 		}
 		else
-		if (transType.equals("DeleteOfferingTeacher") == true)
+		if (transType.equals("DeleteCourseInTeam") == true)
 		{
-			retValue = new DeleteOfferingTeacherTransaction();
-		}
+			retValue = new DeleteAssessmentTeamClassesTransaction();
+		}/*
 		else
 		if (transType.equals("AddNewStudentCategorization") == true)
 		{

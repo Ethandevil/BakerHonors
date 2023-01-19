@@ -133,39 +133,39 @@ public class ViewFactory {
 		{
 			return new ModifyReflectionQuestionView(model);
 		}
-		/*
-        	else if(viewName.equals("SearchISLOForOfferingTeacherView") == true)
+
+        	else if(viewName.equals("SearchGenEdAreaForAssessmentTeamClassesView") == true)
 		{
-			return new SearchISLOForOfferingTeacherView(model);
+			return new SearchGenEdAreaForAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("ISLOCollectionForOfferingTeacherView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForAssessmentTeamCoursesView") == true)
 		{
-			return new ISLOCollectionForOfferingTeacherView(model);
+			return new GenEdAreaCollectionForAssessmentTeamCoursesView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForOfferingTeacherView") == true)
+		else if(viewName.equals("AssessmentTeamDisplayCollectionForAssessmentTeamClassesView") == true)
 		{
-			return new OfferingDisplayCollectionForOfferingTeacherView(model);
+			return new AssessmentTeamDisplayCollectionForAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("AddOfferingTeacherView") == true)
+		else if(viewName.equals("AddAssessmentTeamClassesView") == true)
 		{
-			return new AddOfferingTeacherView(model);
+			return new AddAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForUpdatingOfferingTeacherView") == true)
+		else if(viewName.equals("AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView") == true)
 		{
-			return new OfferingDisplayCollectionForUpdatingOfferingTeacherView(model);
+			return new AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("ModifyOfferingTeacherView") == true)
+		else if(viewName.equals("ModifyAssessmentTeamClassesView") == true)
 		{
-			return new ModifyOfferingTeacherView(model);
+			return new ModifyAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("OfferingTeacherCollectionView") == true)
+		else if(viewName.equals("AssessmentTeamClassesCollectionView") == true)
 		{
-			return new OfferingTeacherCollectionView(model);
+			return new AssessmentTeamClassesCollectionView(model);
 		}
-		else if(viewName.equals("DeleteOfferingTeacherView") == true)
+		else if(viewName.equals("DeleteAssessmentTeamClassesView") == true)
 		{
-			return new DeleteOfferingTeacherView(model);
-		}
+			return new DeleteAssessmentTeamClassesView(model);
+		}/*
 		else if(viewName.equals("SearchISLOForStudentCategorizationView") == true)
 		{
 			return new SearchISLOForStudentCategorizationView(model);

@@ -49,13 +49,13 @@ public class AssessmentTeamClasses extends EntityBase implements IView
 
         String query = "SELECT * FROM " + myTableName + " WHERE (ID = " + atcId + ")";
 
-        queryHelper(query, "No Matching Sampled courses for linked course with: " + " Id: " + atcId + "found.",
-                "Multiple Sampled courses matching " + " linked course Id: " + atcId + "found.");
+        queryHelper(query, "No Matching Assessment Team Classes for linked course with: " + " Id: " + atcId + "found.",
+                "Multiple Assessment Team Classes matching " + " linked assessment team class Id: " + atcId + "found.");
     }
 
     // constructor for this class
     //----------------------------------------------------------
-    public AssessmentTeamClasses(String crsCode, String crsNum, String assessmentTeamId) throws
+    public AssessmentTeamClasses(String crsCode, String crsNum) throws
             InvalidPrimaryKeyException, MultiplePrimaryKeysException
     {
         super(myTableName);
@@ -63,12 +63,12 @@ public class AssessmentTeamClasses extends EntityBase implements IView
         setDependencies();
 
         String query = "SELECT * FROM " + myTableName + " WHERE ((CourseDisciplineCode = '" + crsCode + "')" +
-                " AND (CourseNumber = '" + crsNum + "') AND (AssessmentTeamID = '" + assessmentTeamId + "'))";
+                " AND (CourseNumber = '" + crsNum + "'))";
 
         queryHelper(query, "No Matching Sampled courses for linked course with" + " data: (" +
-                        crsCode + " " + crsNum + ", " + assessmentTeamId + ") found.",
+                        crsCode + " " + crsNum + ") found.",
                 "Multiple Sampled courses matching " + " linked course with" + " data: (" +
-                        crsCode + " " + crsNum + ", " + assessmentTeamId + ") found.");
+                        crsCode + " " + crsNum + ") found.");
     }
 
     //------------------------------------------------------------------------------
