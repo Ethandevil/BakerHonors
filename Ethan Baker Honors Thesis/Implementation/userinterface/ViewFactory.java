@@ -75,13 +75,13 @@ public class ViewFactory {
 			return new SemesterCollectionView(model);
 		}
 		else if(viewName.equals("SearchSemesterForAssessmentTeamView") == true)
-        	{
-           		return new SearchSemesterForAssessmentTeamView(model);
-        	}
-        	else if(viewName.equals("SemesterCollectionForAssessmentTeamView") == true)
-        	{
-            	return new SemesterCollectionForAssessmentTeamView(model);
-        	}
+		{
+			return new SearchSemesterForAssessmentTeamView(model);
+		}
+		else if(viewName.equals("SemesterCollectionForAssessmentTeamView") == true)
+		{
+			return new SemesterCollectionForAssessmentTeamView(model);
+		}
 		else if(viewName.equals("GenEdAreaCollectionForAssessmentTeamView") == true)
 		{
 			return new GenEdAreaCollectionForAssessmentTeamView(model);
@@ -89,7 +89,7 @@ public class ViewFactory {
 		else if(viewName.equals("SearchGenEdAreaForAssessmentTeamView") == true)
 		{
 			return new SearchGenEdAreaForAssessmentTeamView(model);
-		}/*
+		}
 		else if(viewName.equals("SearchGenEdAreaForModifyingAssessmentTeamView") == true)
 		{
 			return new SearchGenEdAreaForModifyingAssessmentTeamView(model);
@@ -98,14 +98,14 @@ public class ViewFactory {
 		{
 			return new GenEdAreaCollectionForModifyingAssessmentTeamView(model);
 		}
-        	else if(viewName.equals("AssessmentTeamDisplayCollectionView") == true)
+		else if(viewName.equals("AssessmentTeamDisplayCollectionView") == true)
 		{
 			return new AssessmentTeamDisplayCollectionView(model);
 		}
-       	 else if(viewName.equals("SemesterCollectionForModifyAssessmentTeamView") == true)
+       	else if(viewName.equals("SemesterCollectionForModifyAssessmentTeamView") == true)
        	{
            		return new SemesterCollectionForModifyAssessmentTeamView(model);
-		   }*/
+	    }
 		else if(viewName.equals("AddPerformanceCategoryView") == true)
 		{
 			return new AddPerformanceCategoryView(model);

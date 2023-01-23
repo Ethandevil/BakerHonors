@@ -234,7 +234,7 @@ public class AssessmentTeamClasses extends EntityBase implements IView
                     Properties whereClause = new Properties();
                     whereClause.setProperty("ID", persistentState.getProperty("ID"));
                     updatePersistentState(mySchema, persistentState, whereClause);
-                    updateStatusMessage = "Course/Teacher updated successfully for selected ISLO and Semester";
+                    updateStatusMessage = "Course updated successfully for selected Gen Ed Area and Semester";
                 }
 
                 else
@@ -242,14 +242,14 @@ public class AssessmentTeamClasses extends EntityBase implements IView
                     Integer categoryID =
                             insertAutoIncrementalPersistentState(mySchema, persistentState);
                     persistentState.setProperty("ID", "" + categoryID.intValue());
-                    updateStatusMessage = "Course/Teacher installed successfully for selected ISLO and Semester";
+                    updateStatusMessage = "Course added successfully for selected Gen Ed Area and Semester";
                 }
 
 
             }
             catch (SQLException ex)
             {
-                updateStatusMessage = "ERROR in installing Course/Teacher for selected ISLO/Semester!";
+                updateStatusMessage = "ERROR in adding Course for selected Gen Ed Area/Semester!";
             }
             //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
 

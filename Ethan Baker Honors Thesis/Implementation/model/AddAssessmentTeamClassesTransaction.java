@@ -72,7 +72,7 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
             return mySelectedAssessmentTeam;
         }
         else
-        if (key.equals("OfferingDisplayList") == true)
+        if (key.equals("AssessmentTeamDisplayList") == true)
         {
             return myAssessmentTeamDisplayList;
         }
@@ -153,7 +153,6 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
         {
             Properties sandeepIsStupid = (Properties) value;
             sandeepIsStupid.setProperty("AssessmentTeamID", (String)mySelectedAssessmentTeam.getState("ID"));
-            sandeepIsStupid.setProperty("Deletable", "Yes");
             AssessmentTeamClasses teachersAreHorrible = new AssessmentTeamClasses(sandeepIsStupid);
             teachersAreHorrible.update();
             transactionErrorMessage = (String)teachersAreHorrible.getState("UpdateStatusMessage");
@@ -185,8 +184,8 @@ public class AddAssessmentTeamClassesTransaction extends Transaction
         if (key.equals("GenEdAreaSelected") == true)
         {
             String areaNameSent = (String)value;
-            int areaNameSentVal = Integer.parseInt(areaNameSent);
-            mySelectedGenEdArea = myGenEdAreaList.retrieve(areaNameSentVal);
+
+            mySelectedGenEdArea = myGenEdAreaList.retrieve(areaNameSent);
 
             myAssessmentTeamList = new AssessmentTeamCollection();
             myAssessmentTeamList.findByGenEdAreaId((String)mySelectedGenEdArea.getState("ID"));

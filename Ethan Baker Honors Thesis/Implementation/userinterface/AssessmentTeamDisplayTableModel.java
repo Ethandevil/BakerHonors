@@ -45,12 +45,12 @@ public class AssessmentTeamDisplayTableModel
 	}
 
 	//----------------------------------------------------------------------------
-	public String getGenEdAreaName() {
+	public String getAreaName() {
 		return areaName.get();
 	}
 
 	//----------------------------------------------------------------------------
-	public void setGenEdAreaName(String nm) {
+	public void setAreaName(String nm) {
 		areaName.set(nm);
 	}
 	

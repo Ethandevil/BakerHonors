@@ -228,7 +228,7 @@ public class AssessmentTeamDisplayCollectionView extends View
 		cancelButton.setOnAction((ActionEvent e) -> {
 			clearErrorMessage();
 
-			myModel.stateChangeRequest("CancelOfferingList", null);
+			myModel.stateChangeRequest("CancelAssessmentTeamList", null);
 		});
 		cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
 			cancelButton.setEffect(new DropShadow());
