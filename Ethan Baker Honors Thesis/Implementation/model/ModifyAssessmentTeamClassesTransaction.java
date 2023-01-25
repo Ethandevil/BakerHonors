@@ -59,6 +59,7 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
         dependencies.setProperty("CancelAssessmentTeamList", "CancelTransaction");
         dependencies.setProperty("CancelSearchArea", "CancelTransaction");
         dependencies.setProperty("CancelAreaList", "CancelTransaction");
+        dependencies.setProperty("CancelAssessmentTeamClassesList", "CancelTransaction");
         dependencies.setProperty("CancelAddAssessmentTeamClasses", "CancelTransaction");
         dependencies.setProperty("AssessmentTeamClassesData", "TransactionError");
 
@@ -73,9 +74,9 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
             return myAssessmentTeamList;
         } else if (key.equals("AssessmentTeamDisplayList") == true) {
             return myAssessmentTeamDisplayList;
-        } else if (key.equals("AreaList") == true) {
+        } else if (key.equals("GenEdAreaList") == true) {
             return myGenEdAreaList;
-        } else if (key.equals("AreaData") == true) {
+        } else if (key.equals("GenEdAreaData") == true) {
             if (mySelectedGenEdArea != null)
                 return mySelectedGenEdArea.getState("AreaName");
             else
@@ -128,7 +129,7 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
             mySelectedAssessmentTeam = myAssessmentTeamList.retrieve(assessmentTeamId);
 
             myAssessmentTeamClassesList = new AssessmentTeamClassesCollection();
-            myAssessmentTeamClassesList.findByOfferingId(assessmentTeamId);
+            myAssessmentTeamClassesList.findByAssessmentTeamId(assessmentTeamId);
 
             myAssessmentTeamClasses = myAssessmentTeamClassesList.retrieve(assessmentTeamId);
 
@@ -161,10 +162,9 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
                         "Error in creating GenEdAreaCollectionView", Event.ERROR);
             }
 
-        } else if (key.equals("AreaSelected") == true) {
+        } else if (key.equals("GenEdAreaSelected") == true) {
             String areaNameSent = (String) value;
-            int areaNameSentVal = Integer.parseInt(areaNameSent);
-            mySelectedGenEdArea = myGenEdAreaList.retrieve(areaNameSentVal);
+            mySelectedGenEdArea = myGenEdAreaList.retrieve(areaNameSent);
 
             myAssessmentTeamList = new AssessmentTeamCollection();
             myAssessmentTeamList.findByGenEdAreaId((String) mySelectedGenEdArea.getState("ID"));
@@ -177,7 +177,7 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
                 new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
                         "Error in creating AssessmentTeamDisplayCollectionView", Event.ERROR);
             }
-        } else if (key.equals("AssessmentTeamClassesSelected") == true) {
+        } else if (key.equals("AssessmentTeamClassSelected") == true) {
             String assessmentTeamClassesId = (String) value;
             //DEBUG System.out.println(" offering teacher id: " + offeringTeacherId);
             myAssessmentTeamClasses = myAssessmentTeamClassesList.retrieve(assessmentTeamClassesId);
@@ -201,13 +201,14 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
      */
     //------------------------------------------------------
     protected Scene createView() {
-        Scene currentScene = myViews.get("SearchGenEdAreaForAssessmentTeamClassesView");
+        Scene currentScene = myViews.get("SearchGenEdAreaView");
+        //SearchGenEdAreaForAssessmentTeamClassesView
 
         if (currentScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView("SearchGenEdAreaForAssessmentTeamClassesView", this);
+            View newView = ViewFactory.createView("SearchGenEdAreaView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchGenEdAreaForAssessmentTeamClassesView", currentScene);
+            myViews.put("SearchGenEdAreaView", currentScene);
 
             return currentScene;
         } else {
@@ -239,7 +240,7 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
 
     //------------------------------------------------------
     protected Scene createGenEdAreaCollectionView() {
-        View newView = ViewFactory.createView("GenEdAreaCollectionForAssessmentTeamClassesView", this);
+        View newView = ViewFactory.createView("GenEdAreaCollectionForAssessmentTeamCoursesView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;

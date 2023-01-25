@@ -121,7 +121,7 @@ public class AssessmentTeamClassesCollectionView extends View
             AssessmentTeamClassesCollection adCollection =
                     (AssessmentTeamClassesCollection)myModel.getState("AssessmentTeamClassesDisplayList");
 
-            Vector entryList = adCollection.getOfferingTeacherDisplays(); //needs to be changed
+            Vector entryList = adCollection.getAssessmentTeamClassesDisplays(); //needs to be changed
 
             if (entryList.size() > 0)
             {
@@ -142,7 +142,7 @@ public class AssessmentTeamClassesCollectionView extends View
                 if(entryList.size() == 1)
                     actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
                 else
-                    actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
+                    actionText.setText(entryList.size()+" Matching Assessment Team Classes Found!");
 
                 actionText.setFill(Color.LIGHTGREEN);
             }

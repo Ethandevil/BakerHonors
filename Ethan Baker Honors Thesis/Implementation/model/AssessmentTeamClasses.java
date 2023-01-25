@@ -264,9 +264,9 @@ public class AssessmentTeamClasses extends EntityBase implements IView
     {
         Vector<String> v = new Vector<String>();
         v.addElement(persistentState.getProperty("ID"));
+        v.addElement(persistentState.getProperty("AssessmentTeamID"));
         v.addElement(persistentState.getProperty("CourseDisciplineCode"));
         v.addElement(persistentState.getProperty("CourseNumber"));
-        v.addElement(persistentState.getProperty("AssessmentTeamID"));
 
         return v;
     }

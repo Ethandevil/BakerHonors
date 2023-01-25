@@ -107,7 +107,7 @@ public class ModifyAssessmentTeamTransaction extends Transaction
 			return mySemesterList;
 		}
 		else
-		if (key.equals("AreaList") == true)
+		if (key.equals("GenEdAreaList") == true)
 		{
 			return myGenEdAreaList;
 		}
@@ -202,7 +202,7 @@ public class ModifyAssessmentTeamTransaction extends Transaction
 
 		}
 		else
-		if (key.equals("AreaSelected") == true)
+		if (key.equals("GenEdAreaSelected") == true)
 		{
 			
 			String genEdAreaNameSent = (String)value;
