@@ -165,27 +165,27 @@ public class ViewFactory {
 		else if(viewName.equals("DeleteAssessmentTeamClassesView") == true)
 		{
 			return new DeleteAssessmentTeamClassesView(model);
+		}
+		else if(viewName.equals("SearchSemesterForASCIRView") == true)
+		{
+			return new SearchSemesterForASCIRView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaForASCIRView") == true)
+		{
+			return new SearchGenEdAreaForASCIRView(model);
+		}
+		else if(viewName.equals("SemesterCollectionForASCIRView") == true)
+		{
+			return new SemesterCollectionForASCIRView(model);
+		}
+		else if(viewName.equals("GenEdAreaCollectionForASCIRView") == true)
+		{
+			return new GenEdAreaCollectionForASCIRView(model);
+		}
+		else if(viewName.equals("StudentCategorizationAndReflectionChoiceView") == true)
+		{
+			return new StudentCategorizationAndReflectionChoiceView(model);
 		}/*
-		else if(viewName.equals("SearchISLOForStudentCategorizationView") == true)
-		{
-			return new SearchISLOForStudentCategorizationView(model);
-		}
-		else if(viewName.equals("ISLOCollectionForStudentCategorizationView") == true)
-		{
-			return new ISLOCollectionForStudentCategorizationView(model);
-		}
-		else if(viewName.equals("OfferingDisplayCollectionForStudentCategorizationView") == true)
-		{
-			return new OfferingDisplayCollectionForStudentCategorizationView(model);
-		}
-		else if(viewName.equals("OfferingTeacherCollectionForStudentCategorizationView") == true)
-		{
-			return new OfferingTeacherCollectionForStudentCategorizationView(model);
-		}
-		else if(viewName.equals("AddStudentCategorizationView") == true)
-		{
-			return new AddStudentCategorizationView(model);
-		}
 		else if(viewName.equals("ModifyStudentCategorizationView") == true)
 		{
 			return new ModifyStudentCategorizationView(model);

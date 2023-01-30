@@ -102,12 +102,12 @@ public class TransactionFactory
 		if (transType.equals("DeleteCourseInTeam") == true)
 		{
 			retValue = new DeleteAssessmentTeamClassesTransaction();
-		}/*
+		}
 		else
 		if (transType.equals("AddNewStudentCategorization") == true)
 		{
-			retValue = new AddStudentCategorizationTransaction();
-		}
+			retValue = new AddStudentCategorizationReflectionTransaction();
+		}/*
 		else
 		if (transType.equals("UpdateStudentCategorization") == true)
 		{

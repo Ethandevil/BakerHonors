@@ -210,7 +210,11 @@ public class AssessmentTeam extends EntityBase implements IView
         }
         catch (SQLException ex)
         {
+            System.out.println(ex);
             updateStatusMessage = "Error in installing Assessment Team data in database!";
+        }
+        catch(Exception exc){
+            System.out.println(exc);
         }
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
