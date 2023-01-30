@@ -206,8 +206,7 @@ public class ModifyAssessmentTeamTransaction extends Transaction
 		{
 			
 			String genEdAreaNameSent = (String)value;
-			int genEdAreaNameSentVal = Integer.parseInt(genEdAreaNameSent);
-			mySelectedGenEdArea = myGenEdAreaList.retrieve(genEdAreaNameSentVal);
+			mySelectedGenEdArea = myGenEdAreaList.retrieve(genEdAreaNameSent);
 
 			myAssessmentTeamList = new AssessmentTeamCollection();
 			myAssessmentTeamList.findByGenEdAreaId((String)mySelectedGenEdArea.getState("ID"));
