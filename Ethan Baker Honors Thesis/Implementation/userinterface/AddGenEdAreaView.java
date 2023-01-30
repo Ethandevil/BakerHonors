@@ -62,6 +62,8 @@ import javafx.util.StringConverter;
 
 // project imports
 import impresario.IModel;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 /** The class containing the Add Gen Ed Area View for the Gen Ed Assessment Data Management application */
 //==============================================================
@@ -202,7 +204,15 @@ public class AddGenEdAreaView extends View
         ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Add", icon);
+        TranslationsString ts = new TranslationsString();
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Submit");
+        }
+        catch (Exception ex) {
+
+        }
+        submitButton = new Button(ts.getDisplayString(), icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -245,7 +255,14 @@ public class AddGenEdAreaView extends View
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+
+        cancelButton = new Button(ts.getDisplayString(), icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();

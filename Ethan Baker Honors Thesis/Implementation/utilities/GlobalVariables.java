@@ -23,6 +23,8 @@ import java.time.LocalDate;
 //==============================================================
 public class GlobalVariables 
 {
+	public static final String locale = "fr_FR";
+
 	//Used by clothing items
 	public static final int MAX_GEN_ED_AREA_NAME_LENGTH = 70;
 	public static final int MAX_GEN_ED_AREA_NOTES_LENGTH = 300;
