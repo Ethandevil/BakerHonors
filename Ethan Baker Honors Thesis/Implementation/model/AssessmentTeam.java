@@ -26,7 +26,7 @@ import exception.MultiplePrimaryKeysException;
 
 import impresario.IView;
 
-/** The class containing the Offering information for the Gen Ed Area Data Management
+/** The class containing the Assessment Team information for the Gen Ed Area Data Management
  * application
  */
 //==============================================================
@@ -59,15 +59,15 @@ public class AssessmentTeam extends EntityBase implements IView
             // if size = 0 throw the Invalid Primary Key Exception
             if (size == 0)
             {
-                throw new InvalidPrimaryKeyException("No Matching Offerings for: Gen Ed Area Id: "
+                throw new InvalidPrimaryKeyException("No Matching Assessment Teams for: Gen Ed Area Id: "
                         + genEdAreaId + ", Semester Id: " + semId + ") found.");
             }
             else
-                // There should be EXACTLY one offering. More than that is an error
+                // There should be EXACTLY one Assessment Team. More than that is an error
                 if (size != 1)
                 {
 
-                    throw new MultiplePrimaryKeysException("Multiple offerings matching: Gen Ed Area Id: "
+                    throw new MultiplePrimaryKeysException("Multiple Assessment Teams matching: Gen Ed Area Id: "
                             + genEdAreaId + ", Semester Id: " + semId + ") found.");
                 }
                 else
@@ -91,16 +91,16 @@ public class AssessmentTeam extends EntityBase implements IView
 
                 }
         }
-        // If offering not found for this data, throw an Invalid Primary key exception
+        // If Assessment Team not found for this data, throw an Invalid Primary key exception
         else
         {
-            throw new InvalidPrimaryKeyException("No offerings matching: Gen Ed Area Id: " + genEdAreaId
+            throw new InvalidPrimaryKeyException("No Assessment Teams matching: Gen Ed Area Id: " + genEdAreaId
                     + ", Semester Id: " + semId + ") found.");
         }
     }
 
     /**
-     * Alternate constructor. Can be used to create a NEW offering
+     * Alternate constructor. Can be used to create a NEW Assessment Team
      */
     //----------------------------------------------------------
     public AssessmentTeam(Properties props)
@@ -210,13 +210,13 @@ public class AssessmentTeam extends EntityBase implements IView
         }
         catch (SQLException ex)
         {
-            updateStatusMessage = "Error in installing Offering data in database!";
+            updateStatusMessage = "Error in installing Assessment Team data in database!";
         }
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
 
     /**
-     * This method is needed solely to enable the Offering information to be displayable in a table
+     * This method is needed solely to enable the Assessment Team information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
