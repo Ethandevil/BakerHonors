@@ -200,21 +200,12 @@ public class AssessmentTeamClasses extends EntityBase implements IView
     //-----------------------------------------------------------------------------------
     public void remove()
     {
-        String deleteAbleState = persistentState.getProperty("Deletable");
-        if ((deleteAbleState != null) && (deleteAbleState.equals("Yes") == true)) {
-            try {
-                deletePersistentState(mySchema, persistentState);
-                updateStatusMessage = "Selected sampled course successfully removed!";
-            }
-            catch (SQLException ex) {
-                updateStatusMessage = "Error in deleting selected sampled course";
-            }
+        try{
+            deletePersistentState(mySchema, persistentState);
+            updateStatusMessage = "Selected assessment team course successfully removed";
         }
-        else if ((deleteAbleState != null) && (deleteAbleState.equals("No") == true)) {
-            updateStatusMessage = "Selected sampled course cannot be deleted";
-        }
-        else {
-            updateStatusMessage = "Kyle screwed up";
+        catch(SQLException ex){
+            updateStatusMessage = "Error in deleting selected assessment team course";
         }
     }
 
