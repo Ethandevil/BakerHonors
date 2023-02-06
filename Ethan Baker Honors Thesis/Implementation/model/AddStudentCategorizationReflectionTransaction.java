@@ -33,6 +33,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     private Semester mySelectedSemester;
     private GenEdAreaCollection myGenEdAreaList;
     private GenEdArea mySelectedGenEdArea;
+    private SLOCollection mySLOList;
 
     // GUI Components
     private String transactionErrorMessage = "";
@@ -56,6 +57,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         dependencies.setProperty("CancelSearchArea", "CancelTransaction");
         dependencies.setProperty("CancelAreaList", "CancelTransaction");
         dependencies.setProperty("GenEdAreaSelected", "TransactionError");
+        dependencies.setProperty("CancelAddStudentCategorizationData", "CancelTransaction");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -78,6 +80,25 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         if (key.equals("TransactionError") == true)
         {
             return transactionErrorMessage;
+        }
+        else if(key.equals("SLOList")){
+            return mySLOList;
+        }
+        else if(key.equals("GenEdAreaData")){
+            if (mySelectedGenEdArea != null)
+                return mySelectedGenEdArea.getState("AreaName");
+            else
+                return "";
+        }
+        else if(key.equals("SemData")){
+            if(mySelectedSemester != null){
+                String fullSemester = (String)mySelectedSemester.getState("SemName") + " " +
+                        (String)mySelectedSemester.getState("Year");
+                return fullSemester;
+            }
+            else{
+                return "";
+            }
         }
 
         return null;
@@ -122,7 +143,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             int semIdSentVal =
                     Integer.parseInt(semIdSent);
             mySelectedSemester = mySemesterList.retrieve(semIdSentVal);
-
+            //todo check if there is an assessment team
             try
             {
 
@@ -169,10 +190,16 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
 
             mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
 
+            mySLOList = new SLOCollection();
+            mySLOList.findByGenEdArea((String)mySelectedGenEdArea.getState("ID"));
 
             Scene s = createStudentCategorizationAndReflectionChoiceView();
             swapToView(s);
             //processTransaction(props);
+        }
+        else if(key.equals("AddNewStudentCategorization")){
+            Scene s = createAddStudentCategorizationView();
+            swapToView(s);
         }
 
         myRegistry.updateSubscribers(key, this);
@@ -251,6 +278,14 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     //------------------------------------------------------
     protected Scene createStudentCategorizationAndReflectionChoiceView(){
         View newView = ViewFactory.createView("StudentCategorizationAndReflectionChoiceView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+    }
+
+    //------------------------------------------------------
+    protected Scene createAddStudentCategorizationView(){
+        View newView = ViewFactory.createView("AddStudentCategorizationView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;
