@@ -34,6 +34,9 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     private GenEdAreaCollection myGenEdAreaList;
     private GenEdArea mySelectedGenEdArea;
     private SLOCollection mySLOList;
+    private AssessmentTeam mySelectedAssessmentTeam;
+    private ReflectionQuestionCollection allReflectionQuestions;
+    private PerformanceCategoryCollection allPCs;
 
     // GUI Components
     private String transactionErrorMessage = "";
@@ -45,6 +48,8 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     //----------------------------------------------------------
     public AddStudentCategorizationReflectionTransaction() throws Exception{
         super();
+        allPCs = new PerformanceCategoryCollection();
+        allPCs.findAll();
     }
 
     //----------------------------------------------------------
@@ -58,6 +63,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         dependencies.setProperty("CancelAreaList", "CancelTransaction");
         dependencies.setProperty("GenEdAreaSelected", "TransactionError");
         dependencies.setProperty("CancelAddStudentCategorizationData", "CancelTransaction");
+        dependencies.setProperty("CancelAddReflection", "CancelTransaction");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -74,6 +80,16 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         if (key.equals("GenEdAreaList") == true)
         {
             return myGenEdAreaList;
+        }
+        else
+        if(key.equals("AssessmentTeamID") == true)
+        {
+            if(mySelectedAssessmentTeam != null){
+                return mySelectedAssessmentTeam.getState("ID");
+            }
+            else{
+                return null;
+            }
         }
 
         else
@@ -98,6 +114,20 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             }
             else{
                 return "";
+            }
+        }
+        else if(key.equals("ReflectionQuestionList")){
+            return allReflectionQuestions;
+        }
+        else if(key.startsWith("Category")){
+            String catNum = key.substring(key.length()-1);
+            System.out.println("catNum = " + catNum);
+            if(allPCs != null){
+                PerformanceCategory p = allPCs.retrieve(catNum);
+                return p.getState("Name");
+            }
+            else{
+                return "Unknown";
             }
         }
 
@@ -193,16 +223,39 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             mySLOList = new SLOCollection();
             mySLOList.findByGenEdArea((String)mySelectedGenEdArea.getState("ID"));
 
-            Scene s = createStudentCategorizationAndReflectionChoiceView();
-            swapToView(s);
-            //processTransaction(props);
+            boolean validAT = checkForValidAssessmentTeam();
+            if (validAT){
+                Scene s = createStudentCategorizationAndReflectionChoiceView();
+                swapToView(s);
+            }
         }
         else if(key.equals("AddNewStudentCategorization")){
             Scene s = createAddStudentCategorizationView();
             swapToView(s);
         }
+        else if(key.equals("AddNewInstructorReflection")){
+            allReflectionQuestions = new ReflectionQuestionCollection();
+            allReflectionQuestions.findAll();
+            Scene s = createAddReflectionView();
+            swapToView(s);
+        }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    //------------------------------------------------------
+    private boolean checkForValidAssessmentTeam(){
+        String semID = (String)mySelectedSemester.getState("ID");
+        String genEdID = (String)mySelectedGenEdArea.getState("ID");
+
+        try{
+            mySelectedAssessmentTeam = new AssessmentTeam(genEdID, semID);
+            return true;
+        }
+        catch(Exception ex){
+            transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination chosen!";
+            return false;
+        }
     }
 
     /**
@@ -286,6 +339,14 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     //------------------------------------------------------
     protected Scene createAddStudentCategorizationView(){
         View newView = ViewFactory.createView("AddStudentCategorizationView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+    }
+
+    //------------------------------------------------------
+    protected Scene createAddReflectionView(){
+        View newView = ViewFactory.createView("AddReflectionView", this);
         Scene currentScene = new Scene(newView);
 
         return currentScene;

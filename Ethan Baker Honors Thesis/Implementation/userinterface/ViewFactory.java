@@ -189,6 +189,9 @@ public class ViewFactory {
 		else if(viewName.equals("AddStudentCategorizationView")){
 			return new AddStudentCategorizationView(model);
 		}
+		else if(viewName.equals("AddReflectionView")){
+			return new AddReflectionView(model);
+		}
 		/*
 		else if(viewName.equals("ModifyStudentCategorizationView") == true)
 		{

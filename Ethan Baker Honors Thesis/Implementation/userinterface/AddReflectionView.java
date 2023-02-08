@@ -17,6 +17,8 @@ package userinterface;
 
 
 // system imports
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,11 +26,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,15 +41,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Vector;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
@@ -62,6 +58,10 @@ import javafx.util.StringConverter;
 
 // project imports
 import impresario.IModel;
+import model.ReflectionQuestion;
+import model.ReflectionQuestionCollection;
+import model.SLO;
+import model.SLOCollection;
 
 /** The class containing the AddReflectionQuestionView for the Gen Ed Assessment Data Management application */
 //==============================================================
@@ -76,8 +76,8 @@ public class AddReflectionView extends View
 
     protected Text genEdArea;
     protected Text semester;
-    protected TextField refQuestion;
-    protected TextArea questionText;
+    protected TableView<ReflectionQuestionTableModel> tableQuestions;
+    protected TextArea reflectionAnswer;
 
     // other buttons here
     protected Button submitButton;
@@ -119,7 +119,62 @@ public class AddReflectionView extends View
         populateFields();
         cancelButton.requestFocus();
 
+        tableQuestions.getSelectionModel().select(0); //autoselect first element
+
         myModel.subscribe("TransactionError", this);
+    }
+
+    //--------------------------------------------------------------------------
+    protected void getEntryTableModelValues()
+    {
+
+        ObservableList<ReflectionQuestionTableModel> tableData = FXCollections.observableArrayList();
+        try
+        {
+        ReflectionQuestionCollection myRQCollection =
+                    (ReflectionQuestionCollection)myModel.getState("ReflectionQuestionList");
+
+            Vector entryList = (Vector)myRQCollection.getState("ReflectionQuestions");
+
+            if (entryList.size() > 0)
+            {
+
+                Enumeration entries = entryList.elements();
+
+                while (entries.hasMoreElements() == true)
+                {
+
+                    ReflectionQuestion nextQ = (ReflectionQuestion) entries.nextElement();
+                    Vector<String> view = nextQ.getEntryListView();
+
+                    // add this list entry to the list
+                    ReflectionQuestionTableModel nextTableRowData = new ReflectionQuestionTableModel(view);
+                    tableData.add(nextTableRowData);
+
+                }
+                if(entryList.size() == 1) {
+                    //actionText.setText(entryList.size()+" Matching SLO Found!");
+                }
+                else {
+                    //actionText.setText(entryList.size()+" Matching SLO Found!");
+                }
+
+                //actionText.setFill(Color.LIGHTGREEN);
+            }
+            else
+            {
+                //actionText.setText("No matching SLOs Found!");
+                //actionText.setFill(Color.FIREBRICK);
+            }
+
+            tableQuestions.setItems(tableData);
+        }
+        catch (Exception e) {//SQLException e) {
+            // Need to handle this exception
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
     }
 
     // Create the labels and fields
@@ -186,12 +241,53 @@ public class AddReflectionView extends View
         semester = new Text();
         grid.add(semester, 1, 2);
 
+        //vbox.getChildren().add(grid);
+
+        HBox tableCont = new HBox(10);
+        tableCont.setAlignment(Pos.CENTER);
+
         Text refQuestionLabel = new Text(" Choose a Reflection Question : ");
+        refQuestionLabel.setFill(Color.GOLD);
         refQuestionLabel.setFont(myFont);
         refQuestionLabel.setWrappingWidth(150);
         refQuestionLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(refQuestionLabel, 0, 3);
-        grid.add(refQuestion = new TextField(), 1, 3);
+        //tableCont.getChildren().add(refQuestionLabel);
+
+        tableQuestions = new TableView<ReflectionQuestionTableModel>();
+        tableQuestions.setEffect(new DropShadow());
+        tableQuestions.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
+        tableQuestions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+
+        TableColumn rQCol = new TableColumn("Question Text");
+        rQCol.setMinWidth(1500);
+        rQCol.setCellValueFactory(
+                new PropertyValueFactory<GenEdAreaTableModel, String>("reflectionQuestionText"));
+
+        tableQuestions.getColumns().add(rQCol);
+
+        tableQuestions.setOnMousePressed((MouseEvent event) -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
+
+                //processSLOSelected();
+            }
+        });
+        //tableQuestions.setPrefHeight(175);
+        //tableQuestions.setPrefWidth(600);
+        ScrollPane s1 = new ScrollPane();
+        s1.setPrefSize(550, 175);
+        s1.setFitToHeight(true);
+        s1.setContent(tableQuestions);
+        grid.add(s1, 1, 3);
+        //tableCont.getChildren().add(s1);
+        //vbox.getChildren().add(tableCont);
+
+        GridPane grid1 = new GridPane();
+        grid1.setAlignment(Pos.CENTER);
+        grid1.setHgap(10);
+        grid1.setVgap(10);
+        grid1.setPadding(new Insets(0, 25, 10, 0));
 
         Text questionTextLabel = new Text(" Instructor Reflection : ");
 
@@ -201,11 +297,11 @@ public class AddReflectionView extends View
         questionTextLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(questionTextLabel, 0, 4);
 
-        questionText = new TextArea();
-        questionText.setPrefColumnCount(30);
-        questionText.setPrefRowCount(3);
-        questionText.setWrapText(true);
-        grid.add(questionText, 1, 4);
+        reflectionAnswer = new TextArea();
+        reflectionAnswer.setPrefColumnCount(50);
+        reflectionAnswer.setPrefRowCount(10);
+        reflectionAnswer.setWrapText(true);
+        grid.add(reflectionAnswer, 1, 4);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
@@ -225,24 +321,29 @@ public class AddReflectionView extends View
             clearOutlines();
             Properties props = new Properties();
 
-            String refQuestionTextNm = refQuestion.getText();
-            String questionTextNm = questionText.getText();
-            if (questionTextNm.length() > 0 && questionTextNm.matches("[a-zA-Z0-9-:()?, ]+"))
+            String questionID = processReflectionQuestionSelected();
+
+            String ansText = reflectionAnswer.getText();
+            if (ansText.length() > 0 && ansText.matches("[a-zA-Z0-9-:()?, ]+"))
             {
-                props.setProperty("QuestionText", questionTextNm);
-                if (refQuestionTextNm.length() > 0 && refQuestionTextNm.matches("[a-zA-Z0-9-:()?, ]+")) {
-                    props.setProperty("ReflectionText", refQuestionTextNm);
-                    myModel.stateChangeRequest("QuestionData", props);
+                String aTID = (String)myModel.getState("AssessmentTeamID");
+                if(aTID != null){
+                    props.setProperty("AssessmentTeamID", aTID);
+                    props.setProperty("ReflectionQuestionID", questionID);
+                    props.setProperty("ReflectionText", ansText);
+                    props.setProperty("ACComments", "NA");
+                    myModel.stateChangeRequest("ReflectionData", props);
                 }
-                else {
-                    refQuestion.setStyle("-fx-border-color: firebrick;");
-                    displayErrorMessage("ERROR: Please enter a valid instructor reflection!");
+                else{
+                    reflectionAnswer.setStyle("-fx-border-color: firebrick;");
+                    displayErrorMessage("ERROR: Invalid Gen Ed Area / Semester combination chosen!");
                 }
+
             }
             else
             {
-                questionText.setStyle("-fx-border-color: firebrick;");
-                displayErrorMessage("ERROR: Please enter a valid question text!");
+                reflectionAnswer.setStyle("-fx-border-color: firebrick;");
+                displayErrorMessage("ERROR: Please enter a valid reflection!");
             }
         });
         submitButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -259,7 +360,7 @@ public class AddReflectionView extends View
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
-            myModel.stateChangeRequest("CancelAddQuestion", null);
+            myModel.stateChangeRequest("CancelAddReflection", null);
         });
         cancelButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             cancelButton.setEffect(new DropShadow());
@@ -269,8 +370,8 @@ public class AddReflectionView extends View
         });
         doneCont.getChildren().add(cancelButton);
 
-        vbox.getChildren().add(grid);
 
+        vbox.getChildren().add(grid);
         vbox.getChildren().add(doneCont);
         clearOutlines();
         vbox.addEventFilter(KeyEvent.KEY_RELEASED, event->{
@@ -281,6 +382,20 @@ public class AddReflectionView extends View
 
         return vbox;
 
+    }
+
+    //--------------------------------------------------------------------------
+    protected String processReflectionQuestionSelected()
+    {
+        ReflectionQuestionTableModel selectedItem = tableQuestions.getSelectionModel().getSelectedItem();
+
+        if(selectedItem != null)
+        {
+            String selectedReflectionQuestionID = selectedItem.getReflectionQuestionID();
+
+            return selectedReflectionQuestionID;
+        }
+        return null;
     }
 
     // Create the status log field
@@ -295,8 +410,7 @@ public class AddReflectionView extends View
 
     //-------------------------------------------------------------
     private void clearOutlines(){
-        questionText.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
-        refQuestion.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
+        reflectionAnswer.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
     }
 
 
@@ -320,14 +434,14 @@ public class AddReflectionView extends View
         {
             semester.setText(sem);
         }
+        getEntryTableModelValues();
     }
 
 
     //-------------------------------------------------------------
     public void clearValues()
     {
-        questionText.clear();
-        refQuestion.clear();
+        reflectionAnswer.clear();
     }
 
 

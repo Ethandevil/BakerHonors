@@ -26,9 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -216,11 +214,17 @@ public class AddStudentCategorizationView extends View {
         grid.add(semLabel, 0, 2);
         grid.add(semester = new Text(), 1, 2);
 
+        GridPane grid1 = new GridPane();
+        grid1.setAlignment(Pos.CENTER);
+        grid1.setHgap(10);
+        grid1.setVgap(10);
+        grid1.setPadding(new Insets(25, 25, 25, 25));
+
         Text sloLabel = new Text(" Choose an SLO : ");
         sloLabel.setFont(myFont);
         sloLabel.setWrappingWidth(150);
         sloLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(sloLabel,0,3);
+        grid1.add(sloLabel,0,0);
 
         tableOfSLOs = new TableView<SLOTableModel>();
         tableOfSLOs.setEffect(new DropShadow());
@@ -228,7 +232,7 @@ public class AddStudentCategorizationView extends View {
         tableOfSLOs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TableColumn sloCol = new TableColumn("SLO Text") ;
-        sloCol.setMinWidth(440);
+        sloCol.setMinWidth(1000);
         sloCol.setCellValueFactory(
                 new PropertyValueFactory<GenEdAreaTableModel, String>("sloText"));
 
@@ -240,6 +244,13 @@ public class AddStudentCategorizationView extends View {
                 //processSLOSelected();
             }
         });
+        //tableOfSLOs.setPrefHeight(200);
+        //tableOfSLOs.setPrefWidth(300);
+        ScrollPane s1 = new ScrollPane();
+        s1.setPrefSize(700, 200);
+        s1.setFitToHeight(true);
+        s1.setContent(tableOfSLOs);
+        grid1.add(s1, 1, 0);
 
         Text prompt = new Text(getPromptText());
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
@@ -253,7 +264,21 @@ public class AddStudentCategorizationView extends View {
         grid2.setAlignment(Pos.CENTER);
         grid2.setHgap(10);
         grid2.setVgap(10);
-        grid2.setPadding(new Insets(10, 10, 10, 10));
+        grid2.setPadding(new Insets(10, 50, 10, 50));
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(20);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPercentWidth(20);
+        ColumnConstraints column3 = new ColumnConstraints();
+        column3.setPercentWidth(20);
+        ColumnConstraints column4 = new ColumnConstraints();
+        column4.setPercentWidth(20);
+        ColumnConstraints column5 = new ColumnConstraints();
+        column5.setPercentWidth(20);
+
+        grid2.getColumnConstraints().addAll(column1, column2, column3, column4, column5);
+
 
         grid2.add(catName1 = new Text(), 1, 0);
         grid2.add(catName2 = new Text(), 2, 0);
@@ -268,17 +293,17 @@ public class AddStudentCategorizationView extends View {
         freshmen.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(freshmen, 0,1);
         grid2.add( fr1 = new TextField(),1 , 1);
-        fr1.setPrefWidth(40);
-        fr1.setMaxWidth(40);
+        fr1.setPrefWidth(120);
+        fr1.setMaxWidth(120);
         grid2.add(fr2 = new TextField(),2,1);
-        fr2.setPrefWidth(40);
-        fr2.setMaxWidth(40);
+        fr2.setPrefWidth(120);
+        fr2.setMaxWidth(120);
         grid2.add(fr3 = new TextField(),3,1);
-        fr3.setPrefWidth(40);
-        fr3.setMaxWidth(40);
+        fr3.setPrefWidth(120);
+        fr3.setMaxWidth(120);
         grid2.add(fr4 = new TextField(),4,1);
-        fr4.setPrefWidth(40);
-        fr4.setMaxWidth(40);
+        fr4.setPrefWidth(120);
+        fr4.setMaxWidth(120);
 
         Text sophomore = new Text(" Sophomore : ");
         myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
@@ -287,17 +312,17 @@ public class AddStudentCategorizationView extends View {
         sophomore.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(sophomore, 0,2);
         grid2.add(so1 = new TextField(),1 , 2);
-        so1.setPrefWidth(40);
-        so1.setMaxWidth(40);
+        so1.setPrefWidth(120);
+        so1.setMaxWidth(120);
         grid2.add(so2 = new TextField(),2,2);
-        so2.setPrefWidth(40);
-        so2.setMaxWidth(40);
+        so2.setPrefWidth(120);
+        so2.setMaxWidth(120);
         grid2.add(so3 = new TextField(),3,2);
-        so3.setPrefWidth(40);
-        so3.setMaxWidth(40);
+        so3.setPrefWidth(120);
+        so3.setMaxWidth(120);
         grid2.add(so4 = new TextField(),4,2);
-        so4.setPrefWidth(40);
-        so4.setMaxWidth(40);
+        so4.setPrefWidth(120);
+        so4.setMaxWidth(120);
 
         Text junior = new Text(" Junior : ");
         myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
@@ -306,17 +331,17 @@ public class AddStudentCategorizationView extends View {
         junior.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(junior, 0,3);
         grid2.add(jr1 = new TextField(),1 , 3);
-        jr1.setPrefWidth(40);
-        jr1.setMaxWidth(40);
+        jr1.setPrefWidth(120);
+        jr1.setMaxWidth(120);
         grid2.add(jr2 = new TextField(),2,3);
-        jr2.setPrefWidth(40);
-        jr2.setMaxWidth(40);
+        jr2.setPrefWidth(120);
+        jr2.setMaxWidth(120);
         grid2.add(jr3 = new TextField(),3,3);
-        jr3.setPrefWidth(40);
-        jr3.setMaxWidth(40);
+        jr3.setPrefWidth(120);
+        jr3.setMaxWidth(120);
         grid2.add(jr4 = new TextField(),4,3);
-        jr4.setPrefWidth(40);
-        jr4.setMaxWidth(40);
+        jr4.setPrefWidth(120);
+        jr4.setMaxWidth(120);
 
         Text senior = new Text(" Senior : ");
         myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
@@ -325,17 +350,17 @@ public class AddStudentCategorizationView extends View {
         senior.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(senior, 0,4);
         grid2.add(sr1 = new TextField(),1 , 4);
-        sr1.setPrefWidth(40);
-        sr1.setMaxWidth(40);
+        sr1.setPrefWidth(120);
+        sr1.setMaxWidth(120);
         grid2.add(sr2 = new TextField(),2,4);
-        sr2.setPrefWidth(40);
-        sr2.setMaxWidth(40);
+        sr2.setPrefWidth(120);
+        sr2.setMaxWidth(120);
         grid2.add(sr3 = new TextField(),3,4);
-        sr3.setPrefWidth(40);
-        sr3.setMaxWidth(40);
+        sr3.setPrefWidth(120);
+        sr3.setMaxWidth(120);
         grid2.add(sr4 = new TextField(),4,4);
-        sr4.setPrefWidth(40);
-        sr4.setMaxWidth(40);
+        sr4.setPrefWidth(120);
+        sr4.setMaxWidth(120);
 
         ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
         icon.setFitHeight(15);
@@ -412,9 +437,9 @@ public class AddStudentCategorizationView extends View {
         buttonContainer.getChildren().add(cancelButton);
 
         vbox.getChildren().add(grid);
-        tableOfSLOs.setPrefHeight(200);
-        tableOfSLOs.setPrefWidth(300);
-        vbox.getChildren().add(tableOfSLOs);
+
+        //vbox.getChildren().add(tableOfSLOs);
+        vbox.getChildren().add(grid1);
         vbox.getChildren().add(prompt);
         vbox.getChildren().add(grid2);
         vbox.getChildren().add(buttonContainer);
@@ -450,10 +475,10 @@ public class AddStudentCategorizationView extends View {
         {
             semester.setText(sem);
         }
-        catName1.setText("Test1");
-        catName2.setText("Test2");
-        catName3.setText("Test3");
-        catName4.setText("Test4");
+        catName1.setText((String)myModel.getState("Category_1"));
+        catName2.setText((String)myModel.getState("Category_2"));
+        catName3.setText((String)myModel.getState("Category_3"));
+        catName4.setText((String)myModel.getState("Category_4"));
     }
     //-------------------------------------------------------
     protected void clearOutlines() {
