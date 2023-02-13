@@ -64,7 +64,6 @@ public class TransactionFactory
 		else
 		if (transType.equals("AddNewAssessmentTeam") == true)
 		{
-			System.out.println("HERE");
 			retValue = new AddAssessmentTeamTransaction();
 		}
 		else

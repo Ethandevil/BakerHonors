@@ -64,6 +64,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         dependencies.setProperty("GenEdAreaSelected", "TransactionError");
         dependencies.setProperty("CancelAddStudentCategorizationData", "CancelTransaction");
         dependencies.setProperty("CancelAddReflection", "CancelTransaction");
+        dependencies.setProperty("StudentCategorizationData", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -121,7 +122,6 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         }
         else if(key.startsWith("Category")){
             String catNum = key.substring(key.length()-1);
-            System.out.println("catNum = " + catNum);
             if(allPCs != null){
                 PerformanceCategory p = allPCs.retrieve(catNum);
                 return p.getState("Name");
@@ -239,8 +239,111 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             Scene s = createAddReflectionView();
             swapToView(s);
         }
+        else if(key.equals("StudentCategorizationData")){
+            Properties props = (Properties)value;
+            String sloID = props.getProperty("SLOID");
+
+            String scfr1 = props.getProperty("scfr1");
+            String scfr2 = props.getProperty("scfr2");
+            String scfr3 = props.getProperty("scfr3");
+            String scfr4 = props.getProperty("scfr4");
+
+            StudentCategorization sc1 = createSC(sloID, "Freshmen", scfr1, scfr2, scfr3, scfr4);
+
+            String scso1 = props.getProperty("scso1");
+            String scso2 = props.getProperty("scso2");
+            String scso3 = props.getProperty("scso3");
+            String scso4 = props.getProperty("scso4");
+
+            StudentCategorization sc2 = createSC(sloID, "Sophomore", scso1, scso2, scso3, scso4);
+
+            String scjr1 = props.getProperty("scjr1");
+            String scjr2 = props.getProperty("scjr2");
+            String scjr3 = props.getProperty("scjr3");
+            String scjr4 = props.getProperty("scjr4");
+
+            StudentCategorization sc3 = createSC(sloID, "Junior", scjr1, scjr2, scjr3, scjr4);
+
+            String scsr1 = props.getProperty("scsr1");
+            String scsr2 = props.getProperty("scsr2");
+            String scsr3 = props.getProperty("scsr3");
+            String scsr4 = props.getProperty("scsr4");
+
+            StudentCategorization sc4 = createSC(sloID, "Senior", scsr1, scsr2, scsr3, scsr4);
+
+            if(saveStudentCategorization(sloID, "Freshmen", sc1)) {
+                if(saveStudentCategorization(sloID, "Sophomore", sc2)){
+                    if(saveStudentCategorization(sloID, "Junior", sc3)){
+                        if(saveStudentCategorization(sloID, "Senior", sc4)){
+                            transactionErrorMessage = "All student categorizations saved successfully";
+                        }
+                    }
+                }
+            }
+        }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    //------------------------------------------------------
+    private StudentCategorization createSC(String sloID, String sLevel,
+                                           String cat1N, String cat2N, String cat3N, String cat4N){
+        Properties props = new Properties();
+        props.setProperty("AssessmentTeamID", (String)mySelectedAssessmentTeam.getState("ID"));
+        props.setProperty("SLOID", sloID);
+        props.setProperty("StudentLevel", sLevel);
+        props.setProperty("Cat1Number", cat1N);
+        props.setProperty("Cat2Number", cat2N);
+        props.setProperty("Cat3Number", cat3N);
+        props.setProperty("Cat4Number", cat4N);
+        return new StudentCategorization(props);
+    }
+
+    /**
+     * This method encapsulates all the logic of adding the Student Categorization,
+     * verifying that it does not already exist, for example, etc.
+     */
+    //----------------------------------------------------------
+    protected boolean saveStudentCategorization(String sloID, String sLevel, StudentCategorization sc)
+    {
+        boolean retVal = false;
+        String aTID = (String) mySelectedAssessmentTeam.getState("ID");
+        try
+        {
+
+            StudentCategorization oldStudentCategorization = new StudentCategorization(aTID, sloID, sLevel);
+
+            transactionErrorMessage = "ERROR: Data for this gen ed area/semester/slo/" + sLevel + " already entered" +
+                    " - please modify if needed!";
+            new Event(Event.getLeafLevelClassName(this), "processStudentCategorizationData",
+                    "Already exists!",
+                    Event.ERROR);
+            return retVal;
+        }
+        catch (InvalidPrimaryKeyException ex)
+        {
+            try
+            {
+                sc.update();
+                transactionErrorMessage = (String)sc.getState("UpdateStatusMessage");
+                retVal = true;
+                return retVal;
+            }
+            //fix these catch blocks or remove them ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            catch (Exception excep)
+            {
+
+                transactionErrorMessage = "Error in saving Student Categorization: " + excep.toString();
+                new Event(Event.getLeafLevelClassName(this), "processTransaction",
+                        "Error in saving Student Categorization: " + excep.toString(),
+                        Event.ERROR);
+                return retVal;
+            }
+        }
+        catch (MultiplePrimaryKeysException ex2)
+        {
+            return retVal;
+        }
     }
 
     //------------------------------------------------------

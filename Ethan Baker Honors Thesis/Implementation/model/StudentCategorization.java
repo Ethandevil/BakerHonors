@@ -1,9 +1,9 @@
 // tabs=4
-
 //************************************************************
-// COPYRIGHT 2021, Kyle D. Adams and Sandeep Mitra, State
-//   University of New York. - Brockport (SUNY Brockport)
-// ALL RIGHTS RESERVED
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
 //
 // This file is the product of SUNY Brockport and cannot
 // be reproduced, copied, or used in any shape or form without
@@ -30,7 +30,7 @@ import impresario.IView;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the Student Performance Categorization information for the ISLO Data Management
+/** The class containing the Student Performance Categorization information for the Gen Ed Assessment Data Management
  * application
  */
 //==============================================================
@@ -52,8 +52,8 @@ public class StudentCategorization extends EntityBase implements IView
 
         setDependencies();
 
-        String query = "SELECT * FROM " + myTableName + " WHERE ((AssessmentTeamID = '" + aTID + "')" +
-                " AND (SLOID = '" + sloID + "') AND (StudentLevel = '" + studentLevel + "))";
+        String query = "SELECT * FROM " + myTableName + " WHERE ((AssessmentTeamID = " + aTID + ")" +
+                " AND (SLOID = " + sloID + ") AND (StudentLevel = '" + studentLevel + "'))";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -226,11 +226,12 @@ public class StudentCategorization extends EntityBase implements IView
         v.addElement(persistentState.getProperty("ID"));
         v.addElement(persistentState.getProperty("AssessmentTeamID"));
         v.addElement(persistentState.getProperty("SLOID"));
+        v.addElement(persistentState.getProperty("StudentLevel"));
         v.addElement(persistentState.getProperty("Cat1Number"));
         v.addElement(persistentState.getProperty("Cat2Number"));
         v.addElement(persistentState.getProperty("Cat3Number"));
         v.addElement(persistentState.getProperty("Cat4Number"));
-        v.addElement(persistentState.getProperty("Reflections"));
+
 
 
         return v;

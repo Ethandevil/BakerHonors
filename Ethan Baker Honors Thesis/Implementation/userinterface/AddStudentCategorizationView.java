@@ -368,32 +368,62 @@ public class AddStudentCategorizationView extends View {
         submitButton = new Button("Add", icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
-            /*clearErrorMessage();
+            clearErrorMessage();
             clearOutlines();
 
-            String curseCode = (String) crsCode.getText();
-            String courseNumber = number.getText();
+            SLOTableModel selectedItem = tableOfSLOs.getSelectionModel().getSelectedItem();
 
-            try {
-                if (!(curseCode.length() > 0))
-                {
-                    crsCode.setStyle("-fx-border-color: firebrick;");
-                    displayErrorMessage("ERROR: Please enter a proper course code");
-                }
-                else
-                {
+            if(selectedItem != null)
+            {
+                String selectedSLOId = selectedItem.getSloID();
+
+                String scfr1 = (String) fr1.getText();
+                String scfr2 = (String) fr2.getText();
+                String scfr3 = (String) fr3.getText();
+                String scfr4 = (String) fr4.getText();
+                String scso1 = (String) so1.getText();
+                String scso2 = (String) so2.getText();
+                String scso3 = (String) so3.getText();
+                String scso4 = (String) so4.getText();
+                String scjr1 = (String) jr1.getText();
+                String scjr2 = (String) jr2.getText();
+                String scjr3 = (String) jr3.getText();
+                String scjr4 = (String) jr4.getText();
+                String scsr1 = (String) sr1.getText();
+                String scsr2 = (String) sr2.getText();
+                String scsr3 = (String) sr3.getText();
+                String scsr4 = (String) sr4.getText();
+
+                if((validateSPCN(scfr1)) && (validateSPCN(scfr2)) && (validateSPCN(scfr3)) && (validateSPCN(scfr4)) &&
+                        (validateSPCN(scso1)) && (validateSPCN(scso2)) && (validateSPCN(scso3)) && (validateSPCN(scso4)) &&
+                        (validateSPCN(scjr1)) && (validateSPCN(scjr2)) && (validateSPCN(scjr3)) && (validateSPCN(scjr4)) &&
+                        (validateSPCN(scsr1)) && (validateSPCN(scsr2)) && (validateSPCN(scsr3)) && (validateSPCN(scsr4))){
+
                     Properties props = new Properties();
-                    props.setProperty("CourseDisciplineCode", curseCode);
-                    props.setProperty("CourseNumber", courseNumber);
+                    props.setProperty("SLOID", selectedSLOId);
+                    props.setProperty("scfr1", scfr1);
+                    props.setProperty("scfr2", scfr2);
+                    props.setProperty("scfr3", scfr3);
+                    props.setProperty("scfr4", scfr4);
+                    props.setProperty("scso1", scso1);
+                    props.setProperty("scso2", scso2);
+                    props.setProperty("scso3", scso3);
+                    props.setProperty("scso4", scso4);
+                    props.setProperty("scjr1", scjr1);
+                    props.setProperty("scjr2", scjr2);
+                    props.setProperty("scjr3", scjr3);
+                    props.setProperty("scjr4", scjr4);
+                    props.setProperty("scsr1", scsr1);
+                    props.setProperty("scsr2", scsr2);
+                    props.setProperty("scsr3", scsr3);
+                    props.setProperty("scsr4", scsr4);
+
                     myModel.stateChangeRequest(keyToSendWithData, props);
                 }
+                else{
+                    displayErrorMessage("ERROR: Invalid student performance data value. Please check and re-enter!");
+                }
             }
-            catch (Exception ex)
-            {
-                number.setStyle("-fx-border-color: firebrick;");
-                displayErrorMessage("ERROR: Please enter a proper course number");
-            }
-            */
 
         });
 
@@ -445,6 +475,29 @@ public class AddStudentCategorizationView extends View {
         vbox.getChildren().add(buttonContainer);
 
         return vbox;
+    }
+
+    //this method validates that a student performance category entry is an integer
+    //-------------------------------------------------------------
+    private boolean validateSPCN(String num){
+        if(num != null && num.length() > 0){
+            try{
+                int numI = Integer.parseInt(num);
+                if(numI >= 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            catch(Exception ex){
+                return false;
+            }
+
+        }
+        else{
+            return false;
+        }
     }
 
     // Create the status log field

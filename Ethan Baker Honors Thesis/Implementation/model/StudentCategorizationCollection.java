@@ -7,7 +7,7 @@ import java.util.Vector;
 import impresario.IView;
 
 public class StudentCategorizationCollection extends EntityBase implements IView {
-    private static final String myTableName = "AssessmentTeam";
+    private static final String myTableName = "StudentCategorization";
 
     private Vector<StudentCategorization> studentCategorizations;
     // GUI Components
@@ -140,6 +140,26 @@ public class StudentCategorizationCollection extends EntityBase implements IView
         return retValue;
     }
 
+    //----------------------------------------------------------
+    public StudentCategorization retrieve(String aTID, String sloID, String sLevel)
+    {
+        StudentCategorization retValue = null;
+        for (int cnt = 0; cnt < studentCategorizations.size(); cnt++)
+        {
+            StudentCategorization nextStudentCategorization = studentCategorizations.elementAt(cnt);
+            String nextStudentCategorizationATId = (String)nextStudentCategorization.getState("AssessmentTeamID");
+            String nextStudentCategorizationSloId = (String)nextStudentCategorization.getState("SLOID");
+            String nextStudentCategorizationSLevel = (String)nextStudentCategorization.getState("StudentLevel");
+            if ((nextStudentCategorizationATId.equals(aTID)) && (nextStudentCategorizationSloId.equals(sloID)) &&
+                    (nextStudentCategorizationSLevel.equals(sLevel)))
+            {
+                retValue = nextStudentCategorization;
+                return retValue; // we should say 'break;' here
+            }
+        }
+
+        return retValue;
+    }
 
     /** Called via the IView relationship */
     //----------------------------------------------------------
