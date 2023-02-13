@@ -29,17 +29,17 @@ import userinterface.ViewFactory;
 //=================================================================================
 public class AddStudentCategorizationReflectionTransaction extends  Transaction {
 
-    private SemesterCollection mySemesterList;
-    private Semester mySelectedSemester;
-    private GenEdAreaCollection myGenEdAreaList;
-    private GenEdArea mySelectedGenEdArea;
-    private SLOCollection mySLOList;
-    private AssessmentTeam mySelectedAssessmentTeam;
-    private ReflectionQuestionCollection allReflectionQuestions;
-    private PerformanceCategoryCollection allPCs;
+    protected SemesterCollection mySemesterList;
+    protected Semester mySelectedSemester;
+    protected GenEdAreaCollection myGenEdAreaList;
+    protected GenEdArea mySelectedGenEdArea;
+    protected SLOCollection mySLOList;
+    protected AssessmentTeam mySelectedAssessmentTeam;
+    protected ReflectionQuestionCollection allReflectionQuestions;
+    protected PerformanceCategoryCollection allPCs;
 
     // GUI Components
-    private String transactionErrorMessage = "";
+    protected String transactionErrorMessage = "";
 
     /**
      * Constructor for this class.
@@ -286,7 +286,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     }
 
     //------------------------------------------------------
-    private StudentCategorization createSC(String sloID, String sLevel,
+    protected StudentCategorization createSC(String sloID, String sLevel,
                                            String cat1N, String cat2N, String cat3N, String cat4N){
         Properties props = new Properties();
         props.setProperty("AssessmentTeamID", (String)mySelectedAssessmentTeam.getState("ID"));
@@ -347,7 +347,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     }
 
     //------------------------------------------------------
-    private boolean checkForValidAssessmentTeam(){
+    protected boolean checkForValidAssessmentTeam(){
         String semID = (String)mySelectedSemester.getState("ID");
         String genEdID = (String)mySelectedGenEdArea.getState("ID");
 

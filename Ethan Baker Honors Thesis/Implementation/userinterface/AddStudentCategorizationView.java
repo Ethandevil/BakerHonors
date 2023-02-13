@@ -479,7 +479,7 @@ public class AddStudentCategorizationView extends View {
 
     //this method validates that a student performance category entry is an integer
     //-------------------------------------------------------------
-    private boolean validateSPCN(String num){
+    protected boolean validateSPCN(String num){
         if(num != null && num.length() > 0){
             try{
                 int numI = Integer.parseInt(num);
