@@ -106,12 +106,12 @@ public class TransactionFactory
 		if (transType.equals("AddNewStudentCategorization") == true)
 		{
 			retValue = new AddStudentCategorizationReflectionTransaction();
-		}/*
+		}
 		else
 		if (transType.equals("UpdateStudentCategorization") == true)
 		{
-			retValue = new UpdateStudentCategorizationTransaction();
-		}
+			retValue = new ModifyStudentCategorizationReflectionTransaction();
+		}/*
 		else
 		if (transType.equals("Reports") == true)
 		{

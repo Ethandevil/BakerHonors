@@ -241,7 +241,7 @@ public class AddStudentCategorizationView extends View {
         tableOfSLOs.setOnMousePressed((MouseEvent event) -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
 
-                //processSLOSelected();
+                processSLOSelected();
             }
         });
         //tableOfSLOs.setPrefHeight(200);
@@ -362,10 +362,10 @@ public class AddStudentCategorizationView extends View {
         sr4.setPrefWidth(120);
         sr4.setMaxWidth(120);
 
-        ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
+        ImageView icon = new ImageView(new Image(getSubmitButtonIconFilePathName())); //"/images/pluscolor.png"
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Add", icon);
+        submitButton = new Button(getSubmitButtonText(), icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -424,6 +424,9 @@ public class AddStudentCategorizationView extends View {
                     displayErrorMessage("ERROR: Invalid student performance data value. Please check and re-enter!");
                 }
             }
+            else{
+                displayErrorMessage("Please select an SLO!");
+            }
 
         });
 
@@ -476,6 +479,19 @@ public class AddStudentCategorizationView extends View {
 
         return vbox;
     }
+
+    //---------------------------------------------------------
+    protected String getSubmitButtonText() {
+        return "Add";
+    }
+
+    //---------------------------------------------------------
+    protected String getSubmitButtonIconFilePathName() {
+        return "/images/pluscolor.png";
+    }
+
+    //-------------------------------------------------------------
+    protected void processSLOSelected(){}
 
     //this method validates that a student performance category entry is an integer
     //-------------------------------------------------------------
@@ -532,7 +548,12 @@ public class AddStudentCategorizationView extends View {
         catName2.setText((String)myModel.getState("Category_2"));
         catName3.setText((String)myModel.getState("Category_3"));
         catName4.setText((String)myModel.getState("Category_4"));
+
+        populateFieldsHelper();
     }
+
+    //-------------------------------------------------------
+    protected void populateFieldsHelper(){}
     //-------------------------------------------------------
     protected void clearOutlines() {
         //number.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");

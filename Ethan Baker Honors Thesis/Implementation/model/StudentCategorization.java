@@ -158,6 +158,26 @@ public class StudentCategorization extends EntityBase implements IView
         myRegistry.updateSubscribers(key, this);
     }
 
+    //----------------------------------------------------------------
+    public void setCategory1Val(String value){
+        persistentState.setProperty("Cat1Number", value);
+    }
+
+    //----------------------------------------------------------------
+    public void setCategory2Val(String value){
+        persistentState.setProperty("Cat2Number", value);
+    }
+
+    //----------------------------------------------------------------
+    public void setCategory3Val(String value){
+        persistentState.setProperty("Cat3Number", value);
+    }
+
+    //----------------------------------------------------------------
+    public void setCategory4Val(String value){
+        persistentState.setProperty("Cat4Number", value);
+    }
+
     /** Called via the IView relationship */
     //----------------------------------------------------------
     public void updateState(String key, Object value)

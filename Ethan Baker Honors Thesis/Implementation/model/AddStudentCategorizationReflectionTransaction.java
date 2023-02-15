@@ -37,6 +37,10 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     protected AssessmentTeam mySelectedAssessmentTeam;
     protected ReflectionQuestionCollection allReflectionQuestions;
     protected PerformanceCategoryCollection allPCs;
+    protected StudentCategorization mySC1;
+    protected StudentCategorization mySC2;
+    protected StudentCategorization mySC3;
+    protected StudentCategorization mySC4;
 
     // GUI Components
     protected String transactionErrorMessage = "";
@@ -129,6 +133,18 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             else{
                 return "Unknown";
             }
+        }
+        else if(key.equals("FreshmenSCData")){
+            return mySC1;
+        }
+        else if(key.equals("SophomoreSCData")){
+            return mySC2;
+        }
+        else if(key.equals("JuniorSCData")){
+            return mySC3;
+        }
+        else if(key.equals("SeniorSCData")){
+            return mySC4;
         }
 
         return null;
@@ -248,33 +264,33 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             String scfr3 = props.getProperty("scfr3");
             String scfr4 = props.getProperty("scfr4");
 
-            StudentCategorization sc1 = createSC(sloID, "Freshmen", scfr1, scfr2, scfr3, scfr4);
+            mySC1 = createSC(sloID, "Freshmen", scfr1, scfr2, scfr3, scfr4);
 
             String scso1 = props.getProperty("scso1");
             String scso2 = props.getProperty("scso2");
             String scso3 = props.getProperty("scso3");
             String scso4 = props.getProperty("scso4");
 
-            StudentCategorization sc2 = createSC(sloID, "Sophomore", scso1, scso2, scso3, scso4);
+            mySC2 = createSC(sloID, "Sophomore", scso1, scso2, scso3, scso4);
 
             String scjr1 = props.getProperty("scjr1");
             String scjr2 = props.getProperty("scjr2");
             String scjr3 = props.getProperty("scjr3");
             String scjr4 = props.getProperty("scjr4");
 
-            StudentCategorization sc3 = createSC(sloID, "Junior", scjr1, scjr2, scjr3, scjr4);
+            mySC3 = createSC(sloID, "Junior", scjr1, scjr2, scjr3, scjr4);
 
             String scsr1 = props.getProperty("scsr1");
             String scsr2 = props.getProperty("scsr2");
             String scsr3 = props.getProperty("scsr3");
             String scsr4 = props.getProperty("scsr4");
 
-            StudentCategorization sc4 = createSC(sloID, "Senior", scsr1, scsr2, scsr3, scsr4);
+            mySC4 = createSC(sloID, "Senior", scsr1, scsr2, scsr3, scsr4);
 
-            if(saveStudentCategorization(sloID, "Freshmen", sc1)) {
-                if(saveStudentCategorization(sloID, "Sophomore", sc2)){
-                    if(saveStudentCategorization(sloID, "Junior", sc3)){
-                        if(saveStudentCategorization(sloID, "Senior", sc4)){
+            if(saveStudentCategorization(sloID, "Freshmen", mySC1)) {
+                if(saveStudentCategorization(sloID, "Sophomore", mySC2)){
+                    if(saveStudentCategorization(sloID, "Junior", mySC3)){
+                        if(saveStudentCategorization(sloID, "Senior", mySC4)){
                             transactionErrorMessage = "All student categorizations saved successfully";
                         }
                     }
@@ -310,7 +326,6 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         String aTID = (String) mySelectedAssessmentTeam.getState("ID");
         try
         {
-
             StudentCategorization oldStudentCategorization = new StudentCategorization(aTID, sloID, sLevel);
 
             transactionErrorMessage = "ERROR: Data for this gen ed area/semester/slo/" + sLevel + " already entered" +
@@ -332,7 +347,6 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             //fix these catch blocks or remove them ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             catch (Exception excep)
             {
-
                 transactionErrorMessage = "Error in saving Student Categorization: " + excep.toString();
                 new Event(Event.getLeafLevelClassName(this), "processTransaction",
                         "Error in saving Student Categorization: " + excep.toString(),
