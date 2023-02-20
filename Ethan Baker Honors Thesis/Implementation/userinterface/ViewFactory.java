@@ -195,7 +195,33 @@ public class ViewFactory {
 		else if(viewName.equals("ModifyStudentCategorizationView") == true)
 		{
 			return new ModifyStudentCategorizationView(model);
-		}/*
+		}
+		else if(viewName.equals("GenEdAreaCollectionForMSCIRView") == true)
+		{
+			return new GenEdAreaCollectionForMSCIRView(model);
+		}
+		else if(viewName.equals("ModifyReflectionView") == true)
+		{
+			return new ModifyReflectionView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaForMSCIRView") == true)
+		{
+			return new SearchGenEdAreaForMSCIRView(model);
+		}
+		else if(viewName.equals("ModifyStudentCategorizationAndReflectionChoiceView") == true)
+		{
+			return new ModifyStudentCategorizationAndReflectionChoiceView(model);
+		}
+		else if(viewName.equals("SemesterCollectionForMSCIRView") == true)
+		{
+			return new SemesterCollectionForMSCIRView(model);
+		}
+		else if(viewName.equals("SearchSemesterForMSCIRView") == true)
+		{
+			return new SearchSemesterForMSCIRView(model);
+		}
+
+		/*
 		else if(viewName.equals("OfferingDisplayCollectionForReportGenerationView") == true)
 		{
 			return new OfferingDisplayCollectionForReportGenerationView(model);

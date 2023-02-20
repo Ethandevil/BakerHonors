@@ -200,19 +200,25 @@ public class AddStudentCategorizationView extends View {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text genEdLabel = new Text(" Gen Ed Area : ");
-        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 18);
         genEdLabel.setFont(myFont);
         genEdLabel.setWrappingWidth(150);
         genEdLabel.setTextAlignment(TextAlignment.RIGHT);
+        genEdLabel.setFill(Color.GOLD);
         grid.add(genEdLabel, 0, 1);
-        grid.add(genEdArea = new Text(), 1, 1);
+        genEdArea = new Text();
+        genEdArea.setFont(myFont);
+        grid.add(genEdArea, 1, 1);
 
         Text semLabel = new Text(" Semester : ");
         semLabel.setFont(myFont);
         semLabel.setWrappingWidth(150);
         semLabel.setTextAlignment(TextAlignment.RIGHT);
+        semLabel.setFill(Color.GOLD);
         grid.add(semLabel, 0, 2);
-        grid.add(semester = new Text(), 1, 2);
+        semester = new Text();
+        semester.setFont(myFont);
+        grid.add(semester, 1, 2);
 
         GridPane grid1 = new GridPane();
         grid1.setAlignment(Pos.CENTER);
@@ -220,10 +226,12 @@ public class AddStudentCategorizationView extends View {
         grid1.setVgap(10);
         grid1.setPadding(new Insets(25, 25, 25, 25));
 
-        Text sloLabel = new Text(" Choose an SLO : ");
-        sloLabel.setFont(myFont);
+        Text sloLabel = new Text(" Choose an SLO (double click) : ");
+        Font myFont1 = Font.font("Helvetica", FontWeight.BOLD, 16);
+        sloLabel.setFont(myFont1);
         sloLabel.setWrappingWidth(150);
         sloLabel.setTextAlignment(TextAlignment.RIGHT);
+        sloLabel.setFill(Color.GOLD);
         grid1.add(sloLabel,0,0);
 
         tableOfSLOs = new TableView<SLOTableModel>();
@@ -254,10 +262,10 @@ public class AddStudentCategorizationView extends View {
 
         Text prompt = new Text(getPromptText());
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
-        prompt.setWrappingWidth(400);
+        prompt.setWrappingWidth(600);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
-        //grid.add(prompt, 0, 0, 2, 1);
+        grid1.add(prompt, 1, 3, 2, 1);
 
 
         GridPane grid2 = new GridPane();
@@ -473,7 +481,7 @@ public class AddStudentCategorizationView extends View {
 
         //vbox.getChildren().add(tableOfSLOs);
         vbox.getChildren().add(grid1);
-        vbox.getChildren().add(prompt);
+        //vbox.getChildren().add(prompt);
         vbox.getChildren().add(grid2);
         vbox.getChildren().add(buttonContainer);
 

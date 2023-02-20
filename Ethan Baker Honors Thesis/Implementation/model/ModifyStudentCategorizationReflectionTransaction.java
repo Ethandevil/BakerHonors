@@ -105,14 +105,6 @@ public class ModifyStudentCategorizationReflectionTransaction extends AddStudent
     }
 
     //--------------------------------------------------------------------------------------------
-    protected Scene createAddStudentCategorizationView() {
-        View newView = ViewFactory.createView("ModifyStudentCategorizationView", this);
-        Scene currentScene = new Scene(newView);
-
-        return currentScene;
-    }
-
-    //--------------------------------------------------------------------------------------------
     protected void getAllRelevantSCs(String sloID){
         try {
             mySC1 = new StudentCategorization((String) mySelectedAssessmentTeam.getState("ID"), sloID, "Freshmen");
@@ -153,5 +145,99 @@ public class ModifyStudentCategorizationReflectionTransaction extends AddStudent
         }
         catch(MultiplePrimaryKeysException ex2){
         }
+    }
+
+    /**
+     * Create the view of this class. And then the super-class calls
+     * swapToView() to display the view in the frame
+     */
+    //------------------------------------------------------
+    protected Scene createView()
+    {
+        Scene currentScene = myViews.get("SearchSemesterForMSCIRView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("SearchSemesterForMSCIRView", this);
+            currentScene = new Scene(newView);
+            myViews.put("SearchSemesterForMSCIRView", currentScene);
+
+            return currentScene;
+        }
+        else
+        {
+            return currentScene;
+        }
+    }
+
+
+    /**
+     * Create the view containing the table of all matching Semesters on the search criteria sent
+     */
+    //------------------------------------------------------
+    protected Scene createSemesterCollectionView()
+    {
+        View newView = ViewFactory.createView("SemesterCollectionForMSCIRView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+
+    }
+
+    //------------------------------------------------------
+    protected Scene createSearchGenEdAreaView()
+    {
+
+        Scene currentScene = myViews.get("SearchGenEdAreaForMSCIRView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("SearchGenEdAreaForMSCIRView", this);
+            currentScene = new Scene(newView);
+            myViews.put("SearchGenEdAreaForMSCIRView", currentScene);
+
+            return currentScene;
+        }
+        else
+        {
+            return currentScene;
+        }
+
+    }
+
+    //------------------------------------------------------
+    protected Scene createGenEdAreaCollectionView()
+    {
+        View newView = ViewFactory.createView("GenEdAreaCollectionForMSCIRView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+
+    }
+
+    //------------------------------------------------------
+    protected Scene createStudentCategorizationAndReflectionChoiceView(){
+        View newView = ViewFactory.createView("ModifyStudentCategorizationAndReflectionChoiceView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+    }
+
+    //------------------------------------------------------
+    protected Scene createAddReflectionView(){
+        View newView = ViewFactory.createView("ModifyReflectionView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
+    }
+
+    //--------------------------------------------------------------------------------------------
+    protected Scene createAddStudentCategorizationView() {
+        View newView = ViewFactory.createView("ModifyStudentCategorizationView", this);
+        Scene currentScene = new Scene(newView);
+
+        return currentScene;
     }
 }

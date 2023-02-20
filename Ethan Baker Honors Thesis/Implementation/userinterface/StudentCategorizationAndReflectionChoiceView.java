@@ -127,7 +127,7 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
         vbox.getChildren().add(blankText);
 
 
-        addNewSCButton = new Button("Add New Student Categorizations");
+        addNewSCButton = new Button(getSCButtonText());
         addNewSCButton.setStyle("-fx-focus-color: darkgreen;");
         addNewSCButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -141,7 +141,7 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
         blankText1.setFill(Color.WHITE);
         vbox.getChildren().add(blankText1);
 
-        addNewIRButton = new Button("Add New Instructor Reflections");
+        addNewIRButton = new Button(getIRButtonText());
         addNewIRButton.setStyle("-fx-focus-color: darkgreen;");
         addNewIRButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -191,6 +191,16 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
         vbox.setAlignment(Pos.CENTER);
 
         return vbox;
+    }
+
+    //-------------------------------------------------------------
+    protected String getSCButtonText(){
+        return "Add New Student Categorizations";
+    }
+
+    //-------------------------------------------------------------
+    protected String getIRButtonText(){
+        return "Add New Instructor Reflections";
     }
 
 

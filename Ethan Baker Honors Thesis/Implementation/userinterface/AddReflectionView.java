@@ -185,6 +185,7 @@ public class AddReflectionView extends View
         return new CommonTitleWithoutLogoPanel();
     }
 
+    //--------------------------------------------------------------------------
     protected String getActionText()
     {
         return "Add new Instructor Reflection: ";
