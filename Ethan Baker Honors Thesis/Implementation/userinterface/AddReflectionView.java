@@ -222,25 +222,33 @@ public class AddReflectionView extends View
 
         Font myFont = Font.font("copperplate", FontWeight.THIN, 18);
 
+        //
+        GridPane grid2 = new GridPane();
+        grid2.setAlignment(Pos.CENTER);
+        grid2.setHgap(10);
+        grid2.setVgap(10);
+        grid2.setPadding(new Insets(0, 0, 0, 0));
+        //
+
         Text genLabel = new Text("Gen Ed Area: ");
         genLabel.setFill(Color.GOLD);
         genLabel.setFont(myFont);
         genLabel.setWrappingWidth(150);
         genLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(genLabel, 0, 1);
+        grid2.add(genLabel, 0, 1);
 
         genEdArea = new Text();
-        grid.add(genEdArea, 1, 1);
+        grid2.add(genEdArea, 1, 1);
 
         Text semLabel = new Text("Semester: ");
         semLabel.setFill(Color.GOLD);
         semLabel.setFont(myFont);
         semLabel.setWrappingWidth(150);
         semLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(semLabel, 0, 2);
+        grid2.add(semLabel, 0, 2);
 
         semester = new Text();
-        grid.add(semester, 1, 2);
+        grid2.add(semester, 1, 2);
 
         //vbox.getChildren().add(grid);
 
@@ -271,7 +279,7 @@ public class AddReflectionView extends View
         tableQuestions.setOnMousePressed((MouseEvent event) -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
 
-                //processSLOSelected();
+                processQuestionSelected();
             }
         });
         //tableQuestions.setPrefHeight(175);
@@ -312,10 +320,10 @@ public class AddReflectionView extends View
         doneCont.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             doneCont.setStyle("-fx-background-color: SLATEGREY");
         });
-        ImageView icon = new ImageView(new Image("/images/pluscolor.png"));
+        ImageView icon = new ImageView(new Image(getSubmitButtonIcon()));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Add", icon);
+        submitButton = new Button(getSubmitButtonText(), icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -334,6 +342,8 @@ public class AddReflectionView extends View
                     props.setProperty("ReflectionText", ansText);
                     props.setProperty("ACComments", "NA");
                     myModel.stateChangeRequest("ReflectionData", props);
+
+                    displayMessage("Instructor Reflection installed successfully");
                 }
                 else{
                     reflectionAnswer.setStyle("-fx-border-color: firebrick;");
@@ -372,6 +382,7 @@ public class AddReflectionView extends View
         doneCont.getChildren().add(cancelButton);
 
 
+        vbox.getChildren().add(grid2);
         vbox.getChildren().add(grid);
         vbox.getChildren().add(doneCont);
         clearOutlines();
@@ -384,6 +395,16 @@ public class AddReflectionView extends View
         return vbox;
 
     }
+    //-------------------------------------------------------------
+    protected void processQuestionSelected(){}
+
+    //-------------------------------------------------------------
+    protected String getSubmitButtonText(){
+        return "Add";
+    }
+
+    //-------------------------------------------------------------
+    protected String getSubmitButtonIcon(){return "/images/pluscolor.png";}
 
     //--------------------------------------------------------------------------
     protected String processReflectionQuestionSelected()
@@ -436,7 +457,12 @@ public class AddReflectionView extends View
             semester.setText(sem);
         }
         getEntryTableModelValues();
+
+        populateFieldsHelper();
     }
+
+    //-------------------------------------------------------------
+    protected void populateFieldsHelper(){}
 
 
     //-------------------------------------------------------------

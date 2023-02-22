@@ -288,10 +288,10 @@ public class AddStudentCategorizationView extends View {
         grid2.getColumnConstraints().addAll(column1, column2, column3, column4, column5);
 
 
-        grid2.add(catName1 = new Text(), 1, 0);
-        grid2.add(catName2 = new Text(), 2, 0);
-        grid2.add(catName3 = new Text(), 3, 0);
-        grid2.add(catName4 = new Text(), 4, 0);
+        grid2.add(catName1 = new Text(), 4, 0);
+        grid2.add(catName2 = new Text(), 3, 0);
+        grid2.add(catName3 = new Text(), 2, 0);
+        grid2.add(catName4 = new Text(), 1, 0);
 
 
         Text freshmen = new Text(" Freshmen : ");
@@ -300,16 +300,16 @@ public class AddStudentCategorizationView extends View {
         freshmen.setWrappingWidth(150);
         freshmen.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(freshmen, 0,1);
-        grid2.add( fr1 = new TextField(),1 , 1);
+        grid2.add( fr1 = new TextField(),4 , 1);
         fr1.setPrefWidth(120);
         fr1.setMaxWidth(120);
-        grid2.add(fr2 = new TextField(),2,1);
+        grid2.add(fr2 = new TextField(),3,1);
         fr2.setPrefWidth(120);
         fr2.setMaxWidth(120);
-        grid2.add(fr3 = new TextField(),3,1);
+        grid2.add(fr3 = new TextField(),2,1);
         fr3.setPrefWidth(120);
         fr3.setMaxWidth(120);
-        grid2.add(fr4 = new TextField(),4,1);
+        grid2.add(fr4 = new TextField(),1,1);
         fr4.setPrefWidth(120);
         fr4.setMaxWidth(120);
 
@@ -319,16 +319,16 @@ public class AddStudentCategorizationView extends View {
         sophomore.setWrappingWidth(150);
         sophomore.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(sophomore, 0,2);
-        grid2.add(so1 = new TextField(),1 , 2);
+        grid2.add(so1 = new TextField(),4 , 2);
         so1.setPrefWidth(120);
         so1.setMaxWidth(120);
-        grid2.add(so2 = new TextField(),2,2);
+        grid2.add(so2 = new TextField(),3,2);
         so2.setPrefWidth(120);
         so2.setMaxWidth(120);
-        grid2.add(so3 = new TextField(),3,2);
+        grid2.add(so3 = new TextField(),2,2);
         so3.setPrefWidth(120);
         so3.setMaxWidth(120);
-        grid2.add(so4 = new TextField(),4,2);
+        grid2.add(so4 = new TextField(),1,2);
         so4.setPrefWidth(120);
         so4.setMaxWidth(120);
 
@@ -338,16 +338,16 @@ public class AddStudentCategorizationView extends View {
         junior.setWrappingWidth(150);
         junior.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(junior, 0,3);
-        grid2.add(jr1 = new TextField(),1 , 3);
+        grid2.add(jr1 = new TextField(),4 , 3);
         jr1.setPrefWidth(120);
         jr1.setMaxWidth(120);
-        grid2.add(jr2 = new TextField(),2,3);
+        grid2.add(jr2 = new TextField(),3,3);
         jr2.setPrefWidth(120);
         jr2.setMaxWidth(120);
-        grid2.add(jr3 = new TextField(),3,3);
+        grid2.add(jr3 = new TextField(),2,3);
         jr3.setPrefWidth(120);
         jr3.setMaxWidth(120);
-        grid2.add(jr4 = new TextField(),4,3);
+        grid2.add(jr4 = new TextField(),1,3);
         jr4.setPrefWidth(120);
         jr4.setMaxWidth(120);
 
@@ -357,16 +357,16 @@ public class AddStudentCategorizationView extends View {
         senior.setWrappingWidth(150);
         senior.setTextAlignment(TextAlignment.RIGHT);
         grid2.add(senior, 0,4);
-        grid2.add(sr1 = new TextField(),1 , 4);
+        grid2.add(sr1 = new TextField(),4 , 4);
         sr1.setPrefWidth(120);
         sr1.setMaxWidth(120);
-        grid2.add(sr2 = new TextField(),2,4);
+        grid2.add(sr2 = new TextField(),3,4);
         sr2.setPrefWidth(120);
         sr2.setMaxWidth(120);
-        grid2.add(sr3 = new TextField(),3,4);
+        grid2.add(sr3 = new TextField(),2,4);
         sr3.setPrefWidth(120);
         sr3.setMaxWidth(120);
-        grid2.add(sr4 = new TextField(),4,4);
+        grid2.add(sr4 = new TextField(),1,4);
         sr4.setPrefWidth(120);
         sr4.setMaxWidth(120);
 

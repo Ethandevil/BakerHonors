@@ -41,6 +41,7 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
     protected StudentCategorization mySC2;
     protected StudentCategorization mySC3;
     protected StudentCategorization mySC4;
+    protected InstructorReflections myReflection;
 
     // GUI Components
     protected String transactionErrorMessage = "";
@@ -145,6 +146,9 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
         }
         else if(key.equals("SeniorSCData")){
             return mySC4;
+        }
+        else if(key.equals("RQData")){
+            return myReflection;
         }
 
         return null;
@@ -254,6 +258,23 @@ public class AddStudentCategorizationReflectionTransaction extends  Transaction 
             allReflectionQuestions.findAll();
             Scene s = createAddReflectionView();
             swapToView(s);
+        }
+        else if (key.equals("ReflectionData")){
+            Properties props = (Properties)value;
+            String atID = props.getProperty("AssessmentTeamID");
+            String rqID = props.getProperty("ReflectionQuestionID");
+
+            try{
+                myReflection = new InstructorReflections(atID, rqID);
+            }
+            catch(InvalidPrimaryKeyException ex){
+                myReflection = new InstructorReflections(props);
+                myReflection.update();
+                transactionErrorMessage = (String)myReflection.getState("UpdateStatusMessage");
+            }
+            catch(MultiplePrimaryKeysException ex2){}
+
+
         }
         else if(key.equals("StudentCategorizationData")){
             Properties props = (Properties)value;

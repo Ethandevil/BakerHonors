@@ -3,6 +3,7 @@ package model;
 import exception.InvalidPrimaryKeyException;
 import exception.MultiplePrimaryKeysException;
 import javafx.scene.Scene;
+import userinterface.ReflectionQuestionTableModel;
 import userinterface.SLOTableModel;
 import userinterface.View;
 import userinterface.ViewFactory;
@@ -28,6 +29,7 @@ public class ModifyStudentCategorizationReflectionTransaction extends AddStudent
         dependencies.setProperty("CancelAddReflection", "CancelTransaction");
         dependencies.setProperty("StudentCategorizationData", "TransactionError");
         dependencies.setProperty("SLOSelected", "TransactionError,FreshmenSCData,SophomoreSCData,JuniorSCData,SeniorSCData");
+        dependencies.setProperty("QuestionSelected", "TransactionError,RQData");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -41,6 +43,33 @@ public class ModifyStudentCategorizationReflectionTransaction extends AddStudent
             getAllRelevantSCs(selectedItem.getSloID());
             myRegistry.updateSubscribers(key, this);
         }
+        else if(key.equals("QuestionSelected")){
+            ReflectionQuestionTableModel selectedItem = (ReflectionQuestionTableModel) value;
+            try{
+                myReflection = new InstructorReflections((String)mySelectedAssessmentTeam.getState("ID"), selectedItem.getReflectionQuestionID());
+                transactionErrorMessage = "";
+            }
+            catch(InvalidPrimaryKeyException ex){
+                transactionErrorMessage = "ERROR: No instructor reflection data available for selected reflection question! Please add!";
+            }
+            catch(MultiplePrimaryKeysException ex2){}
+            myRegistry.updateSubscribers(key, this);
+        }
+        else if (key.equals("ReflectionData")){
+            Properties props = (Properties)value;
+            String reflectionText = props.getProperty("ReflectionText");
+
+            if(myReflection != null) {
+                myReflection.stateChangeRequest("ReflectionText", reflectionText);
+                myReflection.update();
+                transactionErrorMessage = (String)myReflection.getState("UpdateStatusMessage");
+            }
+            else{
+                transactionErrorMessage = "ERROR: Could not find instructor reflection!";
+            }
+
+        }
+
         else if(key.equals("StudentCategorizationData")) {
             Properties props = (Properties) value;
             String sloID = props.getProperty("SLOID");
