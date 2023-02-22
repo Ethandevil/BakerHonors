@@ -35,16 +35,18 @@ import userinterface.ViewFactory;
 public class StudentCategorizationDisplayCollection  extends EntityBase implements IView
 {
     private static final String myTableName = "StudentCategorization";
-    private static final String myTableName2 = "StudentCategorization";
 
-    private Vector<StudentCategorizationDisplay> studentcats;
+    private StudentCategorizationDisplay cat1StudentCats;
+    private StudentCategorizationDisplay cat2StudentCats;
+    private StudentCategorizationDisplay cat3StudentCats;
+    private StudentCategorizationDisplay cat4StudentCats;
     // GUI Components
 
     // constructor for this class
     //----------------------------------------------------------
     public StudentCategorizationDisplayCollection( )
     {
-        super(myTableName2);
+        super(myTableName);
 
     }
 
@@ -56,7 +58,8 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
 
         if (allDataRetrieved != null)
         {
-            studentcats = new Vector<StudentCategorizationDisplay>();
+            //do something else to get us cat1StudentCats - cat4StudentCats
+            /*studentcats = new Vector<StudentCategorizationDisplay>();
 
             for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
             {
@@ -69,74 +72,17 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
                     addStudentCategorizationDisplay(sc);
                 }
             }
-
+            */
         }
-    }
-
-    //-----------------------------------------------------------
-    public void findByOffering(String offID)
-    {
-        String query = "SELECT OT.CourseDisciplineCode, OT.CourseNumber, OT.TeacherName, " +
-                "SC.Cat1Number, SC.Cat2Number, SC.Cat3Number, SC.Cat4Number, SC.Reflections, SC.Flag " +
-                "FROM " + myTableName + " OT, " + myTableName2 + " SC WHERE ((OT.ID = SC.OfferingTeachersID) AND " +
-                "(OT.OfferingID = " + offID + "))";
-
-        populateCollectionHelper(query);
     }
 
     //-----------------------------------------------------------
     public void findByStudentLevel(String studentLevel, String atID){
         String query = "SELECT SLOID, Cat1Number, Cat2Number, Cat3Number, Cat4Number FROM " + myTableName +
                 " WHERE ((AssessmentTeamID = " + atID + ") AND (StudentLevel = '" + studentLevel +
-                "'))";
-    }
-
-    //-----------------------------------------------------------
-    public void findAll()
-    {
-        String query = "SELECT * FROM " + myTableName + "";
+                "')) ORDER BY SLOID";
         populateCollectionHelper(query);
     }
-
-    //----------------------------------------------------------------------------------
-    private void addStudentCategorizationDisplay(StudentCategorizationDisplay s)
-    {
-        int index = findIndexToAdd(s);
-        studentcats.insertElementAt(s,index); // To build up a collection sorted on some key
-    }
-
-
-    //----------------------------------------------------------------------------------
-    private int findIndexToAdd(StudentCategorizationDisplay s)
-    {
-        int low=0;
-        int high = studentcats.size()-1;
-        int middle;
-
-        while (low <=high)
-        {
-            middle = (low+high)/2;
-
-            StudentCategorizationDisplay midSession = studentcats.elementAt(middle);
-
-            int result = StudentCategorizationDisplay.compare(s,midSession);
-
-            if (result ==0)
-            {
-                return middle;
-            }
-            else if (result<0)
-            {
-                high=middle-1;
-            }
-            else
-            {
-                low=middle+1;
-            }
-        }
-        return low;
-    }
-
 
     /**
      *
