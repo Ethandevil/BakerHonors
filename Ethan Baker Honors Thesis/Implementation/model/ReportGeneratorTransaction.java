@@ -38,6 +38,7 @@ public class ReportGeneratorTransaction extends Transaction
     protected GenEdAreaCollection myGenEdAreaList;
     protected Semester mySelectedSemester;
     protected SemesterCollection mySemesterList;
+    protected SLOCollection mySLOList;
     protected AssessmentTeamCollection myATList;
     protected AssessmentTeamDisplayCollection myATDisplayList;
     protected AssessmentTeam mySelectedAT;
@@ -63,10 +64,12 @@ public class ReportGeneratorTransaction extends Transaction
         dependencies = new Properties();
 
         dependencies.setProperty("CancelStudentCategorizationList", "CancelTransaction");
-        dependencies.setProperty("CancelOfferingList", "CancelTransaction");
-        dependencies.setProperty("CancelISLOList", "CancelTransaction");
-        dependencies.setProperty("CancelSearchISLO", "CancelTransaction");
+        dependencies.setProperty("CancelSemesterList", "CancelTransaction");
+        dependencies.setProperty("CancelAreaList", "CancelTransaction");
+        dependencies.setProperty("CancelSearchArea", "CancelTransaction");
         dependencies.setProperty("CancelReportGenerator", "CancelTransaction");
+        dependencies.setProperty("GenEdAreaSelected", "TransactionError");
+        dependencies.setProperty("UpdateStudentCategorization", "StudentCategorizationUpdated");
         myRegistry.setDependencies(dependencies);
     }
 
@@ -74,31 +77,31 @@ public class ReportGeneratorTransaction extends Transaction
     public void processTransaction(Properties props)
     {
         try {
-            Scene newScene = createSearchISLOView();
+            Scene newScene = createSearchSemesterView();
             swapToView(newScene);
         }
         catch (Exception excep) {
             new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                    "Error in creating Search ISLO View", Event.ERROR);
+                    "Error in creating Search Semester View", Event.ERROR);
         }
     }
 
     //-------------------------------------------------------------
     public void processSearchTransaction(Properties props) {
 
-        myISLOList = new ISLOCollection();
+        mySemesterList = new SemesterCollection();
 
-        String isloNm = props.getProperty("ISLOName");
-        String desc = props.getProperty("Description");
-        myISLOList.findByNameAndDescriptionPart(isloNm, desc);
+        String semNm = props.getProperty("SemName");
+        String semYr = props.getProperty("Year");
+        mySemesterList.findBySemNameAndYear(semNm, semYr);
 
         try {
-            Scene newScene = createISLOCollectionView();
+            Scene newScene = createSemesterCollectionView();
             swapToView(newScene);
         }
         catch (Exception excep) {
             new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                    "Error in creating Search ISLO View", Event.ERROR);
+                    "Error in creating Semester Collection View", Event.ERROR);
         }
     }
 
@@ -122,35 +125,27 @@ public class ReportGeneratorTransaction extends Transaction
         {
             return transactionErrorMessage;
         }
-        else if (key.equals("ISLOList") == true)
+        else if (key.equals("SemesterList") == true)
         {
-            return myISLOList;
+            return mySemesterList;
         }
-        else if (key.equals("OfferingDisplayList") == true)
+        else if (key.equals("GenEdAreaList") == true)
         {
-            return myOfferingDisplayList;
+            return myGenEdAreaList;
         }
-        else if (key.equals("ISLOName") == true)
+        else if (key.equals("AreaName") == true)
         {
-            if (mySelectedISLO != null)
-                return mySelectedISLO.getName();
+            if (mySelectedGenEdArea != null)
+                return mySelectedGenEdArea.getName();
             else
                 return "";
         }
         else if (key.equals("Semester") == true)
         {
-            if (mySelectedOffering != null) {
-                String kyleAndMatt = (String)mySelectedOffering.getState("SemesterID");
-                if (kyleAndMatt != null) {
-                    try {
-                        Semester selectedSemester = new Semester(kyleAndMatt);
-                        return selectedSemester.getSemester() + " " + selectedSemester.getYear();
-                    }
-                    catch (Exception ex)
-                    {
-                        return "whatTheHell";
-                    }
-                }
+            if(mySelectedSemester != null){
+                String fullSemester = (String)mySelectedSemester.getState("SemName") + " " +
+                        (String)mySelectedSemester.getState("Year");
+                return fullSemester;
             }
             else
                 return "";
@@ -158,6 +153,9 @@ public class ReportGeneratorTransaction extends Transaction
         else if (key.equals("StudentCategorizationList") == true)
         {
             return myStudentCats;
+        }
+        else if(key.equals("NumSLOs") == true){
+            return mySLOList.getSize();
         }
 
         return null;
@@ -192,49 +190,122 @@ public class ReportGeneratorTransaction extends Transaction
             processTransaction((Properties)value);
         }
         else
-        if (key.equals("SearchISLO") == true)
+        if (key.equals("SearchSemester") == true)
         {
             processSearchTransaction((Properties)value);
         }
-        else if (key.equals("ISLOSelected") == true) {
-            String isloNumSent = (String) value;
-            int isloNumSentVal =
-                    Integer.parseInt(isloNumSent);
-            mySelectedISLO = myISLOList.retrieve(isloNumSentVal);
+        else if (key.equals("SemesterSelected") == true) {
+            String semIdSent = (String) value;
+            int semIdSentVal =
+                    Integer.parseInt(semIdSent);
+            mySelectedSemester = mySemesterList.retrieve(semIdSentVal);
 
-            myOfferingList = new OfferingCollection();
+            /*myOfferingList = new OfferingCollection();
             myOfferingList.findByISLOId((String) mySelectedISLO.getState("ID"));
-            myOfferingDisplayList = new OfferingDisplayCollection(myOfferingList);
+            myOfferingDisplayList = new OfferingDisplayCollection(myOfferingList);*/
 
             try {
-                Scene newScene = createOfferingDisplayCollectionView();
+                Scene newScene = createSearchGenEdAreaView();
                 swapToView(newScene);
             } catch (Exception ex) {
                 new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-                        "Error in creating OfferingDisplayCollectionView", Event.ERROR);
+                        "Error in creating SearchGenEdAreaView", Event.ERROR);
             }
         }
-        else if (key.equals("OfferingSelected") == true) {
-            String offeringId = (String) value;
-            mySelectedOffering = myOfferingList.retrieve(offeringId);
-            String offeringID = (String)mySelectedOffering.getState("ID");
+        else if(key.equals("SearchArea")){
+            Properties props = (Properties)value;
 
-            myStudentCats = new StudentCategorizationDisplayCollection();
-            myStudentCats.findByOffering(offeringID);
+            myGenEdAreaList = new GenEdAreaCollection();
 
-            try {
-                Scene newScene = createStudentCategorizationDisplayCollectionView();
+            String genNm = props.getProperty("GenEdAreaName");
+            String desc = props.getProperty("Notes");
+            myGenEdAreaList.findByNameAndNotesPart(genNm, desc);
+
+            try
+            {
+                Scene newScene = createGenEdAreaCollectionView();
                 swapToView(newScene);
-
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 new Event(Event.getLeafLevelClassName(this), "stateChangeRequest",
-                        "Error in creating StudentCategorizationDisplayCollectionView", Event.ERROR);
+                        "Error in creating GenEdAreaCollectionView", Event.ERROR);
             }
+        }
+        else if (key.equals("GenEdAreaSelected") == true) {
+            String genNumSent = (String)value;
 
+            mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
+
+            mySLOList = new SLOCollection();
+            mySLOList.findByGenEdArea((String)mySelectedGenEdArea.getState("ID"));
+
+            boolean validAT = checkForValidAssessmentTeam();
+            if (validAT){
+
+                myStudentCats = new StudentCategorizationDisplayCollection();
+                String atID = (String)mySelectedAT.getState("ID");
+                myStudentCats.findByAssessmentTeam(atID);
+
+                Scene s = createStudentCategorizationDisplayCollectionView();
+                swapToView(s);
+            }
+            else{
+                transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination selected!";
+            }
+        }
+        else if(key.equals("UpdateStudentCategorization")){
+            String atID = (String)mySelectedAT.getState("ID");
+            if(((String)value).equals("All")){
+                //System.out.println("Testing");
+                myStudentCats.findByAssessmentTeam(atID);
+            }
+            else{
+                myStudentCats.findByAssessmentTeamAndStudentLevel((String)value,atID);
+            }
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    //------------------------------------------------------
+    protected boolean checkForValidAssessmentTeam(){
+        String semID = (String)mySelectedSemester.getState("ID");
+        String genEdID = (String)mySelectedGenEdArea.getState("ID");
+        //System.out.println("SemID: " + semID + ", GenEdId: " + genEdID);
+
+        try{
+            mySelectedAT = new AssessmentTeam(genEdID, semID);
+            return true;
+        }
+        catch(Exception ex){
+            transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination chosen!";
+            return false;
+        }
+    }
+
+    /**
+     * Create the view of this class. And then the super-class calls
+     * swapToView() to display the view in the frame
+     */
+    //------------------------------------------------------
+    protected Scene createView()
+    {
+        Scene currentScene = myViews.get("ReportGeneratorView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("ReportGeneratorView", this);
+            currentScene = new Scene(newView);
+            myViews.put("ReportGeneratorView", currentScene);
+
+            return currentScene;
+        }
+        else
+        {
+            return currentScene;
+        }
     }
 
     //------------------------------------------------------
@@ -276,15 +347,15 @@ public class ReportGeneratorTransaction extends Transaction
     }
 
     //------------------------------------------------------
-    protected Scene createISLOCollectionView() {
-        Scene currentScene = myViews.get("ISLOCollectionView");
+    protected Scene createSearchSemesterView() {
+        Scene currentScene = myViews.get("SearchSemesterView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("ISLOCollectionView", this);
+            View newView = ViewFactory.createView("SearchSemesterView", this);
             currentScene = new Scene(newView);
-            myViews.put("ISLOCollectionView", currentScene);
+            myViews.put("SearchSemesterView", currentScene);
 
             return currentScene;
         }
@@ -295,15 +366,15 @@ public class ReportGeneratorTransaction extends Transaction
     }
 
     //------------------------------------------------------
-    protected Scene createSearchISLOView() {
-        Scene currentScene = myViews.get("SearchISLOView");
+    protected Scene createSemesterCollectionView() {
+        Scene currentScene = myViews.get("SemesterCollectionView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("SearchISLOView", this);
+            View newView = ViewFactory.createView("SemesterCollectionView", this);
             currentScene = new Scene(newView);
-            myViews.put("SearchISLOView", currentScene);
+            myViews.put("SemesterCollectionView", currentScene);
 
             return currentScene;
         }
@@ -313,21 +384,35 @@ public class ReportGeneratorTransaction extends Transaction
         }
     }
 
-    /**
-     * Create the view of this class. And then the super-class calls
-     * swapToView() to display the view in the frame
-     */
     //------------------------------------------------------
-    protected Scene createView()
-    {
-        Scene currentScene = myViews.get("ReportGeneratorView");
+    protected Scene createSearchGenEdAreaView() {
+        Scene currentScene = myViews.get("SearchGenEdAreaView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("ReportGeneratorView", this);
+            View newView = ViewFactory.createView("SearchGenEdAreaView", this);
             currentScene = new Scene(newView);
-            myViews.put("ReportGeneratorView", currentScene);
+            myViews.put("SearchGenEdAreaView", currentScene);
+
+            return currentScene;
+        }
+        else
+        {
+            return currentScene;
+        }
+    }
+
+    //------------------------------------------------------
+    protected Scene createGenEdAreaCollectionView() {
+        Scene currentScene = myViews.get("GenEdAreaCollectionView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("GenEdAreaCollectionView", this);
+            currentScene = new Scene(newView);
+            myViews.put("GenEdAreaCollectionView", currentScene);
 
             return currentScene;
         }

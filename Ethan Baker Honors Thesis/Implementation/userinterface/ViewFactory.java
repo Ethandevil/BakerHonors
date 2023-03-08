@@ -225,7 +225,7 @@ public class ViewFactory {
 		else if(viewName.equals("OfferingDisplayCollectionForReportGenerationView") == true)
 		{
 			return new OfferingDisplayCollectionForReportGenerationView(model);
-		}
+		}*/
 		else if(viewName.equals("ReportGeneratorView") == true)
 		{
 			return new ReportGeneratorView(model);
@@ -234,7 +234,7 @@ public class ViewFactory {
 		{
 			return new StudentCategorizationDisplayCollectionView(model);
 		}
-		else */
+		else
 		return null;
 	}
 }

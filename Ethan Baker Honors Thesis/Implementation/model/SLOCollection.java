@@ -133,7 +133,13 @@ public class SLOCollection  extends EntityBase implements IView
         populateCollectionHelper(query);
     }
 
-
+    //-----------------------------------------------------------
+    public int getSize(){
+        if(SLOs != null)
+            return SLOs.size();
+        else
+            return 0;
+    }
 
 
     //----------------------------------------------------------------------------------

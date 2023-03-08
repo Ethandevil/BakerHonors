@@ -93,6 +93,7 @@ public class GenEdAreaCollectionView extends View
         getChildren().add(container);
         populateFields();
         tableOfGenEdAreas.getSelectionModel().select(0); //autoselect first element
+        myModel.subscribe("TransactionError",this);
     }
 
 
@@ -298,7 +299,15 @@ public class GenEdAreaCollectionView extends View
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-
+        if(key.equals("TransactionError")){
+            String val = (String)value;
+            if(val.startsWith("Err") || val.startsWith("ERR")){
+                displayErrorMessage(val);
+            }
+            else{
+                displayMessage(val);
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -317,6 +326,12 @@ public class GenEdAreaCollectionView extends View
     public void displayMessage(String message)
     {
         statusLog.displayMessage(message);
+    }
+
+    //----------------------------------------------------------
+    public void displayErrorMessage(String message)
+    {
+        statusLog.displayErrorMessage(message);
     }
 
     /**

@@ -38,6 +38,12 @@ public class StudentCategorizationDisplay
     }
 
     //-----------------------------------------------------------------------------------
+    public StudentCategorizationDisplay(){
+        percentageBySLO = new ArrayList<>();
+        performanceCategoryName = "";
+    }
+
+    //-----------------------------------------------------------------------------------
     public String getPerformanceCategoryName() {
         return performanceCategoryName;
     }
@@ -45,6 +51,19 @@ public class StudentCategorizationDisplay
     //-----------------------------------------------------------------------------------
     public String getPercentage(int index) {
         return percentageBySLO.get(index);
+    }
+
+    //-----------------------------------------------------------------------------------
+    public void setPerformanceCategoryName(String name){performanceCategoryName = name;}
+
+    //-----------------------------------------------------------------------------------
+    public void setPercentageBySLO(int index, String value){
+        if(percentageBySLO.size() <= index){
+            percentageBySLO.add(value);
+        }
+        else{
+            percentageBySLO.set(index - 1, value);
+        }
     }
 
     /**
@@ -58,10 +77,20 @@ public class StudentCategorizationDisplay
 
         v.add(performanceCategoryName);
         for(int i = 0; i < percentageBySLO.size(); i++){
-            v.add(getPercentage(i) + "%");
+            v.add(getPercentage(i));
         }
 
         return v;
+    }
+
+    //--------------------------------------------------------------------------
+    public String toString(){
+        String retVal = "";
+        retVal += performanceCategoryName + ": ";
+        for(int i = 0; i < percentageBySLO.size(); i++){
+            retVal += percentageBySLO.get(i) + " ";
+        }
+        return retVal;
     }
 
 }

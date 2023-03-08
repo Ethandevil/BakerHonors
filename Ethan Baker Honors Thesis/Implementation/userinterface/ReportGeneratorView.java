@@ -61,7 +61,7 @@ import javafx.util.StringConverter;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Add ISLO View for the ISLO Data Management application */
+/** The class containing the Report Generation View for the Gen Ed Assessment Data Management application */
 //==============================================================
 public class ReportGeneratorView extends View
 {
@@ -162,7 +162,7 @@ public class ReportGeneratorView extends View
         icon.setFitHeight(15);
         icon.setFitWidth(15);
 
-        reportButton = new Button("ISLO Basic Data Report");
+        reportButton = new Button("Gen Ed Basic Data Report");
         reportButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         reportButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
