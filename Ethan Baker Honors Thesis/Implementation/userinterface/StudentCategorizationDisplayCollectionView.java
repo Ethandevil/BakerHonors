@@ -70,6 +70,7 @@ public class StudentCategorizationDisplayCollectionView extends View
     protected ArrayList<TextField> cat3s;
     protected ArrayList<TextField> cat4s;
     protected ArrayList<TextField> cat3And4s;
+    protected ComboBox<String> box;
 
     protected StudentCategorizationDisplayCollection scCollection;
 
@@ -164,7 +165,7 @@ public class StudentCategorizationDisplayCollectionView extends View
     {
         int numSLOs = (int)myModel.getState("NumSLOs");
 
-        ComboBox<String> box = new ComboBox<String>();
+        box = new ComboBox<String>();
         box.getItems().addAll(
                 "All","Freshmen","Sophomore","Junior","Senior"
         );
@@ -378,8 +379,7 @@ public class StudentCategorizationDisplayCollectionView extends View
 
     //-------------------------------------------------------------
     protected void writeToFile(String fName)
-    {/*
-        BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
+    {
         String cat4LabelVal = (String)myModel.getState("PerformanceCategory4");
         String cat3LabelVal = (String)myModel.getState("PerformanceCategory3");
         String cat2LabelVal = (String)myModel.getState("PerformanceCategory2");
@@ -388,78 +388,75 @@ public class StudentCategorizationDisplayCollectionView extends View
             FileWriter outFile = new FileWriter(fName);
             PrintWriter out = new PrintWriter(outFile);
 
-            String line = "ISLO: " + myModel.getState("ISLOName") + "," +
-                    "Semester: " + myModel.getState("Semester");
+            String line = "Report for Gen Ed Area: " + myModel.getState("AreaName") +
+                    " assessed in Semester: " + myModel.getState("Semester");
 
             out.println(line);
 
-            out.println("");
-
-            line = "Course,Instructor," + cat1LabelVal + "," + cat2LabelVal + "," +
-                    cat3LabelVal + "," + cat4LabelVal + "," + "Total,Reflections,Assessment Coordinator Comments";
+            line = "Class Level: " + box.getValue();
 
             out.println(line);
 
-            double sum = 0.0;
             line = "";
-            for (int cnt = 0; cnt < birds.percentagesTable.size(); cnt++) {
-                ArrayList al = birds.percentagesTable.get(cnt);
-                ArrayList al1 = birds.rawDataTable.get(cnt);
-                line += birds.courseDisciplineCodes.get(cnt) + " " + birds.courseNumbers.get(cnt) + " ," + birds.teacherNames.get(cnt) + " ,";
-                for (int cnt1 = 0; cnt1 < al.size(); cnt1++) {
-                    line += (al1.get(cnt1) + " ("+ al.get(cnt1) + "%)" + " ,");
-                    sum += Double.parseDouble((String)al.get(cnt1));
-                }
-                String reflectionsDisp = birds.reflections.get(cnt);
-                String flaggingDisp = birds.flaggingComments.get(cnt);
-                line += birds.courseWiseTotal.get(cnt) + " (" + birds.decimalFormatHelper(sum) + "%) ," +
-                        reflectionsDisp + " ," + flaggingDisp;
-                out.println(line);
-                line = "";
-                sum = 0.0;
+
+            out.println(line);
+
+            line = ",SLO 1,SLO 2,SLO 3,SLO 4,SLO 5";
+
+            out.println(line);
+
+            line = cat4LabelVal + ",";
+
+            for(int i = 0; i <  cat4s.size(); i++) {
+                line += (String)cat4s.get(i).getText() + ",";
             }
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
 
-            line = "Total,,";
-            for (int cnt = 0; cnt < 4; cnt++) {
-                line += birds.pcwiseTotal.get(cnt) + " ,";
+            out.println(line);
+
+            line = cat3LabelVal + ",";
+
+            for(int i = 0; i <  cat3s.size(); i++) {
+                line += (String)cat3s.get(i).getText() + ",";
             }
-            line += birds.assessmentTotal;
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
+
             out.println(line);
 
-            out.println("");
-            out.println("");
+            line = cat2LabelVal + ",";
 
-            line = "Percentage of Students Rated In Various Performance Categories";
-            out.println(line);
-            out.println("");
-
-            line = "," + myModel.getState("Semester");
-            out.println(line);
-
-            line = cat1LabelVal + "," + birds.pcPercentageWiseTotal.get(0) + "%";
-            out.println(line);
-
-            line = cat2LabelVal + "," + birds.pcPercentageWiseTotal.get(1) + "%";
-            out.println(line);
-
-            line = cat3LabelVal + "," + birds.pcPercentageWiseTotal.get(2) + "%";
-            out.println(line);
-
-            line = cat4LabelVal + "," + birds.pcPercentageWiseTotal.get(3) + "%";
-            out.println(line);
-
-            for (int cnt = 0; cnt < 4; cnt++) {
-                sum += Double.parseDouble((String)birds.pcPercentageWiseTotal.get(cnt) + " ");
+            for(int i = 0; i <  cat2s.size(); i++) {
+                line += (String)cat2s.get(i).getText() + ",";
             }
-            line = "," + sum + "%";
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
+
             out.println(line);
 
-            out.println("");
-            sum = 0.0;
-            for (int cnt = 2; cnt < 4; cnt++) {
-                sum += Double.parseDouble((String)birds.pcPercentageWiseTotal.get(cnt) + " ");
+            line = cat1LabelVal + ",";
+
+            for(int i = 0; i <  cat1s.size(); i++) {
+                line += (String)cat1s.get(i).getText() + ",";
             }
-            line = "Percentage of Students in Meets and Exceeds Categories:," + sum + "%";
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
+
+            out.println(line);
+
+            line = "";
+
+            out.println(line);
+
+            line = cat3LabelVal + " and " + cat4LabelVal + ",";
+
+            for(int i = 0; i <  cat3And4s.size(); i++) {
+                line += (String)cat3And4s.get(i).getText() + ",";
+            }
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
+
             out.println(line);
 
             // Finally, print the time-stamp
@@ -485,7 +482,7 @@ public class StudentCategorizationDisplayCollectionView extends View
             //JOptionPane.showMessageDialog(null, "Error in saving to file: "
             //      + e.toString(), "Save Error", JOptionPane.ERROR_MESSAGE );
 
-        }*/
+        }
     }
 
     //---------------------------------------------------------
