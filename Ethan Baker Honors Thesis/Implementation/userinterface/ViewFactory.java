@@ -228,8 +228,11 @@ public class ViewFactory {
 		{
 			return new StudentCategorizationDisplayCollectionView(model);
 		}
-		else if(viewName.equals("InstructorReflectionsCollectionView")){
+		else if(viewName.equals("InstructorReflectionsCollectionView") == true){
 			return new InstructorReflectionsCollectionView(model);
+		}
+		else if(viewName.equals("AssessmentTeamClassesCollectionForReportView") == true){
+			return new AssessmentTeamClassesCollectionForReportView(model);
 		}
 		else
 		return null;

@@ -231,10 +231,10 @@ public class AssessmentTeamClassesCollectionView extends View
                 processOTSelected();
             }
         });
-        ImageView icon = new ImageView(new Image("/images/check.png"));
+        ImageView icon = new ImageView(new Image(getSubmitButtonIcon()));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Select",icon);
+        submitButton = new Button(getSubmitButtonText(),icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.requestFocus();
         submitButton.setOnAction((ActionEvent e) -> {
@@ -322,6 +322,16 @@ public class AssessmentTeamClassesCollectionView extends View
                 displayMessage(val);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------
+    protected String getSubmitButtonText(){
+        return "Select";
+    }
+
+    //--------------------------------------------------------------------------
+    protected String getSubmitButtonIcon(){
+        return "/images/check.png";
     }
 
     //--------------------------------------------------------------------------

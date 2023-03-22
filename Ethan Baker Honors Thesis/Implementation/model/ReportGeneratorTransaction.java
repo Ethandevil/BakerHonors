@@ -401,14 +401,14 @@ public class ReportGeneratorTransaction extends Transaction
 
     //------------------------------------------------------
     protected Scene createAssessmentTeamClassesCollectionView() {
-        Scene currentScene = myViews.get("AssessmentTeamClassesCollectionView");
+        Scene currentScene = myViews.get("AssessmentTeamClassesCollectionForReportView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("AssessmentTeamClassesCollectionView", this);
+            View newView = ViewFactory.createView("AssessmentTeamClassesCollectionForReportView", this);
             currentScene = new Scene(newView);
-            myViews.put("AssessmentTeamClassesCollectionView", currentScene);
+            myViews.put("AssessmentTeamClassesCollectionForReportView", currentScene);
 
             return currentScene;
         }
