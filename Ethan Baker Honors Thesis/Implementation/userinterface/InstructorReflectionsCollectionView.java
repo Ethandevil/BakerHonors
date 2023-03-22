@@ -44,37 +44,21 @@ import javafx.application.Platform;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 
-import model.Semester;
-import model.SemesterCollection;
-import model.StudentCategorizationDisplay;
-import model.StudentCategorizationDisplayCollection;
+import model.*;
 
 import javax.swing.*;
 
-//==============================================================================
-public class StudentCategorizationDisplayCollectionView extends View
-{
-    protected Text cat1Name;
-    protected Text cat2Name;
-    protected Text cat3Name;
-    protected Text cat4Name;
-    protected Text cat3NameAndCat4Name;
-    protected Text promptText;
-    protected Button cancelButton;
-    protected Button submitButton;
+public class InstructorReflectionsCollectionView extends View{
     protected MessageView statusLog;
+    protected Text promptText;
+    protected Button submitButton;
+    protected Button cancelButton;
     protected Text actionText;
-
-    protected ArrayList<TextField> cat1s;
-    protected ArrayList<TextField> cat2s;
-    protected ArrayList<TextField> cat3s;
-    protected ArrayList<TextField> cat4s;
-    protected ArrayList<TextField> cat3And4s;
-
-    protected StudentCategorizationDisplayCollection scCollection;
+    protected TextArea reflectionText;
+    protected TableView<InstructorReflectionsDisplayTableModel> tableofIRs;
 
     //--------------------------------------------------------------------------
-    public StudentCategorizationDisplayCollectionView(IModel mst)
+    public InstructorReflectionsCollectionView(IModel mst)
     {
         // mst - model - Modify Semester Transaction acronym
         super(mst, "StudentCategorizationDisplayCollectionView");
@@ -98,6 +82,8 @@ public class StudentCategorizationDisplayCollectionView extends View
         getChildren().add(container);
         populateFields();
         myModel.subscribe("StudentCategorizationUpdated",this);
+
+        tableofIRs.getSelectionModel().select(0); //autoselect first element
     }
 
 
@@ -112,37 +98,59 @@ public class StudentCategorizationDisplayCollectionView extends View
     //--------------------------------------------------------------------------
     protected void populateFields()
     {
-        cat4Name.setText((String)myModel.getState("PerformanceCategory4"));
-        cat3Name.setText((String)myModel.getState("PerformanceCategory3"));
-        cat2Name.setText((String)myModel.getState("PerformanceCategory2"));
-        cat1Name.setText((String)myModel.getState("PerformanceCategory1"));
-        cat3NameAndCat4Name.setText((String)myModel.getState("PerformanceCategory4") + " and " +
-                (String)myModel.getState("PerformanceCategory3"));
-        getGridValues();
+        getEntryTableModelValues();
     }
 
     //--------------------------------------------------------------------------
-    protected void getGridValues()
+    protected void getEntryTableModelValues()
     {
-        scCollection = (StudentCategorizationDisplayCollection)myModel.getState("StudentCategorizationList");
-        StudentCategorizationDisplay sc1 = (StudentCategorizationDisplay) scCollection.getState("StudentCategorization1");
-        StudentCategorizationDisplay sc2 = (StudentCategorizationDisplay) scCollection.getState("StudentCategorization2");
-        StudentCategorizationDisplay sc3 = (StudentCategorizationDisplay) scCollection.getState("StudentCategorization3");
-        StudentCategorizationDisplay sc4 = (StudentCategorizationDisplay) scCollection.getState("StudentCategorization4");
-        StudentCategorizationDisplay sc3And4 = (StudentCategorizationDisplay) scCollection.getState("StudentCategorization3And4");
-        int numSLOs = (int)myModel.getState("NumSLOs");
-        for(int i = 0; i < numSLOs; i++){
-            String val = sc4.getPercentage(i);
-            cat4s.get(i).setText(val);
-            val = sc3.getPercentage(i);
-            cat3s.get(i).setText(val);
-            val = sc2.getPercentage(i);
-            cat2s.get(i).setText(val);
-            val = sc1.getPercentage(i);
-            cat1s.get(i).setText(val);
-            val = sc3And4.getPercentage(i);
-            cat3And4s.get(i).setText(val);
+
+        ObservableList<InstructorReflectionsDisplayTableModel> tableData = FXCollections.observableArrayList();
+        try
+        {
+            InstructorReflectionsDisplayCollection irdCollection =
+                    (InstructorReflectionsDisplayCollection) myModel.getState("InstructorReflectionsDisplayList");
+
+            Vector entryList = irdCollection.getInstructorReflectionDisplays();
+
+            if (entryList.size() > 0)
+            {
+
+                Enumeration entries = entryList.elements();
+
+                while (entries.hasMoreElements() == true)
+                {
+
+                    InstructorReflectionsDisplay nextIRD = (InstructorReflectionsDisplay) entries.nextElement();
+                    Vector<String> view = nextIRD.getEntryListView();
+
+                    // add this list entry to the list
+                    InstructorReflectionsDisplayTableModel nextTableRowData = new InstructorReflectionsDisplayTableModel(view);
+                    tableData.add(nextTableRowData);
+
+                }
+                if(entryList.size() == 1)
+                    actionText.setText(entryList.size()+" Matching Gen Ed Area-Semester Link Found!");
+                else
+                    actionText.setText(entryList.size()+" Matching Gen Ed Area-Semester Links Found!");
+
+                actionText.setFill(Color.LIGHTGREEN);
+            }
+            else
+            {
+
+                actionText.setText("No matching Gen Ed Area-Semester Links Found!");
+                actionText.setFill(Color.FIREBRICK);
+            }
+
+            tableofIRs.setItems(tableData);
         }
+        catch (Exception e) {//SQLException e) {
+            // Need to handle this exception
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
     }
 
     // Create the title container
@@ -162,32 +170,30 @@ public class StudentCategorizationDisplayCollectionView extends View
     //-------------------------------------------------------------
     private VBox createFormContent()
     {
-        HBox cLContainer = new HBox(10);
-        cLContainer.setAlignment(Pos.CENTER_LEFT);
-        cLContainer.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-            cLContainer.setStyle("-fx-background-color: GOLD");
-        });
-        cLContainer.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-            cLContainer.setStyle("-fx-background-color: SLATEGREY");
-        });
+        tableofIRs = new TableView<InstructorReflectionsDisplayTableModel>();
+        tableofIRs.setEffect(new DropShadow());
+        tableofIRs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
+        tableofIRs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        Text cLText = new Text("Class Level: ");
-        cLText.setFont(Font.font("Copperplate", FontWeight.BOLD, 16));
-        cLText.setWrappingWidth(350);
-        cLText.setTextAlignment(TextAlignment.RIGHT);
-        cLContainer.getChildren().add(cLText);
 
-        ComboBox<String> box = new ComboBox<String>();
-        box.getItems().addAll(
-                "All","Freshmen","Sophomore","Junior","Senior"
-        );
-        box.setValue(box.getItems().get(0));
-        box.setOnAction((ActionEvent event) -> {
-            //System.out.println(box.getValue());
-            myModel.stateChangeRequest("UpdateStudentCategorization", box.getValue());
-            //getGridValues();
-    });
-        cLContainer.getChildren().add(box);
+        TableColumn questionTextColumn = new TableColumn("Question Text");
+        questionTextColumn.setMinWidth(400);
+        questionTextColumn.setCellValueFactory(
+                new PropertyValueFactory<InstructorReflectionsDisplayTableModel, String>("questionText"));
+
+        TableColumn reflectionTextColumn = new TableColumn("Reflection Text");
+        reflectionTextColumn.setMinWidth(2000);
+        reflectionTextColumn.setCellValueFactory(
+                new PropertyValueFactory<InstructorReflectionsDisplayTableModel, String>("reflectionText"));
+
+        tableofIRs.getColumns().addAll(questionTextColumn, reflectionTextColumn);
+
+        tableofIRs.setOnMousePressed((MouseEvent event) -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
+
+                //processODSelected();
+            }
+        });
 
         VBox vbox = new VBox(10);
         GridPane grid = new GridPane();
@@ -196,71 +202,16 @@ public class StudentCategorizationDisplayCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(0, 25, 10, 0));
 
-        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 16);
+        //Font myFont = Font.font("Helvetica", FontWeight.BOLD, 16);
 
-        int numSLOs = (int)myModel.getState("NumSLOs");
-        for(int i = 0; i < numSLOs; i++){
-            Text slo = new Text("SLO " + (i + 1));
-            slo.setFont(myFont);
-            grid.add(slo, i + 1, 0);
-        }
+        /*reflectionText = new TextArea();
+        reflectionText.setPrefColumnCount(50);
+        reflectionText.setPrefRowCount(10);
+        reflectionText.setWrapText(true);
+        grid.add(reflectionText,0,0);*/
+        //reflectionText.setPrefWidth(120);
+        //reflectionText.setMaxWidth(120);
 
-        grid.add(cat4Name = new Text(),0,1);
-        cat4s = new ArrayList<TextField>();
-        for(int i = 0; i < numSLOs; i++){
-            TextField tf = new TextField();
-            tf.setPrefWidth(120);
-            tf.setMaxWidth(120);
-            cat4s.add(tf);
-            grid.add(tf,i+1,1);
-        }
-
-        grid.add(cat3Name = new Text(),0,2);
-        cat3s = new ArrayList<TextField>();
-        for(int i = 0; i < numSLOs; i++){
-            TextField tf = new TextField();
-            tf.setPrefWidth(120);
-            tf.setMaxWidth(120);
-            cat3s.add(tf);
-            grid.add(tf,i+1,2);
-        }
-
-        grid.add(cat2Name = new Text(),0,3);
-        cat2s = new ArrayList<TextField>();
-        for(int i = 0; i < numSLOs; i++){
-            TextField tf = new TextField();
-            tf.setPrefWidth(120);
-            tf.setMaxWidth(120);
-            cat2s.add(tf);
-            grid.add(tf,i+1,3);
-        }
-
-        grid.add(cat1Name = new Text(),0,4);
-        cat1s = new ArrayList<TextField>();
-        for(int i = 0; i < numSLOs; i++){
-            TextField tf = new TextField();
-            tf.setPrefWidth(120);
-            tf.setMaxWidth(120);
-            cat1s.add(tf);
-            grid.add(tf,i+1,4);
-        }
-
-        GridPane grid2 = new GridPane();
-        grid2.setAlignment(Pos.CENTER);
-        grid2.setHgap(10);
-        grid2.setVgap(10);
-        grid2.setPadding(new Insets(0, 25, 10, 0));
-
-        cat3NameAndCat4Name = new Text();
-        grid2.add(cat3NameAndCat4Name, 0, 0);
-        cat3And4s = new ArrayList<TextField>();
-        for(int i = 0; i < numSLOs; i++){
-            TextField tf = new TextField();
-            tf.setPrefWidth(120);
-            tf.setMaxWidth(120);
-            cat3And4s.add(tf);
-            grid2.add(tf,i+1,0);
-        }
 
 
         promptText = new Text(getPromptText());//text set later
@@ -269,58 +220,6 @@ public class StudentCategorizationDisplayCollectionView extends View
         promptText.setTextAlignment(TextAlignment.CENTER);
         vbox.getChildren().add(promptText);
 
-        /*
-        tableOfScs = new TableView<StudentCategorizationDisplayTableModel>();
-        tableOfScs.setEffect(new DropShadow());
-        tableOfScs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
-        tableOfScs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-
-        TableColumn courseDiscCodeCol = new TableColumn("Assessment Team ID") ;
-        courseDiscCodeCol.setMinWidth(75);
-        courseDiscCodeCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("assessmentTeamID"));
-
-        TableColumn courseNumCol = new TableColumn("SLO ID") ;
-        courseNumCol.setMinWidth(75);
-        courseNumCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("sloID"));
-
-        TableColumn teacherNameCol = new TableColumn("Student Level") ;
-        teacherNameCol.setMinWidth(75);
-        teacherNameCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("studentLevel"));
-
-        TableColumn cat1Col = new TableColumn(cat1LabelVal) ;
-        cat1Col.setMinWidth(75);
-        cat1Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat1Number"));
-
-        TableColumn cat2Col = new TableColumn(cat2LabelVal) ;
-        cat2Col.setMinWidth(75);
-        cat2Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat2Number"));
-
-        TableColumn cat3Col = new TableColumn(cat3LabelVal) ;
-        cat3Col.setMinWidth(75);
-        cat3Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat3Number"));
-
-        TableColumn cat4Col = new TableColumn(cat4LabelVal) ;
-        cat4Col.setMinWidth(75);
-        cat4Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat4Number"));
-
-
-        tableOfScs.getColumns().addAll(courseDiscCodeCol, courseNumCol, teacherNameCol, cat1Col, cat2Col, cat3Col, cat4Col);
-
-        tableOfScs.setOnMousePressed((MouseEvent event) -> {
-            if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-
-                // DO NOTHING - this is just a REPORT Table (want to remove this code?)
-            }
-        });
-        */
 
         ImageView icon = new ImageView(new Image("/images/check.png"));
         icon.setFitHeight(15);
@@ -373,9 +272,10 @@ public class StudentCategorizationDisplayCollectionView extends View
         actionText.setWrappingWidth(350);
         actionText.setTextAlignment(TextAlignment.CENTER);
 
-        vbox.getChildren().add(cLContainer);
+        tableofIRs.setPrefHeight(400);
+        tableofIRs.setMaxWidth(1200);
+        vbox.getChildren().add(tableofIRs);
         vbox.getChildren().add(grid);
-        vbox.getChildren().add(grid2);
         vbox.getChildren().add(btnContainer);
         vbox.getChildren().add(actionText);
         vbox.setPadding(new Insets(10,10,10,10));
@@ -507,7 +407,7 @@ public class StudentCategorizationDisplayCollectionView extends View
     public void updateState(String key, Object value)
     {
         if(key.equals("StudentCategorizationUpdated")){
-            getGridValues();
+            //getGridValues();
         }
     }
 
@@ -518,7 +418,6 @@ public class StudentCategorizationDisplayCollectionView extends View
 
         return statusLog;
     }
-
 
     /**
      * Display info message
@@ -537,6 +436,4 @@ public class StudentCategorizationDisplayCollectionView extends View
     {
         statusLog.clearErrorMessage();
     }
-
-
 }

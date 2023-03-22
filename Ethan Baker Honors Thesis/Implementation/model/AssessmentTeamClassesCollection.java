@@ -68,9 +68,9 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
     }
 
     //-----------------------------------------------------------
-    public void findByAssessmentTeamId(String offId)
+    public void findByAssessmentTeamID(String aTID)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (AssessmentTeamID = " + offId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (AssessmentTeamID = " + aTID + ")";
 
         populateCollectionHelper(query);
     }

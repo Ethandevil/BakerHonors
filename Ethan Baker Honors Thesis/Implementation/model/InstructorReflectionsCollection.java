@@ -49,9 +49,15 @@ public class InstructorReflectionsCollection extends EntityBase implements IView
     //-----------------------------------------------------------
     public void findByAssessmentTeamIDAndReflectionQuestionID(String aTID, String rqID)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE ((AssessmentTeamID = '" + aTID + "')" +
-                " AND (ReflectionQuestionID = '" + rqID + "))";
+        String query = "SELECT * FROM " + myTableName + " WHERE ((AssessmentTeamID = " + aTID + ")" +
+                " AND (ReflectionQuestionID = " + rqID + "))";
 
+        populateCollectionHelper(query);
+    }
+
+    //-----------------------------------------------------------
+    public void findByAssessmentTeamID(String aTID){
+        String query = "SELECT * FROM " + myTableName + " WHERE ((AssessmentTeamID = " + aTID + "))";
         populateCollectionHelper(query);
     }
 

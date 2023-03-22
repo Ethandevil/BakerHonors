@@ -220,12 +220,6 @@ public class ViewFactory {
 		{
 			return new SearchSemesterForMSCIRView(model);
 		}
-
-		/*
-		else if(viewName.equals("OfferingDisplayCollectionForReportGenerationView") == true)
-		{
-			return new OfferingDisplayCollectionForReportGenerationView(model);
-		}*/
 		else if(viewName.equals("ReportGeneratorView") == true)
 		{
 			return new ReportGeneratorView(model);
@@ -233,6 +227,9 @@ public class ViewFactory {
 		else if(viewName.equals("StudentCategorizationDisplayCollectionView") == true)
 		{
 			return new StudentCategorizationDisplayCollectionView(model);
+		}
+		else if(viewName.equals("InstructorReflectionsCollectionView")){
+			return new InstructorReflectionsCollectionView(model);
 		}
 		else
 		return null;

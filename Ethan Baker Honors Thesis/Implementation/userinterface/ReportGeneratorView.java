@@ -72,6 +72,8 @@ public class ReportGeneratorView extends View
 
     // other buttons here
     protected Button reportButton;
+    protected Button reflectionButton;
+    protected Button assessmentTeamButton;
     protected Button cancelButton;
 
 
@@ -149,14 +151,14 @@ public class ReportGeneratorView extends View
         blankText2.setFill(Color.WHITE);
         vbox.getChildren().add(blankText2);
 
-        HBox reportCont = new HBox(10);
+        VBox reportCont = new VBox(10);
         reportCont.setAlignment(Pos.CENTER);
-        reportCont.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+        /*reportCont.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             reportCont.setStyle("-fx-background-color: GOLD");
         });
         reportCont.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             reportCont.setStyle("-fx-background-color: SLATEGREY");
-        });
+        });*/
 
         ImageView icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
@@ -174,7 +176,36 @@ public class ReportGeneratorView extends View
         reportButton.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             reportButton.setEffect(null);
         });
+
+        reflectionButton = new Button("Gen Ed Instructor Reflection Report");
+        reflectionButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+        reflectionButton.setOnAction((ActionEvent e) -> {
+            clearErrorMessage();
+            myModel.stateChangeRequest("ReflectionData", null);
+        });
+        reflectionButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            reflectionButton.setEffect(new DropShadow());
+        });
+        reflectionButton.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            reflectionButton.setEffect(null);
+        });
+
+        assessmentTeamButton = new Button("Gen Ed Assessment Teams Report");
+        assessmentTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+        assessmentTeamButton.setOnAction((ActionEvent e) -> {
+            clearErrorMessage();
+            myModel.stateChangeRequest("ATData", null);
+        });
+        assessmentTeamButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            assessmentTeamButton.setEffect(new DropShadow());
+        });
+        assessmentTeamButton.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            assessmentTeamButton.setEffect(null);
+        });
+
         reportCont.getChildren().add(reportButton);
+        reportCont.getChildren().add(reflectionButton);
+        reportCont.getChildren().add(assessmentTeamButton);
         vbox.getChildren().add(reportCont);
 
         HBox doneCont = new HBox(10);

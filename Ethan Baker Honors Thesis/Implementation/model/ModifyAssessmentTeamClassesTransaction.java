@@ -129,7 +129,7 @@ public class ModifyAssessmentTeamClassesTransaction extends Transaction {
             mySelectedAssessmentTeam = myAssessmentTeamList.retrieve(assessmentTeamId);
 
             myAssessmentTeamClassesList = new AssessmentTeamClassesCollection();
-            myAssessmentTeamClassesList.findByAssessmentTeamId(assessmentTeamId);
+            myAssessmentTeamClassesList.findByAssessmentTeamID(assessmentTeamId);
 
             myAssessmentTeamClasses = myAssessmentTeamClassesList.retrieve(assessmentTeamId);
 
