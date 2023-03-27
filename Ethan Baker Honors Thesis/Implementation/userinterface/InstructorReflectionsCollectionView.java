@@ -293,89 +293,52 @@ public class InstructorReflectionsCollectionView extends View{
 
     //-------------------------------------------------------------
     protected void writeToFile(String fName)
-    {/*
-        BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
-        String cat4LabelVal = (String)myModel.getState("PerformanceCategory4");
-        String cat3LabelVal = (String)myModel.getState("PerformanceCategory3");
-        String cat2LabelVal = (String)myModel.getState("PerformanceCategory2");
-        String cat1LabelVal = (String)myModel.getState("PerformanceCategory1");
+    {
         try {
             FileWriter outFile = new FileWriter(fName);
             PrintWriter out = new PrintWriter(outFile);
 
-            String line = "ISLO: " + myModel.getState("ISLOName") + "," +
-                    "Semester: " + myModel.getState("Semester");
+            String line = "Report for Gen Ed Area: " + myModel.getState("AreaName") +
+                    " assessed in Semester: " + myModel.getState("Semester");
 
             out.println(line);
 
-            out.println("");
-
-            line = "Course,Instructor," + cat1LabelVal + "," + cat2LabelVal + "," +
-                    cat3LabelVal + "," + cat4LabelVal + "," + "Total,Reflections,Assessment Coordinator Comments";
-
-            out.println(line);
-
-            double sum = 0.0;
             line = "";
-            for (int cnt = 0; cnt < birds.percentagesTable.size(); cnt++) {
-                ArrayList al = birds.percentagesTable.get(cnt);
-                ArrayList al1 = birds.rawDataTable.get(cnt);
-                line += birds.courseDisciplineCodes.get(cnt) + " " + birds.courseNumbers.get(cnt) + " ," + birds.teacherNames.get(cnt) + " ,";
-                for (int cnt1 = 0; cnt1 < al.size(); cnt1++) {
-                    line += (al1.get(cnt1) + " ("+ al.get(cnt1) + "%)" + " ,");
-                    sum += Double.parseDouble((String)al.get(cnt1));
+
+            out.println(line);
+
+            line = "Question Text,Reflection Text";
+
+            out.println(line);
+
+            line = ",";
+
+            try
+            {
+                InstructorReflectionsDisplayCollection irdCollection =
+                        (InstructorReflectionsDisplayCollection) myModel.getState("InstructorReflectionsDisplayList");
+
+                Vector entryList = irdCollection.getInstructorReflectionDisplays();
+
+                if (entryList.size() > 0)
+                {
+                    Enumeration entries = entryList.elements();
+
+                    while (entries.hasMoreElements() == true)
+                    {
+                        InstructorReflectionsDisplay nextIRD = (InstructorReflectionsDisplay) entries.nextElement();
+                        line = "";
+                        line += nextIRD.getQuestionText() + ",";
+                        line += nextIRD.getReflectionText();
+                        out.println(line);
+                    }
                 }
-                String reflectionsDisp = birds.reflections.get(cnt);
-                String flaggingDisp = birds.flaggingComments.get(cnt);
-                line += birds.courseWiseTotal.get(cnt) + " (" + birds.decimalFormatHelper(sum) + "%) ," +
-                        reflectionsDisp + " ," + flaggingDisp;
-                out.println(line);
-                line = "";
-                sum = 0.0;
             }
-
-            line = "Total,,";
-            for (int cnt = 0; cnt < 4; cnt++) {
-                line += birds.pcwiseTotal.get(cnt) + " ,";
+            catch (Exception e) {//SQLException e) {
+                // Need to handle this exception
+                System.out.println(e);
+                e.printStackTrace();
             }
-            line += birds.assessmentTotal;
-            out.println(line);
-
-            out.println("");
-            out.println("");
-
-            line = "Percentage of Students Rated In Various Performance Categories";
-            out.println(line);
-            out.println("");
-
-            line = "," + myModel.getState("Semester");
-            out.println(line);
-
-            line = cat1LabelVal + "," + birds.pcPercentageWiseTotal.get(0) + "%";
-            out.println(line);
-
-            line = cat2LabelVal + "," + birds.pcPercentageWiseTotal.get(1) + "%";
-            out.println(line);
-
-            line = cat3LabelVal + "," + birds.pcPercentageWiseTotal.get(2) + "%";
-            out.println(line);
-
-            line = cat4LabelVal + "," + birds.pcPercentageWiseTotal.get(3) + "%";
-            out.println(line);
-
-            for (int cnt = 0; cnt < 4; cnt++) {
-                sum += Double.parseDouble((String)birds.pcPercentageWiseTotal.get(cnt) + " ");
-            }
-            line = "," + sum + "%";
-            out.println(line);
-
-            out.println("");
-            sum = 0.0;
-            for (int cnt = 2; cnt < 4; cnt++) {
-                sum += Double.parseDouble((String)birds.pcPercentageWiseTotal.get(cnt) + " ");
-            }
-            line = "Percentage of Students in Meets and Exceeds Categories:," + sum + "%";
-            out.println(line);
 
             // Finally, print the time-stamp
             DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
@@ -400,7 +363,7 @@ public class InstructorReflectionsCollectionView extends View{
             //JOptionPane.showMessageDialog(null, "Error in saving to file: "
             //      + e.toString(), "Save Error", JOptionPane.ERROR_MESSAGE );
 
-        }*/
+        }
     }
 
     //---------------------------------------------------------
