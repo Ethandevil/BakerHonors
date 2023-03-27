@@ -214,12 +214,12 @@ public class AssessmentTeamClassesCollectionView extends View
 
 
         TableColumn cCodeColumn = new TableColumn("Course Code") ;
-        cCodeColumn.setMinWidth(50);
+        cCodeColumn.setMinWidth(150);
         cCodeColumn.setCellValueFactory(
                 new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseDisciplineCode"));
 
         TableColumn cNumColumn = new TableColumn("Course Number") ;
-        cNumColumn.setMinWidth(50);
+        cNumColumn.setMinWidth(150);
         cNumColumn.setCellValueFactory(
                 new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseNumber"));
 

@@ -41,9 +41,13 @@ public class ReportGeneratorTransaction extends Transaction
     protected SLOCollection mySLOList;
     protected AssessmentTeamCollection myATList;
     protected AssessmentTeamDisplayCollection myATDisplayList;
+    protected InstructorReflectionsDisplayCollection myIRDiplayList;
     protected AssessmentTeam mySelectedAT;
     protected StudentCategorizationDisplayCollection myStudentCats;
+    protected InstructorReflectionsCollection myInstructorReflections;
+    protected AssessmentTeamClassesCollection myAssessmentTeamClasses;
     protected PerformanceCategoryCollection myPCC;
+    protected String reportKind = "Basic";
 
 
     /**
@@ -133,14 +137,14 @@ public class ReportGeneratorTransaction extends Transaction
         {
             return myGenEdAreaList;
         }
-        else if (key.equals("AreaName") == true)
+        else if ((key.equals("AreaName") == true) || (key.equals("GenEdAreaData") == true))
         {
             if (mySelectedGenEdArea != null)
                 return mySelectedGenEdArea.getName();
             else
                 return "";
         }
-        else if (key.equals("Semester") == true)
+        else if ((key.equals("Semester") == true) || (key.equals("SemData") == true))
         {
             if(mySelectedSemester != null){
                 String fullSemester = (String)mySelectedSemester.getState("SemName") + " " +
@@ -156,6 +160,14 @@ public class ReportGeneratorTransaction extends Transaction
         }
         else if(key.equals("NumSLOs") == true){
             return mySLOList.getSize();
+        }
+        else if(key.equals("InstructorReflectionsDisplayList")){
+            return myIRDiplayList;
+        }
+        else if(key.equals("AssessmentTeamClassesDisplayList")){
+            AssessmentTeamClassesCollection atc = new AssessmentTeamClassesCollection();
+            atc.findByAssessmentTeamID((String)mySelectedAT.getState("ID"));
+            return atc;
         }
 
         return null;
@@ -187,6 +199,15 @@ public class ReportGeneratorTransaction extends Transaction
         else
         if (key.equals("ReportData") == true)
         {
+            reportKind = "Basic";
+            processTransaction((Properties)value);
+        }
+        else if(key.equals("ReflectionData") == true){
+            reportKind = "Reflection";
+            processTransaction((Properties)value);
+        }
+        else if(key.equals("ATData") == true){
+            reportKind = "ATData";
             processTransaction((Properties)value);
         }
         else
@@ -199,10 +220,6 @@ public class ReportGeneratorTransaction extends Transaction
             int semIdSentVal =
                     Integer.parseInt(semIdSent);
             mySelectedSemester = mySemesterList.retrieve(semIdSentVal);
-
-            /*myOfferingList = new OfferingCollection();
-            myOfferingList.findByISLOId((String) mySelectedISLO.getState("ID"));
-            myOfferingDisplayList = new OfferingDisplayCollection(myOfferingList);*/
 
             try {
                 Scene newScene = createSearchGenEdAreaView();
@@ -233,25 +250,61 @@ public class ReportGeneratorTransaction extends Transaction
             }
         }
         else if (key.equals("GenEdAreaSelected") == true) {
-            String genNumSent = (String)value;
+            if(reportKind.equals("Basic")) {
+                String genNumSent = (String) value;
+                mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
 
-            mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
+                mySLOList = new SLOCollection();
+                mySLOList.findByGenEdArea((String) mySelectedGenEdArea.getState("ID"));
 
-            mySLOList = new SLOCollection();
-            mySLOList.findByGenEdArea((String)mySelectedGenEdArea.getState("ID"));
+                boolean validAT = checkForValidAssessmentTeam();
+                if (validAT) {
 
-            boolean validAT = checkForValidAssessmentTeam();
-            if (validAT){
+                    myStudentCats = new StudentCategorizationDisplayCollection();
+                    String atID = (String) mySelectedAT.getState("ID");
+                    myStudentCats.findByAssessmentTeam(atID);
 
-                myStudentCats = new StudentCategorizationDisplayCollection();
-                String atID = (String)mySelectedAT.getState("ID");
-                myStudentCats.findByAssessmentTeam(atID);
-
-                Scene s = createStudentCategorizationDisplayCollectionView();
-                swapToView(s);
+                    Scene s = createStudentCategorizationDisplayCollectionView();
+                    swapToView(s);
+                } else {
+                    transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination selected!";
+                }
             }
-            else{
-                transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination selected!";
+            else if(reportKind.equals("Reflection")){
+                String genNumSent = (String) value;
+                mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
+
+                boolean validAT = checkForValidAssessmentTeam();
+                if (validAT) {
+
+                    myInstructorReflections = new InstructorReflectionsCollection();
+                    String atID = (String) mySelectedAT.getState("ID");
+                    myInstructorReflections.findByAssessmentTeamID(atID);
+
+                    myIRDiplayList = new InstructorReflectionsDisplayCollection(myInstructorReflections);
+
+                    Scene s = createInstructorReflectionsCollectionView();
+                    swapToView(s);
+                } else {
+                    transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination selected!";
+                }
+            }
+            else if(reportKind.equals("ATData")){
+                String genNumSent = (String) value;
+                mySelectedGenEdArea = myGenEdAreaList.retrieve(genNumSent);
+
+                boolean validAT = checkForValidAssessmentTeam();
+                if (validAT) {
+
+                    myAssessmentTeamClasses = new AssessmentTeamClassesCollection();
+                    String atID = (String) mySelectedAT.getState("ID");
+                    myAssessmentTeamClasses.findByAssessmentTeamID(atID);
+
+                    Scene s = createAssessmentTeamClassesCollectionView();
+                    swapToView(s);
+                } else {
+                    transactionErrorMessage = "ERROR: Invalid Gen Ed Area / Semester combination selected!";
+                }
             }
         }
         else if(key.equals("UpdateStudentCategorization")){
@@ -328,15 +381,34 @@ public class ReportGeneratorTransaction extends Transaction
     }
 
     //------------------------------------------------------
-    protected Scene createOfferingDisplayCollectionView() {
-        Scene currentScene = myViews.get("OfferingDisplayCollectionForReportGenerationView");
+    protected Scene createInstructorReflectionsCollectionView() {
+        Scene currentScene = myViews.get("InstructorReflectionsCollectionView");
 
         if (currentScene == null)
         {
             // create our initial view
-            View newView = ViewFactory.createView("OfferingDisplayCollectionForReportGenerationView", this);
+            View newView = ViewFactory.createView("InstructorReflectionsCollectionView", this);
             currentScene = new Scene(newView);
-            myViews.put("OfferingDisplayCollectionForReportGenerationView", currentScene);
+            myViews.put("InstructorReflectionsCollectionView", currentScene);
+
+            return currentScene;
+        }
+        else
+        {
+            return currentScene;
+        }
+    }
+
+    //------------------------------------------------------
+    protected Scene createAssessmentTeamClassesCollectionView() {
+        Scene currentScene = myViews.get("AssessmentTeamClassesCollectionView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("AssessmentTeamClassesCollectionView", this);
+            currentScene = new Scene(newView);
+            myViews.put("AssessmentTeamClassesCollectionView", currentScene);
 
             return currentScene;
         }

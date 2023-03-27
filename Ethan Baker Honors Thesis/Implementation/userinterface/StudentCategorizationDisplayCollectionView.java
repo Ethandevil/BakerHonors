@@ -163,7 +163,20 @@ public class StudentCategorizationDisplayCollectionView extends View
     //-------------------------------------------------------------
     private VBox createFormContent()
     {
-        int numSLOs = (int)myModel.getState("NumSLOs");
+        HBox cLContainer = new HBox(10);
+        cLContainer.setAlignment(Pos.CENTER_LEFT);
+        cLContainer.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            cLContainer.setStyle("-fx-background-color: GOLD");
+        });
+        cLContainer.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            cLContainer.setStyle("-fx-background-color: SLATEGREY");
+        });
+
+        Text cLText = new Text("Class Level: ");
+        cLText.setFont(Font.font("Copperplate", FontWeight.BOLD, 16));
+        cLText.setWrappingWidth(350);
+        cLText.setTextAlignment(TextAlignment.RIGHT);
+        cLContainer.getChildren().add(cLText);
 
         box = new ComboBox<String>();
         box.getItems().addAll(
@@ -175,6 +188,7 @@ public class StudentCategorizationDisplayCollectionView extends View
             myModel.stateChangeRequest("UpdateStudentCategorization", box.getValue());
             //getGridValues();
     });
+        cLContainer.getChildren().add(box);
 
         VBox vbox = new VBox(10);
         GridPane grid = new GridPane();
@@ -185,6 +199,7 @@ public class StudentCategorizationDisplayCollectionView extends View
 
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 16);
 
+        int numSLOs = (int)myModel.getState("NumSLOs");
         for(int i = 0; i < numSLOs; i++){
             Text slo = new Text("SLO " + (i + 1));
             slo.setFont(myFont);
@@ -359,7 +374,7 @@ public class StudentCategorizationDisplayCollectionView extends View
         actionText.setWrappingWidth(350);
         actionText.setTextAlignment(TextAlignment.CENTER);
 
-        vbox.getChildren().add(box);
+        vbox.getChildren().add(cLContainer);
         vbox.getChildren().add(grid);
         vbox.getChildren().add(grid2);
         vbox.getChildren().add(btnContainer);
