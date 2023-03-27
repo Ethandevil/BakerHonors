@@ -155,6 +155,12 @@ public class AssessmentTeamClasses extends EntityBase implements IView
     {
         if (key.equals("UpdateStatusMessage") == true)
             return updateStatusMessage;
+        else if(key.equals("CourseDisciplineCode")){
+            return persistentState.getProperty("CourseDisciplineCode");
+        }
+        else if(key.equals("CourseNumber")){
+            return persistentState.getProperty("CourseNumber");
+        }
 
         return persistentState.getProperty(key);
     }

@@ -328,8 +328,8 @@ public class InstructorReflectionsCollectionView extends View{
                     {
                         InstructorReflectionsDisplay nextIRD = (InstructorReflectionsDisplay) entries.nextElement();
                         line = "";
-                        line += nextIRD.getQuestionText() + ",";
-                        line += nextIRD.getReflectionText();
+                        line += nextIRD.getQuestionText().replace(",", " - ").replaceAll("\\s+", " ") + ",";
+                        line += nextIRD.getReflectionText().replace(",", " - ").replaceAll("\\s+", " ");
                         out.println(line);
                     }
                 }

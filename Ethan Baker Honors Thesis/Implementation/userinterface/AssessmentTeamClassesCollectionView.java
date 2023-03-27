@@ -239,6 +239,7 @@ public class AssessmentTeamClassesCollectionView extends View
         submitButton.requestFocus();
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
+            processWriteToExcelFile();
             // do the inquiry
 
             processOTSelected();
@@ -292,6 +293,18 @@ public class AssessmentTeamClassesCollectionView extends View
         vbox.setAlignment(Pos.CENTER);
 
         return vbox;
+    }
+
+    //--------------------------------------------------------------------------
+    protected void processWriteToExcelFile()
+    {
+        //BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
+        saveToExcelFile();
+    }
+
+    //-------------------------------------------------------------
+    protected void writeToFile(String fName){
+
     }
 
     //--------------------------------------------------------------------------
