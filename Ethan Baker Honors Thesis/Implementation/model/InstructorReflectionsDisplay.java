@@ -27,6 +27,12 @@ public class InstructorReflectionsDisplay {
         return reflectionText;
     }
 
+    //--------------------------------------------------------
+    public String getQuestionText()
+    {
+        return questionText;
+    }
+
     //-----------------------------------------------------------------------------------
     public static int compare(InstructorReflectionsDisplay a, InstructorReflectionsDisplay b)
     {
