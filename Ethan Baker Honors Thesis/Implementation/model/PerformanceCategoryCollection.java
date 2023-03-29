@@ -232,6 +232,23 @@ public class PerformanceCategoryCollection  extends EntityBase implements IView
         return retValue;
     }
 
+    //----------------------------------------------------------
+    public PerformanceCategory retrieve(String catNum){
+        PerformanceCategory retValue = null;
+        for (int cnt = 0; cnt < categories.size(); cnt++)
+        {
+            PerformanceCategory nextCat = categories.elementAt(cnt);
+            String nextCatNum = (String)nextCat.getState("Number");
+            if (nextCatNum.equals(catNum) == true)
+            {
+                retValue = nextCat;
+                return retValue; // we should say 'break;' here
+            }
+        }
+        return null;
+    }
+
+
     /** Called via the IView relationship */
     //----------------------------------------------------------
     public void updateState(String key, Object value)

@@ -121,7 +121,7 @@ public class AssessmentTeamClassesCollectionView extends View
             AssessmentTeamClassesCollection adCollection =
                     (AssessmentTeamClassesCollection)myModel.getState("AssessmentTeamClassesDisplayList");
 
-            Vector entryList = adCollection.getOfferingTeacherDisplays(); //needs to be changed
+            Vector entryList = adCollection.getAssessmentTeamClassesDisplays(); //needs to be changed
 
             if (entryList.size() > 0)
             {
@@ -142,7 +142,7 @@ public class AssessmentTeamClassesCollectionView extends View
                 if(entryList.size() == 1)
                     actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
                 else
-                    actionText.setText(entryList.size()+" Matching Assessment Team Class Found!");
+                    actionText.setText(entryList.size()+" Matching Assessment Team Classes Found!");
 
                 actionText.setFill(Color.LIGHTGREEN);
             }
@@ -214,12 +214,12 @@ public class AssessmentTeamClassesCollectionView extends View
 
 
         TableColumn cCodeColumn = new TableColumn("Course Code") ;
-        cCodeColumn.setMinWidth(50);
+        cCodeColumn.setMinWidth(150);
         cCodeColumn.setCellValueFactory(
                 new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseDisciplineCode"));
 
         TableColumn cNumColumn = new TableColumn("Course Number") ;
-        cNumColumn.setMinWidth(50);
+        cNumColumn.setMinWidth(150);
         cNumColumn.setCellValueFactory(
                 new PropertyValueFactory<AssessmentTeamClassesTableModel, String>("courseNumber"));
 
@@ -231,14 +231,15 @@ public class AssessmentTeamClassesCollectionView extends View
                 processOTSelected();
             }
         });
-        ImageView icon = new ImageView(new Image("/images/check.png"));
+        ImageView icon = new ImageView(new Image(getSubmitButtonIcon()));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Select",icon);
+        submitButton = new Button(getSubmitButtonText(),icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.requestFocus();
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
+            processWriteToExcelFile();
             // do the inquiry
 
             processOTSelected();
@@ -295,6 +296,18 @@ public class AssessmentTeamClassesCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
+    protected void processWriteToExcelFile()
+    {
+        //BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
+        saveToExcelFile();
+    }
+
+    //-------------------------------------------------------------
+    protected void writeToFile(String fName){
+
+    }
+
+    //--------------------------------------------------------------------------
     protected void processOTSelected()
     {
         AssessmentTeamClassesTableModel selectedItem = tableOfATCs.getSelectionModel().getSelectedItem();
@@ -322,6 +335,16 @@ public class AssessmentTeamClassesCollectionView extends View
                 displayMessage(val);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------
+    protected String getSubmitButtonText(){
+        return "Select";
+    }
+
+    //--------------------------------------------------------------------------
+    protected String getSubmitButtonIcon(){
+        return "/images/check.png";
     }
 
     //--------------------------------------------------------------------------

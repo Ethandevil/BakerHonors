@@ -1,11 +1,12 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Kyle D. Adams Sandeep Mitra and Matthew
-//  E. Morgan, State University of New York. - Brockport 
-//  (SUNY Brockport). ALL RIGHTS RESERVED
+//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
 //
-// This file is the product of SUNY Brockport and cannot 
-// be reproduced, copied, or used in any shape or form without 
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
@@ -70,9 +71,9 @@ public class AddAssessmentTeamTransaction extends Transaction
 		String genId;
 		String semId;
 
-		if (props.getProperty("ID") != null)
+		if (props.getProperty("GenEdAreaID") != null)
 		{
-			genId = props.getProperty("ID");
+			genId = props.getProperty("GenEdAreaID");
 			if (props.getProperty("SemesterID") != null){
 				semId = props.getProperty("SemesterID");
 				try {
@@ -220,7 +221,7 @@ public class AddAssessmentTeamTransaction extends Transaction
 				Properties props = new Properties();
 				if (mySelectedGenEdArea != null)
 				{
-					props.setProperty("ID", (String)mySelectedGenEdArea.getState("ID"));
+					props.setProperty("GenEdAreaID", (String)mySelectedGenEdArea.getState("ID"));
 				}
 				if (mySelectedSemester != null)
 				{

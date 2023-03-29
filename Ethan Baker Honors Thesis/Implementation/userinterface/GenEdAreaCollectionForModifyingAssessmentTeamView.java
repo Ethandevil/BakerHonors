@@ -38,7 +38,7 @@ public class GenEdAreaCollectionForModifyingAssessmentTeamView extends GenEdArea
 
 	//---------------------------------------------------------
 	protected String getPromptText() {
-		return "Select an Gen Ed Area:";
+		return "Select a Gen Ed Area:";
 	}
 
 	

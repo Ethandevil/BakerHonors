@@ -68,9 +68,9 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
     }
 
     //-----------------------------------------------------------
-    public void findByOfferingId(String offId)
+    public void findByAssessmentTeamID(String aTID)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (OfferingID = " + offId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (AssessmentTeamID = " + aTID + ")";
 
         populateCollectionHelper(query);
     }
@@ -160,7 +160,7 @@ public class AssessmentTeamClassesCollection  extends EntityBase implements IVie
         return retValue;
     }
 
-    public Vector getOfferingTeacherDisplays()
+    public Vector getAssessmentTeamClassesDisplays()
     {
         return assessmentTeamClasses;
     }
