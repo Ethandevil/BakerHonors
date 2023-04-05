@@ -45,6 +45,13 @@ public class AssessmentTeamClassesCollectionForReportView extends AssessmentTeam
         saveToExcelFile();
     }
 
+    //--------------------------------------------------------------------------
+    protected void processWriteToExcelFile()
+    {
+        //BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
+        saveToExcelFile();
+    }
+
     //-------------------------------------------------------------
     protected void writeToFile(String fName)
     {

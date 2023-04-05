@@ -299,7 +299,7 @@ public class AssessmentTeamClassesCollectionView extends View
     protected void processWriteToExcelFile()
     {
         //BasicISLOReportDataSource birds = new BasicISLOReportDataSource(scCollection);
-        saveToExcelFile();
+        //saveToExcelFile();
     }
 
     //-------------------------------------------------------------

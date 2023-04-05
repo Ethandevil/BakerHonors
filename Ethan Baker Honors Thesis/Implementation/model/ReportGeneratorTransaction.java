@@ -72,6 +72,7 @@ public class ReportGeneratorTransaction extends Transaction
         dependencies.setProperty("CancelAreaList", "CancelTransaction");
         dependencies.setProperty("CancelSearchArea", "CancelTransaction");
         dependencies.setProperty("CancelReportGenerator", "CancelTransaction");
+        dependencies.setProperty("CancelAssessmentTeamClassesList", "CancelTransaction");
         dependencies.setProperty("GenEdAreaSelected", "TransactionError");
         dependencies.setProperty("UpdateStudentCategorization", "StudentCategorizationUpdated");
         myRegistry.setDependencies(dependencies);

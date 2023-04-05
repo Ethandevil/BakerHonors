@@ -333,7 +333,7 @@ public class AddReflectionView extends View
             String questionID = processReflectionQuestionSelected();
 
             String ansText = reflectionAnswer.getText();
-            if (ansText.length() > 0 && ansText.matches("[a-zA-Z0-9-:()?, ]+"))
+            if (ansText.length() > 0)
             {
                 String aTID = (String)myModel.getState("AssessmentTeamID");
                 if(aTID != null){

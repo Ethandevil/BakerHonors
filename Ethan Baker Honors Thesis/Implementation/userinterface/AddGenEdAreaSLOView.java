@@ -209,11 +209,11 @@ public class AddGenEdAreaSLOView extends View {
             Properties props = new Properties();
 
             String sloTextString = sloText.getText();
-            if (sloTextString.length() > 0 && sloTextString.matches("[a-zA-Z0-9- ().]+"))
+            if (sloTextString.length() > 0 /*&& sloTextString.matches("[a-zA-Z0-9-, ().]+")*/)
             {
                 props.setProperty("SLOText", sloTextString);
                 String notesString = notes.getText();
-                if (notesString.length() > 0 && notesString.matches("[a-zA-Z0-9-,-. ().]+"))
+                if (notesString.length() > 0 /*&& notesString.matches("[a-zA-Z0-9-,-. ().]+")*/)
                 {
                     props.setProperty("Notes", notesString);
                     myModel.stateChangeRequest("AreaData", props);
@@ -227,7 +227,7 @@ public class AddGenEdAreaSLOView extends View {
             else
             {
                 genEdAreaName.setStyle("-fx-border-color: firebrick;");
-                displayErrorMessage("ERROR: Please enter a valid Gen Ed Area SLO!");
+                displayErrorMessage("ERROR: Please enter valid SLO Text!");
             }
 
         });
