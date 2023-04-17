@@ -14,7 +14,13 @@ public class ModifyStudentCategorizationView extends AddStudentCategorizationVie
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Student Categorization Data Modification Form";
+        try {
+            ts.populate("LBL_ModifyStudentCategorization");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
     //---------------------------------------------------------

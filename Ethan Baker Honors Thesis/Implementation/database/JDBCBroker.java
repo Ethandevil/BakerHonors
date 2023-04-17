@@ -82,15 +82,15 @@ public class JDBCBroker
 	protected JDBCBroker()
     	{
     		// DEBUG: System.out.println("JDBCBroker.JDBCBroker()");
-		props = new PropertyFile("/Users/mathias/IdeaProjects/BakerHonors/Ethan Baker Honors Thesis/Implementation/dbConfig.ini");
+		props = new PropertyFile("/Users/mathias/BakerHonors/Ethan Baker Honors Thesis/Implementation/dbConfig.ini");
 		if (props != null)
 		{
 			dbName = props.getProperty("dbName");
 			username = props.getProperty("username");
 			password = props.getProperty("password");
 			server = props.getProperty("server");
-			//System.out.println("dbName: " + dbName + "; username: " + username + "; password: " + password +
-			//		"; server: " + server);
+			System.out.println("dbName: " + dbName + "; username: " + username + "; password: " + password +
+					"; server: " + server);
 			if (server == null)
 				server = "localhost";
 			dbClassNameVal = props.getProperty("dbClassName");

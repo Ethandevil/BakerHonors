@@ -19,6 +19,8 @@ package userinterface;
 
 // project imports
 import impresario.IModel;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 /** The class containing the Search Semester View  for linking Semester and Gen Ed Area
  * for the Gen Ed Area Data
@@ -28,6 +30,7 @@ import impresario.IModel;
 public class SearchSemesterForASCIRView extends SearchSemesterView
 {
 
+
     //
 
     // constructor for this class -- takes a model object
@@ -36,13 +39,21 @@ public class SearchSemesterForASCIRView extends SearchSemesterView
     {
         super(mdl);
         keyToSendWithData = "SearchSemester";
+
     }
 
 
 
     //---------------------------------------------------------
     protected String getPromptString() {
-        return "Select/Enter Semester to enter Student Categorization data for:";
+        try {
+            ts.populate("LBL_SearchSemesterForASCIR");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 }
 

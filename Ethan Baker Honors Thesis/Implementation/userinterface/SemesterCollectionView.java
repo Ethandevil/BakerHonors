@@ -59,6 +59,8 @@ import javafx.scene.effect.InnerShadow;
 
 import model.Semester;
 import model.SemesterCollection;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 //==============================================================================
 public class SemesterCollectionView extends View
@@ -68,13 +70,18 @@ public class SemesterCollectionView extends View
 	protected Button cancelButton;
 	protected Button submitButton;
 	protected MessageView statusLog;
-	protected Text actionText; 
-        
+	protected Text actionText;
+
+	protected TranslationsString ts = new TranslationsString();
+
 	//--------------------------------------------------------------------------
 	public SemesterCollectionView(IModel mst)
 	{
 		// mst - model - Modify Semester Transaction acronym
 		super(mst, "SemesterCollectionView");
+
+		ts = new TranslationsString();
+		ts.setTableNameForLocale(GlobalVariables.locale);
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -140,11 +147,24 @@ public class SemesterCollectionView extends View
 					tableData.add(nextTableRowData);
 
 				}
-				if(entryList.size() == 1)
-					actionText.setText(entryList.size()+" Matching Semester Found!");
-				else 
-					actionText.setText(entryList.size()+" Matching Semesters Found!");
+				if(entryList.size() == 1) {
+					ts.setTableNameForLocale(GlobalVariables.locale);
+					try {
+						ts.populate("LBL_MatchingSemester");
+					} catch (Exception ex) {
 
+					}
+					actionText.setText(entryList.size() + " " + ts.getDisplayString());
+				}
+				else  {
+					ts.setTableNameForLocale(GlobalVariables.locale);
+					try {
+						ts.populate("LBL_MatchingSemesters");
+					} catch (Exception ex) {
+
+					}
+					actionText.setText(entryList.size() + " " + ts.getDisplayString());
+				}
 				actionText.setFill(Color.LIGHTGREEN);
 			}
 			else
@@ -221,7 +241,14 @@ public class SemesterCollectionView extends View
 		ImageView icon = new ImageView(new Image("/images/check.png"));
 		icon.setFitHeight(15);
 		icon.setFitWidth(15);
-		submitButton = new Button("Select",icon);
+		ts.setTableNameForLocale(GlobalVariables.locale);
+		try {
+			ts.populate("LBL_Select");
+		}
+		catch (Exception ex) {
+
+		}
+		submitButton = new Button(ts.getDisplayString(),icon);
 		submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
 		submitButton.requestFocus();
 		submitButton.setOnAction((ActionEvent e) -> {
@@ -239,7 +266,14 @@ public class SemesterCollectionView extends View
 		icon = new ImageView(new Image("/images/return.png"));
 		icon.setFitHeight(15);
 		icon.setFitWidth(15);
-		cancelButton = new Button("Return", icon);
+		ts.setTableNameForLocale(GlobalVariables.locale);
+		try {
+			ts.populate("LBL_Return");
+		}
+		catch (Exception ex) {
+
+		}
+		cancelButton = new Button(ts.getDisplayString(), icon);
 		cancelButton.setGraphic(icon);
 		cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
 		cancelButton.setOnAction((ActionEvent e) -> {

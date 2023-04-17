@@ -55,6 +55,8 @@ import javafx.util.StringConverter;
 // project imports
 import impresario.IModel;
 import model.Transaction;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 import javax.swing.*;
 
@@ -83,11 +85,16 @@ public class AddSemesterView extends View {
 
     protected String keyToSendWithData = "";
 
+    protected TranslationsString ts = new TranslationsString();
+
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public AddSemesterView(IModel Semester) {
 
         super(Semester, "AddSemesterView");
+
+        ts = new TranslationsString();
+        ts.setTableNameForLocale(GlobalVariables.locale);
 
         // create a container for showing the contents
         VBox container = new VBox(10);

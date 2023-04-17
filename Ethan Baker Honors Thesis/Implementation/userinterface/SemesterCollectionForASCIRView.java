@@ -36,7 +36,14 @@ public class SemesterCollectionForASCIRView extends SemesterCollectionView
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Select the semester you wish to enter Student Categorization data for:";
+        try {
+            ts.populate("LBL_SearchSemesterForASCIR");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 
 

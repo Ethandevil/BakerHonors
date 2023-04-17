@@ -11,6 +11,13 @@ public class SemesterCollectionForMSCIRView extends SemesterCollectionForASCIRVi
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Select the semester you wish to update Student Categorization data for:";
+        try {
+            ts.populate("LBL_SearchSemesterForASCIR");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 }

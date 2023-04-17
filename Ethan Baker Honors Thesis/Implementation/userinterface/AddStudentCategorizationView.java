@@ -46,6 +46,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.SLO;
 import model.SLOCollection;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 /** The class containing the Student Categorization and Reflection Choice View for the Gen Ed Assessment Data
  *  Management application
@@ -83,6 +85,8 @@ public class AddStudentCategorizationView extends View {
     // other GUI Components here
     protected MessageView statusLog;
     protected DropShadow shadow = new DropShadow();
+
+    protected TranslationsString ts = new TranslationsString();
 
     protected String keyToSendWithData = "";
 
@@ -133,7 +137,14 @@ public class AddStudentCategorizationView extends View {
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Enter student performance data:";
+        try {
+            ts.populate("LBL_AddStudentCategorization");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 
     //--------------------------------------------------------------------------
@@ -373,6 +384,13 @@ public class AddStudentCategorizationView extends View {
         ImageView icon = new ImageView(new Image(getSubmitButtonIconFilePathName())); //"/images/pluscolor.png"
         icon.setFitHeight(15);
         icon.setFitWidth(15);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Add");
+        }
+        catch (Exception ex) {
+
+        }
         submitButton = new Button(getSubmitButtonText(), icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
@@ -458,7 +476,13 @@ public class AddStudentCategorizationView extends View {
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(), icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -490,7 +514,15 @@ public class AddStudentCategorizationView extends View {
 
     //---------------------------------------------------------
     protected String getSubmitButtonText() {
-        return "Add";
+
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Add");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
     //---------------------------------------------------------

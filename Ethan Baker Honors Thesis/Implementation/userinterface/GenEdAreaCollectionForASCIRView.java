@@ -35,7 +35,14 @@ public class GenEdAreaCollectionForASCIRView extends GenEdAreaCollectionView
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Select the Gen Ed Area to enter Student Categorization data for:";
+        try {
+            ts.populate("LBL_GenEdAreaCollectionForASCIR");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 
 

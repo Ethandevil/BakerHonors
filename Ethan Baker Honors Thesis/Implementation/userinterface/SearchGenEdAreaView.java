@@ -45,6 +45,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 /** The class containing the Search Gen Ed Area View for the Gen Ed Assessment Data
  *  Management application
@@ -62,6 +64,9 @@ public class SearchGenEdAreaView extends View
 
     // For showing error message
     protected MessageView statusLog;
+
+    protected TranslationsString ts = new TranslationsString();
+
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
@@ -149,7 +154,14 @@ public class SearchGenEdAreaView extends View
         grid0.setVgap(10);
         grid0.setPadding(new Insets(0, 25, 10, 0));
 
-        Text isloNameLabel = new Text(" Area Name: ");
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_AreaName");
+        }
+        catch (Exception ex) {
+
+        }
+        Text isloNameLabel = new Text(ts.getDisplayString());
         Font myFont = Font.font("Comic Sans", FontWeight.THIN, 16);
         isloNameLabel.setFont(myFont);
         isloNameLabel.setFill(Color.GOLD);
@@ -229,7 +241,14 @@ public class SearchGenEdAreaView extends View
         ImageView icon = new ImageView(new Image("/images/searchcolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Search",icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Search");
+        }
+        catch (Exception ex) {
+
+        }
+        submitButton = new Button(ts.getDisplayString(),icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -262,7 +281,14 @@ public class SearchGenEdAreaView extends View
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return",icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(),icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();

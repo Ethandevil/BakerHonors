@@ -44,6 +44,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 /** The class containing the Student Categorization and Reflection Choice View for the Gen Ed Assessment Data
  *  Management application
@@ -54,6 +56,8 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
     protected Button addNewSCButton;
     protected Button addNewIRButton;
     protected Button cancelButton;
+
+    protected TranslationsString ts = new TranslationsString();
 
     // For showing error message
     protected MessageView statusLog;
@@ -173,7 +177,14 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
         ImageView icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return",icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(),icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -195,12 +206,26 @@ public class StudentCategorizationAndReflectionChoiceView extends View {
 
     //-------------------------------------------------------------
     protected String getSCButtonText(){
-        return "Add New Student Categorizations";
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_AddNewStudentCategorizations");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
     //-------------------------------------------------------------
     protected String getIRButtonText(){
-        return "Add New Instructor Reflections";
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_AddNewInstructorReflections");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
 

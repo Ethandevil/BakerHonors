@@ -40,7 +40,14 @@ public class SearchGenEdAreaForASCIRView extends SearchGenEdAreaView
     //-------------------------------------------------------------
     protected String getActionText()
     {
-        return "Search Gen Ed Area to add Student Categorization data for: ";
+        try {
+            ts.populate("LBL_SearchGenEdAreaForASCIR");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 
 

@@ -12,6 +12,12 @@ public class GenEdAreaCollectionForMSCIRView extends GenEdAreaCollectionForASCIR
 
     //---------------------------------------------------------
     protected String getPromptText() {
-        return "Select the Gen Ed Area to update Student Categorization data for:";
+        try {
+            ts.populate("LBL_GenEdAreaCollectionForMSCIR");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 }

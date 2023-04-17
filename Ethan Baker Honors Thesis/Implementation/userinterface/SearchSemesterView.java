@@ -54,6 +54,7 @@ import javafx.util.StringConverter;
 // project imports
 import impresario.IModel;
 import model.Transaction;
+import utilities.GlobalVariables;
 
 /** The class containing the Search Semester View  for the Gen Ed Assessment Data
  *  Management Application
@@ -96,7 +97,14 @@ public class SearchSemesterView extends AddSemesterView
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         grid.add(prompt, 0, 0, 2, 1);
 
-        Text semesterLabel = new Text(" Semester : ");
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Semester");
+        }
+        catch (Exception ex) {
+
+        }
+        Text semesterLabel = new Text(ts.getDisplayString());
         Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
         semesterLabel.setFont(myFont);
         semesterLabel.setWrappingWidth(150);
@@ -104,7 +112,13 @@ public class SearchSemesterView extends AddSemesterView
         grid.add(semesterLabel, 0, 1);
         grid.add(semester = new ComboBox(FXCollections.observableArrayList(allowedSemesters)), 1, 1);
 
-        Text yearLabel = new Text(" Year : ");
+        try {
+            ts.populate("LBL_Year");
+        }
+        catch (Exception ex) {
+
+        }
+        Text yearLabel = new Text(ts.getDisplayString());
         yearLabel.setFont(myFont);
         yearLabel.setWrappingWidth(150);
         yearLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -115,7 +129,14 @@ public class SearchSemesterView extends AddSemesterView
         ImageView icon = new ImageView(new Image("/images/searchcolor.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submit = new Button("Search", icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Search");
+        }
+        catch (Exception ex) {
+
+        }
+        submit = new Button(ts.getDisplayString(), icon);
         submit.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submit.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
@@ -148,7 +169,13 @@ public class SearchSemesterView extends AddSemesterView
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(), icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 

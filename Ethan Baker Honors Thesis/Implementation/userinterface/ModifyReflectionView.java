@@ -3,6 +3,7 @@ package userinterface;
 import impresario.IModel;
 import model.InstructorReflections;
 import model.ReflectionQuestion;
+import utilities.GlobalVariables;
 
 public class ModifyReflectionView extends AddReflectionView{
     //--------------------------------------------------------------------------
@@ -15,12 +16,26 @@ public class ModifyReflectionView extends AddReflectionView{
     //--------------------------------------------------------------------------
     protected String getActionText()
     {
-        return "Update Instructor Reflection: ";
+        try {
+            ts.populate("LBL_ModifyReflection");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
     //-------------------------------------------------------------
     protected String getSubmitButtonText(){
-        return "Update";
+
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Update");
+        }
+        catch (Exception ex) {
+
+        }
+        return ts.getDisplayString();
     }
 
     //-------------------------------------------------------------

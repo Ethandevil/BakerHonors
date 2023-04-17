@@ -60,6 +60,8 @@ import javafx.scene.effect.InnerShadow;
 
 import model.GenEdArea;
 import model.GenEdAreaCollection;
+import model.TranslationsString;
+import utilities.GlobalVariables;
 
 //==============================================================================
 public class GenEdAreaCollectionView extends View
@@ -70,6 +72,8 @@ public class GenEdAreaCollectionView extends View
     protected Button submitButton;
     protected MessageView statusLog;
     protected Text actionText;
+
+    protected TranslationsString ts = new TranslationsString();
 
     //--------------------------------------------------------------------------
     public GenEdAreaCollectionView(IModel mislot)
@@ -139,11 +143,24 @@ public class GenEdAreaCollectionView extends View
                     tableData.add(nextTableRowData);
 
                 }
-                if(entryList.size() == 1)
-                    actionText.setText(entryList.size()+" Matching Gen Ed Area Found!");
-                else
-                    actionText.setText(entryList.size()+" Matching Gen Ed Areas Found!");
+                if(entryList.size() == 1) {
+                    ts.setTableNameForLocale(GlobalVariables.locale);
+                    try {
+                        ts.populate("LBL_MatchingGenEdArea");
+                    } catch (Exception ex) {
 
+                    }
+                    actionText.setText(entryList.size() + " " + ts.getDisplayString());
+                }
+                else  {
+                    ts.setTableNameForLocale(GlobalVariables.locale);
+                    try {
+                        ts.populate("LBL_MatchingGenEdAreas");
+                    } catch (Exception ex) {
+
+                    }
+                    actionText.setText(entryList.size() + " " + ts.getDisplayString());
+                }
                 actionText.setFill(Color.LIGHTGREEN);
             }
             else
@@ -220,7 +237,14 @@ public class GenEdAreaCollectionView extends View
         ImageView icon = new ImageView(new Image("/images/check.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        submitButton = new Button("Select",icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Select");
+        }
+        catch (Exception ex) {
+
+        }
+        submitButton = new Button(ts.getDisplayString(),icon);
         submitButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         submitButton.requestFocus();
         submitButton.setOnAction((ActionEvent e) -> {
@@ -238,7 +262,13 @@ public class GenEdAreaCollectionView extends View
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(), icon);
         cancelButton.setGraphic(icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {

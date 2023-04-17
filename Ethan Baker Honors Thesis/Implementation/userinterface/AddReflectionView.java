@@ -58,10 +58,8 @@ import javafx.util.StringConverter;
 
 // project imports
 import impresario.IModel;
-import model.ReflectionQuestion;
-import model.ReflectionQuestionCollection;
-import model.SLO;
-import model.SLOCollection;
+import model.*;
+import utilities.GlobalVariables;
 
 /** The class containing the AddReflectionQuestionView for the Gen Ed Assessment Data Management application */
 //==============================================================
@@ -83,6 +81,7 @@ public class AddReflectionView extends View
     protected Button submitButton;
     protected Button cancelButton;
 
+    protected TranslationsString ts = new TranslationsString();
 
     protected MessageView statusLog;
     protected DropShadow shadow = new DropShadow();
@@ -188,7 +187,14 @@ public class AddReflectionView extends View
     //--------------------------------------------------------------------------
     protected String getActionText()
     {
-        return "Add new Instructor Reflection: ";
+        try {
+            ts.populate("LBL_AddReflection");
+        }
+        catch (Exception ex) {
+
+        }
+
+        return ts.getDisplayString();
     }
 
 
@@ -367,7 +373,14 @@ public class AddReflectionView extends View
         icon = new ImageView(new Image("/images/return.png"));
         icon.setFitHeight(15);
         icon.setFitWidth(15);
-        cancelButton = new Button("Return", icon);
+        ts.setTableNameForLocale(GlobalVariables.locale);
+        try {
+            ts.populate("LBL_Return");
+        }
+        catch (Exception ex) {
+
+        }
+        cancelButton = new Button(ts.getDisplayString(), icon);
         cancelButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
         cancelButton.setOnAction((ActionEvent e) -> {
             clearErrorMessage();
