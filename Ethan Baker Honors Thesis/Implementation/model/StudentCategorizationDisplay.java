@@ -50,7 +50,12 @@ public class StudentCategorizationDisplay
 
     //-----------------------------------------------------------------------------------
     public String getPercentage(int index) {
-        return percentageBySLO.get(index);
+        if((index >= 0) && (index < percentageBySLO.size())){
+            return percentageBySLO.get(index);
+        }
+        else{
+            return "-1";
+        }
     }
 
     //-----------------------------------------------------------------------------------
@@ -58,6 +63,7 @@ public class StudentCategorizationDisplay
 
     //-----------------------------------------------------------------------------------
     public void setPercentageBySLO(int index, String value){
+        //System.out.println("size: " + percentageBySLO.size() + " index: " + index);
         if(percentageBySLO.size() <= index){
             percentageBySLO.add(value);
         }

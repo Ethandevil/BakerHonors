@@ -143,6 +143,7 @@ public class StudentCategorizationDisplayCollectionView extends View
             cat1s.get(i).setText(val);
             val = sc3And4.getPercentage(i);
             cat3And4s.get(i).setText(val);
+
         }
     }
 
@@ -270,58 +271,7 @@ public class StudentCategorizationDisplayCollectionView extends View
         promptText.setTextAlignment(TextAlignment.CENTER);
         vbox.getChildren().add(promptText);
 
-        /*
-        tableOfScs = new TableView<StudentCategorizationDisplayTableModel>();
-        tableOfScs.setEffect(new DropShadow());
-        tableOfScs.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-selection-bar: gold;");
-        tableOfScs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-
-        TableColumn courseDiscCodeCol = new TableColumn("Assessment Team ID") ;
-        courseDiscCodeCol.setMinWidth(75);
-        courseDiscCodeCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("assessmentTeamID"));
-
-        TableColumn courseNumCol = new TableColumn("SLO ID") ;
-        courseNumCol.setMinWidth(75);
-        courseNumCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("sloID"));
-
-        TableColumn teacherNameCol = new TableColumn("Student Level") ;
-        teacherNameCol.setMinWidth(75);
-        teacherNameCol.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("studentLevel"));
-
-        TableColumn cat1Col = new TableColumn(cat1LabelVal) ;
-        cat1Col.setMinWidth(75);
-        cat1Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat1Number"));
-
-        TableColumn cat2Col = new TableColumn(cat2LabelVal) ;
-        cat2Col.setMinWidth(75);
-        cat2Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat2Number"));
-
-        TableColumn cat3Col = new TableColumn(cat3LabelVal) ;
-        cat3Col.setMinWidth(75);
-        cat3Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat3Number"));
-
-        TableColumn cat4Col = new TableColumn(cat4LabelVal) ;
-        cat4Col.setMinWidth(75);
-        cat4Col.setCellValueFactory(
-                new PropertyValueFactory<StudentCategorizationDisplayTableModel, String>("cat4Number"));
-
-
-        tableOfScs.getColumns().addAll(courseDiscCodeCol, courseNumCol, teacherNameCol, cat1Col, cat2Col, cat3Col, cat4Col);
-
-        tableOfScs.setOnMousePressed((MouseEvent event) -> {
-            if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-
-                // DO NOTHING - this is just a REPORT Table (want to remove this code?)
-            }
-        });
-        */
 
         ImageView icon = new ImageView(new Image("/images/check.png"));
         icon.setFitHeight(15);

@@ -95,6 +95,7 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
                         cat4Value = nextValue;
                     }
                 }
+                //System.out.println(cat1Value + " " + cat2Value + " " + cat3Value + " " + cat4Value);
                 int totalVal = Integer.parseInt(cat1Value) + Integer.parseInt(cat2Value) + Integer.parseInt(cat3Value) + Integer.parseInt(cat4Value);
                 int cat3AndCat4Val = Integer.parseInt(cat3Value) + Integer.parseInt(cat4Value);
                 double cat1Percent = (Integer.parseInt(cat1Value) * 100.0) / totalVal;
@@ -108,6 +109,7 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
                 cat3Value = cat3Value + " (" + formatter.format(cat3Percent) + "%) ";
                 cat4Value = cat4Value + " (" + formatter.format(cat4Percent) + "%) ";
                 cat3AndCat4Value = cat3AndCat4Val + " (" + formatter.format(cat3AndCat4Percent) + "%) ";
+                //System.out.println(cat1Value + " " + cat2Value + " " + cat3Value + " " + cat4Value);
                 ArrayList<String> valueSet = new ArrayList<>();
                 valueSet.add(sloNum);
                 valueSet.add(cat4Value);
@@ -122,6 +124,11 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
             }
 
             //do something else to get us cat1StudentCats - cat4StudentCats
+            cat1StudentCats = new StudentCategorizationDisplay();
+            cat2StudentCats = new StudentCategorizationDisplay();
+            cat3StudentCats = new StudentCategorizationDisplay();
+            cat4StudentCats = new StudentCategorizationDisplay();
+            cat3AndCat4StudentCats = new StudentCategorizationDisplay();
             String cat4Name = (String)(((PerformanceCategory)allCats.retrieve("4")).getState("Name"));
             String cat3Name = (String)(((PerformanceCategory)allCats.retrieve("3")).getState("Name"));
             String cat2Name = (String)(((PerformanceCategory)allCats.retrieve("2")).getState("Name"));
@@ -157,6 +164,7 @@ public class StudentCategorizationDisplayCollection  extends EntityBase implemen
         String query = "SELECT SLOID, Cat1Number, Cat2Number, Cat3Number, Cat4Number FROM " + myTableName +
                 " WHERE ((AssessmentTeamID = " + atID + ") AND (StudentLevel = '" + studentLevel +
                 "')) ORDER BY SLOID";
+        //System.out.println(query);
         populateCollectionHelper(query);
     }
 

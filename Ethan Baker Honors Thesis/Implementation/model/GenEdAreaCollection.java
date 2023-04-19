@@ -78,34 +78,34 @@ public class GenEdAreaCollection  extends EntityBase implements IView
     //-----------------------------------------------------------
     public void findByNameAndNotesPart(String namePart, String notesPart)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (Status = 'Active')";
+        String query = "SELECT * FROM " + myTableName + " WHERE ((Status = 'Active')";
         if ((namePart == null) || (namePart.length() == 0))
         {
             if ((notesPart == null) ||
                     (notesPart.length() == 0))
             {
-                query += ""; // do nothing, query unchanged
-            }
-            else
-            {
-                query += " WHERE (Notes LIKE '%" +
-                        notesPart + "%')";
-            }
-
-        }
-        else
-        {
-            query += " WHERE ((AreaName LIKE '%" + namePart +
-                    "%') ";
-            if ((notesPart == null) ||
-                    (notesPart.length() == 0))
-            {
-                query += ")";
+                query += ")"; // do nothing, query unchanged
             }
             else
             {
                 query += " AND (Notes LIKE '%" +
                         notesPart + "%'))";
+            }
+
+        }
+        else
+        {
+            query += " AND ((AreaName LIKE '%" + namePart +
+                    "%') ";
+            if ((notesPart == null) ||
+                    (notesPart.length() == 0))
+            {
+                query += "))";
+            }
+            else
+            {
+                query += " AND (Notes LIKE '%" +
+                        notesPart + "%')))";
             }
 
         }
