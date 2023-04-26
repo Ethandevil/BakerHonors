@@ -1,6 +1,6 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2022, Ethan L. Baker, Matthew E. Morgan and
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
 //  Sandeep Mitra, State University of New York. - Brockport 
 //  (SUNY Brockport) 
 //	ALL RIGHTS RESERVED

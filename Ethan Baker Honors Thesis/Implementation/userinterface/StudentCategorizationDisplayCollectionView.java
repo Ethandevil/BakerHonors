@@ -1,3 +1,16 @@
+// tabs=4
+//************************************************************
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
+//
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
+// the express written consent of SUNY Brockport.
+//************************************************************
+//
+// specify the package
 package userinterface;
 
 // system imports
@@ -366,7 +379,12 @@ public class StudentCategorizationDisplayCollectionView extends View
 
             out.println(line);
 
-            line = ",SLO 1,SLO 2,SLO 3,SLO 4,SLO 5";
+            line = ",";
+            for(int i = 0; i < cat4s.size(); i++){
+                line += "SLO " + (i+1) + ",";
+            }
+            if(line.length() > 0)
+                line = line.substring(0, line.length() - 1);
 
             out.println(line);
 

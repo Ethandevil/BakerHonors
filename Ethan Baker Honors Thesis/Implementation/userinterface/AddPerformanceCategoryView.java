@@ -1,9 +1,8 @@
-package userinterface;
-
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Kyle D. Adams and Sandeep Mitra, State
-//   University of New York. - Brockport (SUNY Brockport)
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
 // This file is the product of SUNY Brockport and cannot
@@ -11,7 +10,8 @@ package userinterface;
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
-
+//specify the package
+package userinterface;
 
 // system imports
 
