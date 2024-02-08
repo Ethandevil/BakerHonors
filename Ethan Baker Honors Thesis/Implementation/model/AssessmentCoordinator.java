@@ -1,6 +1,6 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
 //  Sandeep Mitra, State University of New York. - Brockport 
 //  (SUNY Brockport) 
 //	ALL RIGHTS RESERVED
@@ -107,7 +107,26 @@ public class AssessmentCoordinator implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("AssessmentCoordinator.sCR: key = " + key);
-		if ((key.equals("AddNewArea") == true))
+
+		if ((key.equals("AddNewGenEdArea") == true) ||
+			(key.equals("UpdateGenEdArea")== true) ||
+			(key.equals("DeleteGenEdArea")== true) ||
+			(key.equals("AddNewGESLO")== true) ||
+			(key.equals("UpdateGESLO")== true) ||
+			(key.equals("AddNewSemester") == true) ||
+			(key.equals("UpdateSemester") == true) ||
+			(key.equals("AddNewCategoryName") == true) ||
+			(key.equals("UpdateCategoryName") == true) ||
+			(key.equals("AddNewAssessmentTeam") == true) ||
+			(key.equals("UpdateAssessmentTeam") == true) ||
+			(key.equals("AddCourseToTeam") == true) ||
+			(key.equals("UpdateCourseInTeam") == true) ||
+			(key.equals("DeleteCourseInTeam") == true) ||
+			(key.equals("AddNewStudentCategorization") == true) ||
+			(key.equals("UpdateStudentCategorization") == true) ||
+			(key.equals("Reports") == true) ||
+			(key.equals("AddNewReflectionQuestion")) ||
+			(key.equals("UpdateReflectionQuestion")))
 		{
 
 			String transType = key;

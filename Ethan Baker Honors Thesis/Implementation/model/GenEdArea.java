@@ -1,3 +1,16 @@
+// tabs=4
+//************************************************************
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
+//
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
+// the express written consent of SUNY Brockport.
+//************************************************************
+//
+// specify the package
 package model;
 
 // system imports
@@ -17,7 +30,7 @@ import impresario.IView;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the ISLO information for the ISLO Data Management
+/** The class containing the Gen Ed Area information for the Gen Ed Data Management
  * application
  */
 //==============================================================
@@ -54,7 +67,7 @@ public class GenEdArea extends EntityBase implements IView
                         + GenEdAreaID + " found.");
             }
             else
-                // There should be EXACTLY one ISLO. More than that is an error
+                // There should be EXACTLY one Gen Ed Area. More than that is an error
                 if (size != 1)
                 {
 
@@ -64,14 +77,14 @@ public class GenEdArea extends EntityBase implements IView
                 else
                 {
                     // copy all the retrieved data into persistent state
-                    Properties retrievedISLOData = allDataRetrieved.elementAt(0);
+                    Properties retrievedGenEdAreaData = allDataRetrieved.elementAt(0);
                     persistentState = new Properties();
 
-                    Enumeration allKeys = retrievedISLOData.propertyNames();
+                    Enumeration allKeys = retrievedGenEdAreaData.propertyNames();
                     while (allKeys.hasMoreElements() == true)
                     {
                         String nextKey = (String)allKeys.nextElement();
-                        String nextValue = retrievedISLOData.getProperty(nextKey);
+                        String nextValue = retrievedGenEdAreaData.getProperty(nextKey);
 
 
                         if (nextValue != null)
@@ -82,7 +95,7 @@ public class GenEdArea extends EntityBase implements IView
 
                 }
         }
-        // If ISLO found for this ISLO Number, throw an Invalid Primary key exception
+        // If Gen Ed Area found for this Gen Ed Area ID, throw an Invalid Primary key exception
         else
         {
             throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Area ID : "
@@ -97,7 +110,7 @@ public class GenEdArea extends EntityBase implements IView
         setDependencies();
 
         GenEdAreaName = GenEdAreaName.trim();
-        String query = "SELECT * FROM " + myTableName + " WHERE (AreaName = " + GenEdAreaName + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (AreaName = '" + GenEdAreaName + "')";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -112,7 +125,7 @@ public class GenEdArea extends EntityBase implements IView
                         + GenEdAreaName + " found.");
             }
             else
-                // There should be EXACTLY one ISLO. More than that is an error
+                // There should be EXACTLY one Gen Ed Area. More than that is an error
                 if (size != 1)
                 {
 
@@ -122,14 +135,14 @@ public class GenEdArea extends EntityBase implements IView
                 else
                 {
                     // copy all the retrieved data into persistent state
-                    Properties retrievedISLOData = allDataRetrieved.elementAt(0);
+                    Properties retrievedGenEdAreaData = allDataRetrieved.elementAt(0);
                     persistentState = new Properties();
 
-                    Enumeration allKeys = retrievedISLOData.propertyNames();
+                    Enumeration allKeys = retrievedGenEdAreaData.propertyNames();
                     while (allKeys.hasMoreElements() == true)
                     {
                         String nextKey = (String)allKeys.nextElement();
-                        String nextValue = retrievedISLOData.getProperty(nextKey);
+                        String nextValue = retrievedGenEdAreaData.getProperty(nextKey);
 
 
                         if (nextValue != null)
@@ -140,7 +153,7 @@ public class GenEdArea extends EntityBase implements IView
 
                 }
         }
-        // If ISLO found for this ISLO Number, throw an Invalid Primary key exception
+        // If Gen Ed Area found for this Gen Ed Area ID, throw an Invalid Primary key exception
         else
         {
             throw new InvalidPrimaryKeyException("No Gen Ed Area matching Gen Ed Area Name : "
@@ -151,7 +164,7 @@ public class GenEdArea extends EntityBase implements IView
 
 
     /**
-     * Alternate constructor. Can be used to create a NEW ISLO
+     * Alternate constructor. Can be used to create a NEW Gen Ed Area
      */
     //----------------------------------------------------------
     public GenEdArea(Properties props)
@@ -173,7 +186,7 @@ public class GenEdArea extends EntityBase implements IView
         }
     }
 
-    //-----------------------------------------------------------------------------------
+    //----------------------------------------------------------
     private void setDependencies()
     {
         dependencies = new Properties();
@@ -186,6 +199,9 @@ public class GenEdArea extends EntityBase implements IView
     {
         if (key.equals("UpdateStatusMessage") == true)
             return updateStatusMessage;
+        else if(key.equals("GenEdID")){
+            return persistentState.getProperty("ID");
+        }
 
         return persistentState.getProperty(key);
     }
@@ -239,9 +255,9 @@ public class GenEdArea extends EntityBase implements IView
             }
             else
             {
-                Integer ISLOID =
+                Integer GenEdAreaID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("ID", "" + ISLOID.intValue());
+                persistentState.setProperty("ID", "" + GenEdAreaID.intValue());
                 updateStatusMessage = "Gen Ed Area : " +  persistentState.getProperty("AreaName")
                         + " installed successfully!";
             }
@@ -253,7 +269,7 @@ public class GenEdArea extends EntityBase implements IView
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
 
-    // Probably not needed
+
     private void removeStateInDatabase()
     {
         try
@@ -273,7 +289,7 @@ public class GenEdArea extends EntityBase implements IView
         //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
     /**
-     * This method is needed solely to enable the ISLO information to be displayable in a table
+     * This method is needed solely to enable the Gen Ed Area information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
@@ -281,20 +297,21 @@ public class GenEdArea extends EntityBase implements IView
     {
         Vector<String> v = new Vector<String>();
 
+        v.addElement(persistentState.getProperty("ID"));
         v.addElement(persistentState.getProperty("AreaName"));
-        v.addElement(persistentState.getProperty("Description"));
+        v.addElement(persistentState.getProperty("Notes"));
 
 
         return v;
     }
 
     // Short cut methods
-        public String getName(){
+    public String getName(){
         return persistentState.getProperty("AreaName");
     }
 
-    public String getDescription(){
-        return persistentState.getProperty("Description");
+    public String getNotes(){
+        return persistentState.getProperty("Notes");
     }
 
     //-----------------------------------------------------------------------------------

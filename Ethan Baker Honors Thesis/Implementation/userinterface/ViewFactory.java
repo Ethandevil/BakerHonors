@@ -1,6 +1,6 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
 //  Sandeep Mitra, State University of New York. - Brockport
 //  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
@@ -14,6 +14,7 @@
 package userinterface;
 
 import impresario.IModel;
+import model.AddGenEdAreaSLOTransaction;
 
 //==============================================================================
 public class ViewFactory {
@@ -25,22 +26,39 @@ public class ViewFactory {
 		{
 			return new AssessmentCoordinatorView(model);
 
+
 		}
 		else if(viewName.equals("AddGenEdAreaView") == true)
 		{
 			return new AddGenEdAreaView(model);
-		}/*
-		else if(viewName.equals("ModifyISLOView") == true)
-		{
-			return new ModifyISLOView(model);
 		}
-		else if(viewName.equals("ISLOCollectionView") == true)
+		else if(viewName.equals("ModifyGenEdAreaView") == true)
+
 		{
-			return new ISLOCollectionView(model);
+			return new ModifyGenEdAreaView(model);
 		}
-		else if(viewName.equals("SearchISLOView") == true)
+		else if(viewName.equals("GenEdAreaCollectionView") == true)
 		{
-			return new SearchISLOView(model);
+			return new GenEdAreaCollectionView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaView") == true)
+		{
+			return new SearchGenEdAreaView(model);
+		}
+		else if(viewName.equals("DeleteGenEdAreaView")){
+			return new DeleteGenEdAreaView(model);
+		}
+		else if(viewName.equals("AddGenEdAreaSLOView")){
+			return new AddGenEdAreaSLOView(model);
+		}
+		else if(viewName.equals("ModifyGenEdAreaSLOView")){
+			return new ModifyGenEdAreaSLOView(model);
+		}
+		else if(viewName.equals("SearchSLOView")){
+			return new SearchSLOView(model);
+		}
+		else if(viewName.equals("SLOCollectionView")){
+			return new SLOCollectionView(model);
 		}
 		else if(viewName.equals("AddSemesterView") == true)
 		{
@@ -58,39 +76,38 @@ public class ViewFactory {
 		{
 			return new SemesterCollectionView(model);
 		}
-
-		else if(viewName.equals("SearchSemesterForOfferingView") == true)
-        	{
-           		return new SearchSemesterForOfferingView(model);
-        	}
-        	else if(viewName.equals("SemesterCollectionForOfferingView") == true)
-        	{
-            	return new SemesterCollectionForOfferingView(model);
-        	}
-		else if(viewName.equals("ISLOCollectionForOfferingView") == true)
+		else if(viewName.equals("SearchSemesterForAssessmentTeamView") == true)
 		{
-			return new ISLOCollectionForOfferingView(model);
+			return new SearchSemesterForAssessmentTeamView(model);
 		}
-		else if(viewName.equals("SearchISLOForOfferingView") == true)
+		else if(viewName.equals("SemesterCollectionForAssessmentTeamView") == true)
 		{
-			return new SearchISLOForOfferingView(model);
+			return new SemesterCollectionForAssessmentTeamView(model);
 		}
-		else if(viewName.equals("SearchISLOForModifyingOfferingView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForAssessmentTeamView") == true)
 		{
-			return new SearchISLOForModifyingOfferingView(model);
+			return new GenEdAreaCollectionForAssessmentTeamView(model);
 		}
-		else if(viewName.equals("ISLOCollectionForModifyingOfferingView") == true)
+		else if(viewName.equals("SearchGenEdAreaForAssessmentTeamView") == true)
 		{
-			return new ISLOCollectionForModifyingOfferingView(model);
+			return new SearchGenEdAreaForAssessmentTeamView(model);
 		}
-        	else if(viewName.equals("OfferingDisplayCollectionView") == true)
+		else if(viewName.equals("SearchGenEdAreaForModifyingAssessmentTeamView") == true)
 		{
-			return new OfferingDisplayCollectionView(model);
+			return new SearchGenEdAreaForModifyingAssessmentTeamView(model);
 		}
-       	 else if(viewName.equals("SemesterCollectionForModifyOfferingView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForModifyingAssessmentTeamView") == true)
+		{
+			return new GenEdAreaCollectionForModifyingAssessmentTeamView(model);
+		}
+		else if(viewName.equals("AssessmentTeamDisplayCollectionView") == true)
+		{
+			return new AssessmentTeamDisplayCollectionView(model);
+		}
+       	else if(viewName.equals("SemesterCollectionForModifyAssessmentTeamView") == true)
        	{
-           		return new SemesterCollectionForModifyOfferingView(model);
-        	}
+           		return new SemesterCollectionForModifyAssessmentTeamView(model);
+	    }
 		else if(viewName.equals("AddPerformanceCategoryView") == true)
 		{
 			return new AddPerformanceCategoryView(model);
@@ -103,65 +120,107 @@ public class ViewFactory {
 		{
 			return new ModifyPerformanceCategoryView(model);
 		}
-        	else if(viewName.equals("SearchISLOForOfferingTeacherView") == true)
+		else if(viewName.equals("SearchReflectionQuestionView") == true)
 		{
-			return new SearchISLOForOfferingTeacherView(model);
+			return new SearchReflectionQuestionView(model);
 		}
-		else if(viewName.equals("ISLOCollectionForOfferingTeacherView") == true)
+		else if(viewName.equals("ReflectionQuestionCollectionView") == true)
 		{
-			return new ISLOCollectionForOfferingTeacherView(model);
+			return new ReflectionQuestionCollectionView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForOfferingTeacherView") == true)
-		{
-			return new OfferingDisplayCollectionForOfferingTeacherView(model);
+		else if (viewName.equals("AddReflectionQuestionView")){
+			return new AddReflectionQuestionView(model);
 		}
-		else if(viewName.equals("AddOfferingTeacherView") == true)
+		else if(viewName.equals("ModifyReflectionQuestionView") == true)
 		{
-			return new AddOfferingTeacherView(model);
+			return new ModifyReflectionQuestionView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForUpdatingOfferingTeacherView") == true)
+
+        	else if(viewName.equals("SearchGenEdAreaForAssessmentTeamClassesView") == true)
 		{
-			return new OfferingDisplayCollectionForUpdatingOfferingTeacherView(model);
+			return new SearchGenEdAreaForAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("ModifyOfferingTeacherView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForAssessmentTeamCoursesView") == true)
 		{
-			return new ModifyOfferingTeacherView(model);
+			return new GenEdAreaCollectionForAssessmentTeamCoursesView(model);
 		}
-		else if(viewName.equals("OfferingTeacherCollectionView") == true)
+		else if(viewName.equals("AssessmentTeamDisplayCollectionForAssessmentTeamClassesView") == true)
 		{
-			return new OfferingTeacherCollectionView(model);
+			return new AssessmentTeamDisplayCollectionForAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("DeleteOfferingTeacherView") == true)
+		else if(viewName.equals("AddAssessmentTeamClassesView") == true)
 		{
-			return new DeleteOfferingTeacherView(model);
+			return new AddAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("SearchISLOForStudentCategorizationView") == true)
+		else if(viewName.equals("AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView") == true)
 		{
-			return new SearchISLOForStudentCategorizationView(model);
+			return new AssessmentTeamDisplayCollectionForUpdatingAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("ISLOCollectionForStudentCategorizationView") == true)
+		else if(viewName.equals("ModifyAssessmentTeamClassesView") == true)
 		{
-			return new ISLOCollectionForStudentCategorizationView(model);
+			return new ModifyAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForStudentCategorizationView") == true)
+		else if(viewName.equals("AssessmentTeamClassesCollectionView") == true)
 		{
-			return new OfferingDisplayCollectionForStudentCategorizationView(model);
+			return new AssessmentTeamClassesCollectionView(model);
 		}
-		else if(viewName.equals("OfferingTeacherCollectionForStudentCategorizationView") == true)
+		else if(viewName.equals("DeleteAssessmentTeamClassesView") == true)
 		{
-			return new OfferingTeacherCollectionForStudentCategorizationView(model);
+			return new DeleteAssessmentTeamClassesView(model);
 		}
-		else if(viewName.equals("AddStudentCategorizationView") == true)
+		else if(viewName.equals("SearchSemesterForASCIRView") == true)
 		{
+			return new SearchSemesterForASCIRView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaForASCIRView") == true)
+		{
+			return new SearchGenEdAreaForASCIRView(model);
+		}
+		else if(viewName.equals("SemesterCollectionForASCIRView") == true)
+		{
+			return new SemesterCollectionForASCIRView(model);
+		}
+		else if(viewName.equals("GenEdAreaCollectionForASCIRView") == true)
+		{
+			return new GenEdAreaCollectionForASCIRView(model);
+		}
+		else if(viewName.equals("StudentCategorizationAndReflectionChoiceView") == true)
+		{
+			return new StudentCategorizationAndReflectionChoiceView(model);
+		}
+		else if(viewName.equals("AddStudentCategorizationView")){
 			return new AddStudentCategorizationView(model);
+		}
+		else if(viewName.equals("AddReflectionView")){
+			return new AddReflectionView(model);
 		}
 		else if(viewName.equals("ModifyStudentCategorizationView") == true)
 		{
 			return new ModifyStudentCategorizationView(model);
 		}
-		else if(viewName.equals("OfferingDisplayCollectionForReportGenerationView") == true)
+		else if(viewName.equals("GenEdAreaCollectionForMSCIRView") == true)
 		{
-			return new OfferingDisplayCollectionForReportGenerationView(model);
+			return new GenEdAreaCollectionForMSCIRView(model);
+		}
+		else if(viewName.equals("ModifyReflectionView") == true)
+		{
+			return new ModifyReflectionView(model);
+		}
+		else if(viewName.equals("SearchGenEdAreaForMSCIRView") == true)
+		{
+			return new SearchGenEdAreaForMSCIRView(model);
+		}
+		else if(viewName.equals("ModifyStudentCategorizationAndReflectionChoiceView") == true)
+		{
+			return new ModifyStudentCategorizationAndReflectionChoiceView(model);
+		}
+		else if(viewName.equals("SemesterCollectionForMSCIRView") == true)
+		{
+			return new SemesterCollectionForMSCIRView(model);
+		}
+		else if(viewName.equals("SearchSemesterForMSCIRView") == true)
+		{
+			return new SearchSemesterForMSCIRView(model);
 		}
 		else if(viewName.equals("ReportGeneratorView") == true)
 		{
@@ -171,7 +230,13 @@ public class ViewFactory {
 		{
 			return new StudentCategorizationDisplayCollectionView(model);
 		}
-		else */
+		else if(viewName.equals("InstructorReflectionsCollectionView") == true){
+			return new InstructorReflectionsCollectionView(model);
+		}
+		else if(viewName.equals("AssessmentTeamClassesCollectionForReportView") == true){
+			return new AssessmentTeamClassesCollectionForReportView(model);
+		}
+		else
 		return null;
 	}
 }

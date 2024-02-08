@@ -1,3 +1,16 @@
+// tabs=4
+//************************************************************
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
+//	ALL RIGHTS RESERVED
+//
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
+// the express written consent of SUNY Brockport.
+//************************************************************
+//
+
 package userinterface;
 
 // specify the package
@@ -62,7 +75,7 @@ public class AddGenEdAreaView extends View
     // GUI components
 
     protected TextField genEdAreaName;
-    protected TextArea description;
+    protected TextArea notes;
 
 
     // other buttons here
@@ -116,6 +129,11 @@ public class AddGenEdAreaView extends View
         return new CommonTitleWithoutLogoPanel();
     }
 
+    protected String getActionText()
+    {
+        return "Enter New Gen Ed Area Information:";
+    }
+
 
     // Create the navigation buttons
     //-------------------------------------------------------------
@@ -131,7 +149,7 @@ public class AddGenEdAreaView extends View
         blankText.setFill(Color.WHITE);
         vbox.getChildren().add(blankText);
 
-        Text prompt = new Text("Enter New Gen Ed Area Information:");
+        Text prompt = new Text(getActionText());
         prompt.setFont(Font.font("Copperplate", FontWeight.BOLD, 18));
         prompt.setWrappingWidth(400);
         prompt.setTextAlignment(TextAlignment.CENTER);
@@ -159,18 +177,19 @@ public class AddGenEdAreaView extends View
         genEdAreaName = new TextField();
         grid.add(genEdAreaName, 1, 2);
 
-        Text descripLabel = new Text(" Description : ");
+        //the following code puts up the GUI controls that capture the optional "Notes" field in the GenEdArea DB table
+        Text descripLabel = new Text(" Notes : ");
         descripLabel.setFill(Color.GOLD);
         descripLabel.setFont(myFont);
         descripLabel.setWrappingWidth(150);
         descripLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(descripLabel, 0, 3);
 
-        description = new TextArea();
-        description.setPrefColumnCount(20);
-        description.setPrefRowCount(5);
-        description.setWrapText(true);
-        grid.add(description, 1, 3);
+        notes = new TextArea();
+        notes.setPrefColumnCount(20);
+        notes.setPrefRowCount(1);
+        notes.setWrapText(true);
+        grid.add(notes, 1, 3);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
@@ -195,15 +214,15 @@ public class AddGenEdAreaView extends View
             {
 
                 props.setProperty("AreaName", genEdAreaNm);
-                String descr = description.getText();
+                String descr = notes.getText();
                 if (descr.length() > 0 && descr.matches("[a-zA-Z0-9-,-. ]+"))
                 {
-                    props.setProperty("Description", descr);
+                    props.setProperty("Notes", descr);
                     myModel.stateChangeRequest("AreaData", props);
                 }
                 else
                 {
-                    description.setStyle("-fx-border-color: firebrick;");
+                    notes.setStyle("-fx-border-color: firebrick;");
                     displayErrorMessage("ERROR: Please enter a valid Gen Ed Area description!");
                 }
             }
@@ -267,7 +286,7 @@ public class AddGenEdAreaView extends View
     //-------------------------------------------------------------
     private void clearOutlines(){
         genEdAreaName.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
-        description.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
+        notes.setStyle("-fx-border-color: transparent; -fx-focus-color: darkgreen;");
     }
 
 
@@ -283,6 +302,7 @@ public class AddGenEdAreaView extends View
     {
         clearValues();
         clearErrorMessage();
+        notes.setText("NA");
 
     }
 
@@ -291,7 +311,7 @@ public class AddGenEdAreaView extends View
     public void clearValues()
     {
         genEdAreaName.clear();
-        description.clear();
+        notes.clear();
     }
 
 

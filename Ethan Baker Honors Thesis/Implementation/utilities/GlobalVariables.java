@@ -1,11 +1,12 @@
+// tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
-//  Sandeep Mitra, State University of New York. - Brockport 
-//  (SUNY Brockport) 
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
-// This file is the product of SUNY Brockport and cannot 
-// be reproduced, copied, or used in any shape or form without 
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
@@ -24,7 +25,10 @@ public class GlobalVariables
 {
 	//Used by clothing items
 	public static final int MAX_GEN_ED_AREA_NAME_LENGTH = 70;
-	public static final int MAX_GEN_ED_AREA_DESCRIPTION_LENGTH = 300;
+	public static final int MAX_GEN_ED_AREA_NOTES_LENGTH = 300;
+	public static final int MAX_SLO_TEXT_LENGTH = 500;
+	public static final int MAX_SLO_NOTES_LENGTH = 1000;
+	public static final int MAX_REFLECTION_QUESTION_TEXT_LENGTH = 1000;
 	public static final int MAX_REFLECTIONS_LENGTH = 4000;
 	public static final int MAX_FLAG_LENGTH = 300;
 	/*public static final int MIN_FNAME_LENGTH = 0;

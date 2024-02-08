@@ -1,12 +1,12 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
-//  Sandeep Mitra, State University of New York. - Brockport 
-//  (SUNY Brockport) 
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
-// This file is the product of SUNY Brockport and cannot 
-// be reproduced, copied, or used in any shape or form without 
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
@@ -75,11 +75,11 @@ public class AssessmentCoordinatorView extends View
 	private Button updateGESLOButton;
 	private Button addSemesterButton;
 	private Button updateSemesterButton;
-	private Button addOfferingButton;
-	private Button updateOfferingButton;
-	private Button addOfferingTeacherButton;
-	private Button updateOfferingTeacherButton;
-	private Button deleteOfferingTeacherButton;
+	private Button addAssessmentTeamButton;
+	private Button updateAssessmentTeamButton;
+	private Button addCourseToTeamButton;
+	private Button updateCourseInTeamButton;
+	private Button deleteCourseInTeamButton;
 	private Button addStudentCategorizationButton;
 	private Button updateStudentCategorizationButton;
 	private Button addCategoryNameButton;
@@ -212,51 +212,51 @@ public class AssessmentCoordinatorView extends View
 		semCont.getChildren().add(addSemesterButton);
 		semCont.getChildren().add(updateSemesterButton);
 	
-		HBox offeringCont = new HBox(10);
-		offeringCont.setAlignment(Pos.CENTER);
+		HBox assessmentTeamCont = new HBox(10);
+		assessmentTeamCont.setAlignment(Pos.CENTER);
 
-		addOfferingButton = new Button("Link ISLO to Semester");
-		addOfferingButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-		addOfferingButton.setOnAction((ActionEvent e) -> {
-			myModel.stateChangeRequest("AddNewOffering", null);
+		addAssessmentTeamButton = new Button("Link GE Area to Semester");
+		addAssessmentTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		addAssessmentTeamButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("AddNewAssessmentTeam", null);
 		});
 
-		updateOfferingButton = new Button("Update ISLO-Semester Link");
-		updateOfferingButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-		updateOfferingButton.setOnAction((ActionEvent e) -> {
-			myModel.stateChangeRequest("UpdateOffering", null);
-		});
-
-
-		offeringCont.getChildren().add(addOfferingButton);
-		offeringCont.getChildren().add(updateOfferingButton);
-
-		HBox offeringTeacherCont = new HBox(10);
-		offeringTeacherCont.setAlignment(Pos.CENTER);
-
-		addOfferingTeacherButton = new Button("Add a new Sampled Course");
-		addOfferingTeacherButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-		addOfferingTeacherButton.setOnAction((ActionEvent e) -> {
-			myModel.stateChangeRequest("AddNewOfferingTeacher", null);
-		});
-
-		updateOfferingTeacherButton = new Button("Update Sampled Course");
-		updateOfferingTeacherButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-		updateOfferingTeacherButton.setOnAction((ActionEvent e) -> {
-			myModel.stateChangeRequest("UpdateOfferingTeacher", null);
-		});
-
-		deleteOfferingTeacherButton = new Button("Remove Sampled Course");
-		deleteOfferingTeacherButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
-		deleteOfferingTeacherButton.setOnAction((ActionEvent e) -> {
-			myModel.stateChangeRequest("DeleteOfferingTeacher", null);
+		updateAssessmentTeamButton = new Button("Update GE Area-Semester Link");
+		updateAssessmentTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		updateAssessmentTeamButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("UpdateAssessmentTeam", null);
 		});
 
 
+		assessmentTeamCont.getChildren().add(addAssessmentTeamButton);
+		assessmentTeamCont.getChildren().add(updateAssessmentTeamButton);
 
-		offeringTeacherCont.getChildren().add(addOfferingTeacherButton);
-		offeringTeacherCont.getChildren().add(updateOfferingTeacherButton);
-	offeringTeacherCont.getChildren().add(deleteOfferingTeacherButton);
+		HBox courseToTeamCont = new HBox(10);
+		courseToTeamCont.setAlignment(Pos.CENTER);
+
+		addCourseToTeamButton = new Button("Add Course to Assessment Team");
+		addCourseToTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		addCourseToTeamButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("AddCourseToTeam", null);
+		});
+
+		updateCourseInTeamButton = new Button("Update Assessment Team Course");
+		updateCourseInTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		updateCourseInTeamButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("UpdateCourseInTeam", null);
+		});
+
+		deleteCourseInTeamButton = new Button("Remove Assessment Team Course");
+		deleteCourseInTeamButton.setFont(Font.font("Comic Sans", FontWeight.THIN, 14));
+		deleteCourseInTeamButton.setOnAction((ActionEvent e) -> {
+			myModel.stateChangeRequest("DeleteCourseInTeam", null);
+		});
+
+
+
+		courseToTeamCont.getChildren().add(addCourseToTeamButton);
+		courseToTeamCont.getChildren().add(updateCourseInTeamButton);
+		courseToTeamCont.getChildren().add(deleteCourseInTeamButton);
 
 		HBox studentCategorizationCont = new HBox(10);
 		studentCategorizationCont.setAlignment(Pos.CENTER);
@@ -354,8 +354,8 @@ public class AssessmentCoordinatorView extends View
 		container.getChildren().add(geAreaCont);
 		container.getChildren().add(geSLOCont);
 		container.getChildren().add(semCont);
-		container.getChildren().add(offeringCont);
-		container.getChildren().add(offeringTeacherCont);
+		container.getChildren().add(assessmentTeamCont);
+		container.getChildren().add(courseToTeamCont);
 		container.getChildren().add(studentCategorizationCont);
 		container.getChildren().add(categNameCont);
 		container.getChildren().add(reflectionsCont);

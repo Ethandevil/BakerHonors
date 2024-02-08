@@ -1,12 +1,12 @@
 // tabs=4
 //************************************************************
-//	COPYRIGHT 2021, Ethan L. Baker, Matthew E. Morgan and 
-//  Sandeep Mitra, State University of New York. - Brockport 
-//  (SUNY Brockport) 
+//	COPYRIGHT 2023, Ethan L. Baker, Matthew E. Morgan and
+//  Sandeep Mitra, State University of New York. - Brockport
+//  (SUNY Brockport)
 //	ALL RIGHTS RESERVED
 //
-// This file is the product of SUNY Brockport and cannot 
-// be reproduced, copied, or used in any shape or form without 
+// This file is the product of SUNY Brockport and cannot
+// be reproduced, copied, or used in any shape or form without
 // the express written consent of SUNY Brockport.
 //************************************************************
 //
@@ -33,14 +33,24 @@ public class TransactionFactory
 	{
 		Transaction retValue = null;
 
-		if (transType.equals("AddNewArea") == true)
+		if (transType.equals("AddNewGenEdArea") == true)
 		{
 			retValue = new AddGenEdAreaTransaction();
-		} /*
+		}
+
 		else
-		if (transType.equals("UpdateISLO") == true)
+		if (transType.equals("UpdateGenEdArea") == true)
 		{
-			retValue = new UpdateISLOTransaction();
+			retValue = new ModifyGenEdAreaTransaction();
+		}
+		else if(transType.equals("DeleteGenEdArea") == true){
+			retValue = new DeleteGenEdAreaTransaction();
+		}
+		else if(transType.equals("AddNewGESLO")){
+			retValue = new AddGenEdAreaSLOTransaction();
+		}
+		else if(transType.equals("UpdateGESLO")){
+			retValue = new ModifyGenEdAreaSLOTransaction();
 		}
 		else
 		if (transType.equals("AddNewSemester") == true)
@@ -53,14 +63,14 @@ public class TransactionFactory
 			retValue = new UpdateSemesterTransaction();
 		}
 		else
-		if (transType.equals("AddNewOffering") == true)
+		if (transType.equals("AddNewAssessmentTeam") == true)
 		{
-			retValue = new AddOfferingTransaction();
+			retValue = new AddAssessmentTeamTransaction();
 		}
 		else
-		if (transType.equals("UpdateOffering") == true)
+		if (transType.equals("UpdateAssessmentTeam") == true)
 		{
-			retValue = new UpdateOfferingTransaction();
+			retValue = new ModifyAssessmentTeamTransaction();
 		}
 		else
 		if (transType.equals("AddNewCategoryName") == true)
@@ -72,36 +82,42 @@ public class TransactionFactory
 		{
 			retValue = new UpdatePerformanceCategoryTransaction();
 		}
-		else
-		if (transType.equals("AddNewOfferingTeacher") == true)
-		{
-			retValue = new AddOfferingTeacherTransaction();
+		else if (transType.equals("AddNewReflectionQuestion")){
+			retValue = new AddReflectionQuestionTransaction();
+		}
+		else if(transType.equals("UpdateReflectionQuestion")){
+			retValue = new ModifyReflectionQuestionTransaction();
 		}
 		else
-		if (transType.equals("UpdateOfferingTeacher") == true)
+		if (transType.equals("AddCourseToTeam") == true)
 		{
-			retValue = new UpdateOfferingTeacherTransaction();
+			retValue = new AddAssessmentTeamClassesTransaction();
 		}
 		else
-		if (transType.equals("DeleteOfferingTeacher") == true)
+		if (transType.equals("UpdateCourseInTeam") == true)
 		{
-			retValue = new DeleteOfferingTeacherTransaction();
+			retValue = new ModifyAssessmentTeamClassesTransaction();
+		}
+		else
+		if (transType.equals("DeleteCourseInTeam") == true)
+		{
+			retValue = new DeleteAssessmentTeamClassesTransaction();
 		}
 		else
 		if (transType.equals("AddNewStudentCategorization") == true)
 		{
-			retValue = new AddStudentCategorizationTransaction();
+			retValue = new AddStudentCategorizationReflectionTransaction();
 		}
 		else
 		if (transType.equals("UpdateStudentCategorization") == true)
 		{
-			retValue = new UpdateStudentCategorizationTransaction();
+			retValue = new ModifyStudentCategorizationReflectionTransaction();
 		}
 		else
 		if (transType.equals("Reports") == true)
 		{
 			retValue = new ReportGeneratorTransaction();
-		} */
+		}
 		return retValue;
 	}
 }
