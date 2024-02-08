@@ -26,12 +26,14 @@ public class ViewFactory {
 		{
 			return new AssessmentCoordinatorView(model);
 
+
 		}
 		else if(viewName.equals("AddGenEdAreaView") == true)
 		{
 			return new AddGenEdAreaView(model);
 		}
 		else if(viewName.equals("ModifyGenEdAreaView") == true)
+
 		{
 			return new ModifyGenEdAreaView(model);
 		}

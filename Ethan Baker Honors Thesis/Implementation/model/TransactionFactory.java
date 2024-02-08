@@ -37,6 +37,7 @@ public class TransactionFactory
 		{
 			retValue = new AddGenEdAreaTransaction();
 		}
+
 		else
 		if (transType.equals("UpdateGenEdArea") == true)
 		{

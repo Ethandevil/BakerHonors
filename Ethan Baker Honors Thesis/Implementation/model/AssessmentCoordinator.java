@@ -107,6 +107,7 @@ public class AssessmentCoordinator implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("AssessmentCoordinator.sCR: key = " + key);
+
 		if ((key.equals("AddNewGenEdArea") == true) ||
 			(key.equals("UpdateGenEdArea")== true) ||
 			(key.equals("DeleteGenEdArea")== true) ||
